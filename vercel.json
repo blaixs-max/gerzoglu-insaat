@@ -1,0 +1,113 @@
+{
+ "rewrites": [
+  {
+   "source": "/img/sahil-damla.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20260926_171032_10e114a3-38d1-4fb1-862c-b2a7a5f3510b_min.webp"
+  },
+  {
+   "source": "/img/sahil-damla-alt.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20260926_171032_eb602b76-6af1-41a5-a7a8-e8dfd6e41279_min.webp"
+  },
+  {
+   "source": "/img/kucuktur-yolu.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20260926_171032_6e1cc629-68a5-4d7e-8edd-299b4a9b712f_min.webp"
+  },
+  {
+   "source": "/img/rifki-tongsir.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20260926_171032_e3c30c42-540d-462c-befb-e033b3487330_min.webp"
+  },
+  {
+   "source": "/img/nova-tuzla.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20260926_171033_5e486ab8-12e6-4fa4-8faa-55fed4054ab5_min.webp"
+  },
+  {
+   "source": "/img/nova-tuzla-alt.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20260926_171032_9dc15182-57b7-4469-87af-49cc7bf45c02_min.webp"
+  },
+  {
+   "source": "/img/girne-tuzla.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20260926_171033_38382e1f-602d-4dda-ba65-fe46f494db59_min.webp"
+  },
+  {
+   "source": "/img/park-site-tuzla.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20260926_171032_1a4d51ff-cb4a-4052-81fb-658377c297f8_min.webp"
+  },
+  {
+   "source": "/img/villa.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20260926_171034_c72aafe1-7cb7-46e2-a786-241bba19db31_min.webp"
+  },
+  {
+   "source": "/img/yatak-odasi.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20260926_171032_3b77ec12-bb12-4ea0-bbae-a313f96ef94d_min.webp"
+  },
+  {
+   "source": "/img/mutfak.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20260926_171032_c12724cf-0458-4c56-94ac-55f8e8e27a86_min.webp"
+  },
+  {
+   "source": "/img/banyo.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20260926_171032_e1f62517-3a84-44f4-a493-54b87cd6d2b6_min.webp"
+  },
+  {
+   "source": "/img/hero-santiye.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20260926_171108_fb537cb1-4aa3-4c29-b45c-18ece1c15f64_min.webp"
+  },
+  {
+   "source": "/img/hafriyat.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20260926_171109_624d33ac-6e4c-46c4-a92a-71fda0f16dcf_min.webp"
+  },
+  {
+   "source": "/img/donati.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20260926_171108_caa92d10-6614-4075-a860-4a3b3800de81_min.webp"
+  },
+  {
+   "source": "/img/beton-dokum.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20260926_171109_3b698979-0c76-4fa7-b09a-5b1eb45e0b09_min.webp"
+  },
+  {
+   "source": "/img/muhendisler.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20260926_171108_90141165-e20b-497d-8e3c-f0316833f6d7_min.webp"
+  },
+  {
+   "source": "/img/vinc-aksam.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20260926_171109_129e0cee-f978-47e0-99b8-6c5aace2ff8e_min.webp"
+  },
+  {
+   "source": "/img/kentsel-donusum.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20260926_171108_fc39adba-e1b3-44f5-ae4f-05bdc135c978_min.webp"
+  },
+  {
+   "source": "/img/cephe-detay.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20260926_171108_6e1b1040-22db-4749-9f8b-6863653a9a3c_min.webp"
+  }
+ ],
+ "headers": [
+  {
+   "source": "/(.*)",
+   "headers": [
+    {
+     "key": "X-Robots-Tag",
+     "value": "noindex, nofollow"
+    }
+   ]
+  },
+  {
+   "source": "/assets/(.*)",
+   "headers": [
+    {
+     "key": "Cache-Control",
+     "value": "public, max-age=604800"
+    }
+   ]
+  },
+  {
+   "source": "/img/(.*)",
+   "headers": [
+    {
+     "key": "Cache-Control",
+     "value": "public, max-age=2592000, immutable"
+    }
+   ]
+  }
+ ]
+}
