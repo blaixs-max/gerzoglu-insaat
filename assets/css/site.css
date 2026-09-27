@@ -75,7 +75,7 @@ h1,h2,h3,h4{font-family:var(--f-d);font-weight:600;margin:0;letter-spacing:-.015
 .logo__txt{display:grid;gap:6px;font-family:"Montserrat",var(--f-d);line-height:1}
 .logo__txt b{font-weight:700;font-size:21px;letter-spacing:.025em}
 .logo__txt small{font-weight:600;font-size:9.4px;letter-spacing:.66em;color:var(--brass-2)}
-.logo__txt .logo__sub{display:flex;justify-content:space-between;font-size:12px;letter-spacing:0;line-height:1}
+.logo__txt .logo__sub{display:flex;justify-content:space-between;padding-inline:.55em;font-size:12px;letter-spacing:0;line-height:1}
 .logo__sub i{font-style:normal}
 .logo--stack{flex-direction:column;align-items:center;gap:14px;justify-self:start;color:var(--brass-2)}
 .logo--stack .logo__mark{height:96px}
