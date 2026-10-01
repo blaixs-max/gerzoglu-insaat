@@ -1,40 +1,117 @@
 {
+ "redirects": [
+  {
+   "source": "/proje/idealtepe-kucuktur-yolu.html",
+   "destination": "/proje/idealtepe-gerzoglu-2.html",
+   "permanent": true
+  },
+  {
+   "source": "/proje/idealtepe-rifki-tongsir.html",
+   "destination": "/proje/idealtepe-zeynep-azra.html",
+   "permanent": true
+  },
+  {
+   "source": "/proje/villa-projesi.html",
+   "destination": "/proje/tuzla-tepeoren-villa.html",
+   "permanent": true
+  }
+ ],
  "rewrites": [
   {
-   "source": "/img/sahil-damla-10e114a3.webp",
-   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20260926_171032_10e114a3-38d1-4fb1-862c-b2a7a5f3510b_min.webp"
+   "source": "/img/sahil-damla-411fa41c.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20261001_212243_411fa41c-bcc7-4557-8909-dfd5c5f3b7cb_min.webp"
   },
   {
-   "source": "/img/sahil-damla-alt-eb602b76.webp",
-   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20260926_171032_eb602b76-6af1-41a5-a7a8-e8dfd6e41279_min.webp"
+   "source": "/img/gerzoglu-2-0da6e084.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20261001_212243_0da6e084-c380-4768-85dd-5371be5bdcf7_min.webp"
   },
   {
-   "source": "/img/kucuktur-yolu-6e1cc629.webp",
-   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20260926_171032_6e1cc629-68a5-4d7e-8edd-299b4a9b712f_min.webp"
+   "source": "/img/zeynep-azra-3e88d817.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20261001_212243_3e88d817-cb5d-4c1f-b46f-38ce5e6b1cfd_min.webp"
   },
   {
-   "source": "/img/rifki-tongsir-e3c30c42.webp",
-   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20260926_171032_e3c30c42-540d-462c-befb-e033b3487330_min.webp"
+   "source": "/img/nova-c323f644.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20261001_212243_c323f644-7fde-47cd-a4ba-2ce829a5d321_min.webp"
   },
   {
-   "source": "/img/nova-tuzla-5e486ab8.webp",
-   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20260926_171033_5e486ab8-12e6-4fa4-8faa-55fed4054ab5_min.webp"
+   "source": "/img/park-sitesi-078358bb.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20261001_212243_078358bb-8f20-461d-a1f2-71b8887cede6_min.webp"
   },
   {
-   "source": "/img/nova-tuzla-alt-9dc15182.webp",
-   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20260926_171032_9dc15182-57b7-4469-87af-49cc7bf45c02_min.webp"
+   "source": "/img/girne-tuzla-e35912cc.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20261001_212243_e35912cc-807f-4233-9513-bd131fb3fbd6_min.webp"
   },
   {
-   "source": "/img/girne-tuzla-38382e1f.webp",
-   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20260926_171033_38382e1f-602d-4dda-ba65-fe46f494db59_min.webp"
+   "source": "/img/mehmet-akif-tuzla-1c350800.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20261001_212243_1c350800-8a6f-4f86-b5c8-c9b501783c3e_min.webp"
   },
   {
-   "source": "/img/park-site-tuzla-1a4d51ff.webp",
-   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20260926_171032_1a4d51ff-cb4a-4052-81fb-658377c297f8_min.webp"
+   "source": "/img/tepeoren-villa-d520eeee.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20261001_212243_d520eeee-779c-46d7-900e-776298a30695_min.webp"
   },
   {
-   "source": "/img/villa-c72aafe1.webp",
-   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20260926_171034_c72aafe1-7cb7-46e2-a786-241bba19db31_min.webp"
+   "source": "/img/gerzoglu-plaza-a3293c6f.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20261001_212243_a3293c6f-174b-48a0-8ebb-50f2643e22e3_min.webp"
+  },
+  {
+   "source": "/img/zeynep-azna-5700be3a.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20261001_212243_5700be3a-5392-43fa-b082-a324ee04d34a_min.webp"
+  },
+  {
+   "source": "/img/samandira-konut-isyeri-5d80a66c.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20261001_212243_5d80a66c-0c20-4776-b7b8-f5c0eff595b3_min.webp"
+  },
+  {
+   "source": "/img/mehmet-akif-maltepe-89667e1c.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20261001_212243_89667e1c-2811-4fb5-b3d7-5c74b33bab2b_min.webp"
+  },
+  {
+   "source": "/img/gerzoglu-is-merkezi-067271a5.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20261001_212359_067271a5-5152-4dbb-8bbb-405a8fcfc607_min.webp"
+  },
+  {
+   "source": "/img/gerzoglu-sitesi-0e9dbd0a.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20261001_212359_0e9dbd0a-4cb9-42cc-a503-6d344b0883d3_min.webp"
+  },
+  {
+   "source": "/img/sancaktepe-konut-isyeri-cbf0856b.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20261001_212359_cbf0856b-82a1-4593-ab30-87c85c1197c6_min.webp"
+  },
+  {
+   "source": "/img/samandira-konut-ticari-4ed7ae14.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20261001_212359_4ed7ae14-2086-4a72-b760-80b69516512b_min.webp"
+  },
+  {
+   "source": "/img/tuzla-konut-ticari-b94b7e2e.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20261001_212359_b94b7e2e-fd63-4cfe-996e-80101c7aa15b_min.webp"
+  },
+  {
+   "source": "/img/girne-konut-maltepe-65a864d2.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20261001_212359_65a864d2-e601-440b-8339-d5b7e754134c_min.webp"
+  },
+  {
+   "source": "/img/yeni-erdem-c89e0210.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20261001_212359_c89e0210-b1ca-452e-b7c7-6ec7f8b180a0_min.webp"
+  },
+  {
+   "source": "/img/umraniye-residans-7f0e2464.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20261001_212359_7f0e2464-bf54-40e5-b459-3b22db694d6e_min.webp"
+  },
+  {
+   "source": "/img/merve-apartmani-5dff1946.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20261001_213307_5dff1946-65f5-4633-94e7-207f02692875_min.webp"
+  },
+  {
+   "source": "/img/kilavuz-sokak-5981f00a.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20261001_212359_5981f00a-dcb2-4361-b3f0-4aa639313945_min.webp"
+  },
+  {
+   "source": "/img/kilavuz-arsa-7e5fdbff.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20261001_212359_7e5fdbff-7ca1-40b6-a0a6-13d0fb15277f_min.webp"
+  },
+  {
+   "source": "/img/birlik-apartmani-d1a32ec9.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20261001_212359_d1a32ec9-de1a-4b12-bce2-70d6694e63d9_min.webp"
   },
   {
    "source": "/img/yatak-odasi-3b77ec12.webp",
