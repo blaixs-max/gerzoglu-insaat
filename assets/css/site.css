@@ -544,7 +544,7 @@ h1,h2,h3,h4{font-family:var(--f-d);font-weight:600;margin:0;letter-spacing:-.015
   .stat:nth-child(n+3){border-top:1px solid var(--line)}
   .pgrid{grid-template-columns:1fr}
   .ggrid--2,.ggrid--3{grid-template-columns:1fr}
-  .specs div{grid-template-columns:7.2rem 1fr}
+  .specs div{grid-template-columns:8.8rem 1fr;gap:.75rem}
   .pgroup__head{grid-template-columns:1fr}
   .pgroup__meta{grid-column:1 / -1;justify-items:start;text-align:left}
   .partners{--u:.8px;grid-template-columns:repeat(3,minmax(0,1fr))}
