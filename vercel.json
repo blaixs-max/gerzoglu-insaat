@@ -14,21 +14,20 @@
    "source": "/proje/villa-projesi.html",
    "destination": "/proje/tuzla-tepeoren-villa.html",
    "permanent": true
-  },
-  {
-   "source": "/proje/idealtepe-zeynep-azna.html",
-   "destination": "/proje/idealtepe-zeynep-azra.html",
-   "permanent": true
   }
  ],
  "rewrites": [
   {
-   "source": "/img/sahil-damla-411fa41c.webp",
-   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20261001_212243_411fa41c-bcc7-4557-8909-dfd5c5f3b7cb_min.webp"
+   "source": "/img/sahil-damla-5f8160f4.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20261002_114630_5f8160f4-9501-4ed3-95e4-e03ba83e6d86_min.webp"
   },
   {
    "source": "/img/gerzoglu-2-0da6e084.webp",
    "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20261001_212243_0da6e084-c380-4768-85dd-5371be5bdcf7_min.webp"
+  },
+  {
+   "source": "/img/zeynep-azra-3e88d817.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20261001_212243_3e88d817-cb5d-4c1f-b46f-38ce5e6b1cfd_min.webp"
   },
   {
    "source": "/img/nova-c323f644.webp",
@@ -157,6 +156,10 @@
   {
    "source": "/img/dermanci-262690ef.webp",
    "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20260928_101345_262690ef-1a13-4102-a6d1-b391899fface_min.webp"
+  },
+  {
+   "source": "/img/dermanci-eski-6e74e19c.webp",
+   "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20261002_114630_6e74e19c-0db1-4164-87ff-9813ca03f853_min.webp"
   },
   {
    "source": "/img/dermanci-aksam-e9cf536b.webp",
