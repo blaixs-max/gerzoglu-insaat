@@ -313,6 +313,11 @@
     });
   }
 
+  (function () {
+    var sel = document.getElementById("il-konu");
+    if (!sel || !window.URLSearchParams) return;
+    if (new URLSearchParams(location.search).get("konu") === "satis") sel.value = "Satış ve daire bilgisi";
+  })();
   $$("form[data-form]").forEach(function (form) {
     var done = $(form.getAttribute("data-done"));
     function fieldOf(inp) { return inp.closest(".f") || inp.closest(".check"); }

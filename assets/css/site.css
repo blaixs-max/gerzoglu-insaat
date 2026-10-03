@@ -231,6 +231,15 @@ h1,h2,h3,h4{font-family:var(--f-d);font-weight:600;margin:0;letter-spacing:-.015
 .chips--dark .chip:hover .n{color:var(--brass-ink)}
 .chips--dark .status--teslim{--sc:var(--bone)}
 .chips--dark .chip:hover .status--teslim{--sc:var(--ink)}
+.chip--cta{background:var(--brass);border-color:var(--brass);color:var(--ink);font-weight:600}
+.chip--cta svg{flex:none;transition:transform .35s var(--ease)}
+.chip--cta:hover{background:var(--ink);border-color:var(--ink);color:var(--bone)}
+.chip--cta:hover svg{transform:translateX(3px)}
+.chips--dark .chip--cta{background:var(--brass);border-color:var(--brass);color:var(--ink)}
+.chips--dark .chip--cta:hover{background:var(--bone);border-color:var(--bone);color:var(--ink)}
+.hero-fact{max-width:58ch;margin:0;padding-left:clamp(14px,1.4vw,20px);border-left:2px solid var(--brass);font-size:clamp(1rem,.94rem + .3vw,1.16rem);line-height:1.6;color:#C9CDD1}
+.hero-fact strong{color:var(--bone);font-weight:600}
+.pgroup--empty .pgroup__head{margin-bottom:clamp(20px,2.4vw,32px)}
 .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(28px,3vw,44px) clamp(18px,2.2vw,32px)}
 .pcard{display:grid;gap:16px;align-content:start}
 .pcard[hidden]{display:none}
