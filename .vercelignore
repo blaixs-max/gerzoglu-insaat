@@ -1,0 +1,4 @@
+scripts/
+.env*
+.vercel/
+.git/
