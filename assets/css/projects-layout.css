@@ -1,0 +1,25 @@
+/* Projects page: give every building image more room beside compact details. */
+@media (min-width:1081px) {
+  .pgroup > .wrap {
+    max-width:1840px;
+    padding-inline:clamp(24px,4vw,72px);
+  }
+  .prow {
+    grid-template-columns:minmax(0,1fr) clamp(260px,19vw,320px);
+    gap:clamp(28px,3vw,56px);
+  }
+  .prow__media,.prow__body {min-width:0}
+  .prow__body {gap:18px}
+  .prow__name {
+    font-size:clamp(1.7rem,1.8vw,2.1rem);
+    line-height:1.12;
+    overflow-wrap:anywhere;
+  }
+  .prow .specs div {
+    grid-template-columns:94px minmax(0,1fr);
+    gap:12px;
+    padding:.75rem 0;
+  }
+  .prow .specs dt {font-size:.7rem;letter-spacing:.075em}
+  .prow .specs dd {font-size:1rem;overflow-wrap:anywhere}
+}

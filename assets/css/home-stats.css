@@ -1,0 +1,21 @@
+/* Keep the enclosed-area figure beside the existing company statistics. */
+.stats--five {
+  grid-template-columns:minmax(0,1fr) minmax(0,1.65fr) minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr);
+}
+.stats--five .stat {min-width:0}
+.stat--area .stat__n {white-space:nowrap}
+.stat__unit {
+  font-size:.4em;
+  font-stretch:normal;
+  letter-spacing:0;
+}
+@media (min-width:761px) {
+  .stats--five .stat__n {font-size:clamp(2.5rem,5.7vw,5.6rem)}
+}
+@media (max-width:760px) {
+  .stats--five {grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stats--five .stat:nth-child(odd) {padding-left:0}
+  .stats--five .stat:nth-child(even) {border-right:0}
+  .stats--five .stat:last-child {grid-column:1 / -1}
+  .stat--area .stat__n {font-size:clamp(2.2rem,9.5vw,3.1rem)}
+}
