@@ -151,7 +151,7 @@ h1,h2,h3,h4{font-family:var(--f-d);font-weight:600;margin:0;letter-spacing:-.015
 .hero__shade{position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,rgba(19,21,24,.62) 0%,rgba(19,21,24,.08) 24%,rgba(19,21,24,0) 42%,rgba(19,21,24,.55) 70%,rgba(19,21,24,.9) 100%),linear-gradient(90deg,rgba(19,21,24,.55) 0%,rgba(19,21,24,0) 60%)}
 .hero-signature{position:fixed;top:calc(var(--hdr) - 12px);left:0;right:0;width:100%;z-index:4;pointer-events:none;transition:opacity .2s}
 body:has(.hdr.is-solid) .hero-signature,body:has(.hdr.is-hidden) .hero-signature,.menu-open .hero-signature{opacity:0}
-.hero-signature img{width:320px;height:auto;max-width:100%;filter:drop-shadow(0 2px 5px rgba(0,0,0,.3))}
+.hero-signature img{width:320px;height:auto;max-width:100%;transform:translateX(-20px);filter:drop-shadow(0 2px 5px rgba(0,0,0,.3))}
 .gridlines{position:absolute;inset:0;z-index:2;pointer-events:none}
 .gridlines .wrap{height:100%;display:grid;grid-template-columns:repeat(12,1fr)}
 .gridlines span{border-left:1px solid rgba(255,255,255,.075);transform-origin:top;animation:gline 1.6s var(--ease) both;animation-delay:calc(var(--i)*60ms + .2s)}
