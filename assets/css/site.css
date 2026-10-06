@@ -491,6 +491,17 @@ a.tel{white-space:nowrap}
 .contact-cards div{padding:clamp(22px,2.4vw,32px) clamp(14px,2vw,24px) 6px 0;display:grid;gap:10px;align-content:start}
 .contact-cards div+div{border-left:1px solid var(--line);padding-left:clamp(14px,2vw,24px)}
 .contact-cards b{font:500 1.1rem/1.4 var(--f-d)}
+.contact-links,.contact-address{display:grid;gap:10px;min-width:0}
+.contact-links>a{justify-self:start;overflow-wrap:anywhere}
+.contact-links>a:hover,.contact-phone>.tel:hover{color:var(--brass-ink)}
+.contact-address strong{font-weight:600}
+.contact-phone{display:flex;align-items:center;gap:10px;min-width:0}
+.contact-call{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;flex:none;background:var(--brass);color:var(--ink);transition:background-color .25s,color .25s}
+.contact-call:hover,.contact-call:focus-visible{background:var(--ink);color:var(--bone)}
+.contact-call svg{width:20px;height:20px;flex:none}
+.ftr .contact-call:hover,.ftr .contact-call:focus-visible,.mnav__foot .contact-call:hover,.mnav__foot .contact-call:focus-visible{background:var(--brass-2);color:var(--ink)}
+.ftr .contact-links>a:hover,.ftr .contact-phone>.tel:hover,.mnav__foot .contact-links>a:hover,.mnav__foot .contact-phone>.tel:hover{color:var(--brass-2)}
+.mnav__foot .contact-links{margin:14px 0 0}
 .mapbox{position:relative;height:clamp(320px,36vw,540px);background:var(--bone-2);overflow:hidden}
 .mapbox iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .legal{max-width:760px}
