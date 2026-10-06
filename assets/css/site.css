@@ -71,7 +71,12 @@ h1,h2,h3,h4{font-family:var(--f-d);font-weight:600;margin:0;letter-spacing:-.015
 .hdr.is-solid{background:rgba(19,21,24,.92);-webkit-backdrop-filter:blur(14px) saturate(1.2);backdrop-filter:blur(14px) saturate(1.2)}
 .hdr.is-solid::after{opacity:1}
 .hdr.is-hidden{transform:translateY(-100%)}
-.hdr__in{height:100%;display:flex;align-items:center;justify-content:space-between;gap:2rem}
+.hdr__in{height:100%;display:flex;align-items:center;justify-content:space-between;gap:clamp(12px,1.6vw,24px)}
+.hdr__actions{display:flex;align-items:center;gap:10px;flex:none;margin-left:auto}
+.header-whatsapp{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 13px;border:1px solid var(--brass);background:rgba(19,21,24,.28);color:var(--brass-2);font:500 .8125rem/1 var(--f-b);letter-spacing:.02em;white-space:nowrap;transition:background-color .3s,color .3s,border-color .3s}
+.header-whatsapp:hover,.header-whatsapp:focus-visible{background:var(--brass);color:var(--ink)}
+.header-whatsapp .whatsapp-icon{width:20px;height:20px}
+.whatsapp-icon{width:18px;height:18px;flex:none}
 .logo{display:flex;align-items:center;gap:12px;color:var(--bone);--logo-mark:var(--brass-2)}
 .logo__mark{height:46px;width:auto;flex:none;overflow:visible}
 .logo__mark .lm-s{stroke-width:7.2;stroke-miterlimit:6}
@@ -85,7 +90,7 @@ h1,h2,h3,h4{font-family:var(--f-d);font-weight:600;margin:0;letter-spacing:-.015
 .logo--stack .logo__txt{justify-items:center;gap:7px}
 .logo--stack .logo__txt b{font-size:28px}
 .logo--stack .logo__txt small{font-size:15px;letter-spacing:.34em;padding-left:.34em;color:var(--brass-2)}
-.nav{display:flex;align-items:center;gap:clamp(1.3rem,2.3vw,2.6rem)}
+.nav{display:flex;align-items:center;gap:clamp(14px,1.3vw,24px);flex:none}
 .nav__a{position:relative;padding:.55rem 0;font:500 .8125rem/1 var(--f-d);font-stretch:116%;letter-spacing:.075em;text-transform:uppercase}
 .nav__a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--brass-2);transform:scaleX(0);transform-origin:right;transition:transform .5s var(--ease)}
 .nav__a:hover::after,.nav__a[aria-current="page"]::after{transform:scaleX(1);transform-origin:left}
@@ -144,6 +149,9 @@ h1,h2,h3,h4{font-family:var(--f-d);font-weight:600;margin:0;letter-spacing:-.015
 .hero__slide img{width:100%;height:100%;object-fit:cover;transform:scale(1.1);transition:transform 8s linear}
 .hero__slide.is-active img{transform:scale(1.0)}
 .hero__shade{position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,rgba(19,21,24,.62) 0%,rgba(19,21,24,.08) 24%,rgba(19,21,24,0) 42%,rgba(19,21,24,.55) 70%,rgba(19,21,24,.9) 100%),linear-gradient(90deg,rgba(19,21,24,.55) 0%,rgba(19,21,24,0) 60%)}
+.hero-signature{position:fixed;top:calc(var(--hdr) - 12px);left:0;right:0;width:100%;z-index:4;pointer-events:none;transition:opacity .2s}
+body:has(.hdr.is-solid) .hero-signature,body:has(.hdr.is-hidden) .hero-signature,.menu-open .hero-signature{opacity:0}
+.hero-signature img{width:320px;height:auto;max-width:100%;filter:drop-shadow(0 2px 5px rgba(0,0,0,.3))}
 .gridlines{position:absolute;inset:0;z-index:2;pointer-events:none}
 .gridlines .wrap{height:100%;display:grid;grid-template-columns:repeat(12,1fr)}
 .gridlines span{border-left:1px solid rgba(255,255,255,.075);transform-origin:top;animation:gline 1.6s var(--ease) both;animation-delay:calc(var(--i)*60ms + .2s)}
@@ -235,6 +243,7 @@ h1,h2,h3,h4{font-family:var(--f-d);font-weight:600;margin:0;letter-spacing:-.015
 .chip--cta svg{flex:none;transition:transform .35s var(--ease)}
 .chip--cta:hover{background:var(--ink);border-color:var(--ink);color:var(--bone)}
 .chip--cta:hover svg{transform:translateX(3px)}
+.chip--cta:hover .whatsapp-icon,.btn:hover .whatsapp-icon{transform:none}
 .chips--dark .chip--cta{background:var(--brass);border-color:var(--brass);color:var(--ink)}
 .chips--dark .chip--cta:hover{background:var(--bone);border-color:var(--bone);color:var(--ink)}
 .hero-fact{max-width:58ch;margin:0;padding-left:clamp(14px,1.4vw,20px);border-left:2px solid var(--brass);font-size:clamp(1rem,.94rem + .3vw,1.16rem);line-height:1.6;color:#C9CDD1}
@@ -487,7 +496,7 @@ a.tel{white-space:nowrap}
 .form-phone{display:grid;gap:8px;margin:0;padding-top:20px;border-top:1px solid var(--line)}
 .form-phone b{font:600 clamp(1.3rem,1.05rem + .7vw,1.7rem)/1.2 var(--f-d)}
 .form-wrap__main{grid-column:6 / span 7}
-.contact-cards{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}
+.contact-cards{display:grid;grid-template-columns:1fr 1.25fr 1.1fr .95fr;border-top:1px solid var(--line)}
 .contact-cards div{padding:clamp(22px,2.4vw,32px) clamp(14px,2vw,24px) 6px 0;display:grid;gap:10px;align-content:start}
 .contact-cards div+div{border-left:1px solid var(--line);padding-left:clamp(14px,2vw,24px)}
 .contact-cards b{font:500 1.1rem/1.4 var(--f-d)}
@@ -497,6 +506,7 @@ a.tel{white-space:nowrap}
 .contact-address strong{font-weight:600}
 .contact-phone{display:flex;align-items:center;gap:10px;min-width:0}
 .contact-call{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;flex:none;background:var(--brass);color:var(--ink);transition:background-color .25s,color .25s}
+.contact-call--label{width:auto;gap:7px;padding-inline:12px;font:500 .8125rem/1 var(--f-b);letter-spacing:.02em}
 .contact-call:hover,.contact-call:focus-visible{background:var(--ink);color:var(--bone)}
 .contact-call svg{width:20px;height:20px;flex:none}
 .ftr .contact-call:hover,.ftr .contact-call:focus-visible,.mnav__foot .contact-call:hover,.mnav__foot .contact-call:focus-visible{background:var(--brass-2);color:var(--ink)}
@@ -517,6 +527,11 @@ a.tel{white-space:nowrap}
 .w>span{display:inline-block}
 .js [data-split].is-armed .w>span{transform:translateY(108%)}
 .js [data-split].is-in .w>span{transform:none;transition:transform 1.05s var(--ease);transition-delay:calc(var(--wi)*38ms + var(--d,0s))}
+@media (max-width:1380px){
+  .header-whatsapp{width:44px;padding:0}
+  .header-whatsapp span{display:none}
+}
+@media (max-width:1240px){.hdr__actions>.btn{display:none}}
 @media (max-width:1080px){
   .nav,.hdr .btn{display:none}
   .menu-btn{display:inline-flex}
@@ -552,7 +567,11 @@ a.tel{white-space:nowrap}
   .logo__txt b{font-size:18px}
   .logo__txt small{font-size:8px}
   .logo__txt .logo__sub{font-size:10.5px}
+  .hdr__in{gap:12px}
   .hero{min-height:max(600px,min(100svh,1080px))}
+  .hero-signature{top:calc(var(--hdr) - 9px)}
+  .hero-signature img{width:270px}
+  .hero--signature .hero__content{padding-top:calc(var(--hdr) + 92px)}
   .hero__text{grid-column:1 / -1}
   .hero__shade{background:linear-gradient(180deg,rgba(19,21,24,.6) 0%,rgba(19,21,24,.12) 22%,rgba(19,21,24,.35) 42%,rgba(19,21,24,.86) 66%,rgba(19,21,24,.95) 100%)}
   .hero__info .label,.hero__count,.scroll-cue{display:none}
@@ -595,6 +614,10 @@ a.tel{white-space:nowrap}
   .tl::before,.tl::after{left:calc(2.6rem - 1px)}
   .tl li{grid-template-columns:2.6rem 1fr;gap:0 1.3rem}
   .tl li::after{left:calc(2.6rem - 5px)}
+}
+@media (max-width:380px){
+  .menu-btn{min-width:44px;justify-content:center}
+  .menu-btn span{display:none}
 }
 @media (max-width:1240px) and (min-width:1081px){
   .hdr .btn{display:none}
