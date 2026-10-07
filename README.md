@@ -8,6 +8,7 @@ HTML/CSS/JS sitesi ve Vercel Node.js iletişim işlevi. Tasarım Gerzoğlu Varya
 - `assets/responsive/` — mevcut görsellerin içerik ve oranları korunmuş 640/1280/1920 piksel WebP kopyaları
 - `assets/css/fonts.css`, `assets/fonts/` — aynı fontların yerel, Türkçe karakter destekli dosyaları ve OFL lisansları
 - `api/contact.js`, `lib/contact.cjs` — yalnız `info@gerzoglu.com` alıcısına sunucudan e-posta gönderimi
+- `build-site.cjs` — yalnız ziyaretçiye açık sayfa ve varlıkları `dist/` içine kopyalar; sunucu kaynakları ve proje yapılandırması bu dizinin dışında kalır
 - `sitemap.xml`, `robots.txt`, `llms.txt` — arama motoru/okuyucu metaverileri
 - `vercel.json` — görsel yolları, güvenlik/önbellek başlıkları, 45 saniyelik iletişim işlevi ve geliştirme sürümü için `noindex`
 

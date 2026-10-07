@@ -4,6 +4,6 @@
   "private": true,
   "description": "Gerzoğlu İnşaat website and contact delivery function",
   "engines": { "node": "24.x" },
-  "scripts": { "test": "node --test tests/*.test.cjs" },
+  "scripts": { "build": "node build-site.cjs", "test": "node --test tests/*.test.cjs" },
   "dependencies": { "nodemailer": "10.0.15" }
 }
