@@ -1,0 +1,23 @@
+.phero--projects .phero__media img{
+  filter:brightness(1.08) contrast(1.09) saturate(1.15);
+}
+.phero--projects .phero__shade{
+  background:
+    linear-gradient(180deg,rgba(10,19,27,.44) 0%,rgba(10,19,27,.08) 22%,rgba(10,19,27,0) 40%,rgba(10,19,27,.12) 65%,rgba(10,19,27,.62) 100%),
+    radial-gradient(ellipse 76% 46% at 10% 66%,rgba(10,19,27,.46) 0%,rgba(10,19,27,.24) 46%,rgba(10,19,27,0) 100%);
+}
+.phero--projects .crumbs,
+.phero--projects h1{
+  text-shadow:0 2px 16px rgba(7,15,22,.48);
+}
+.phero--projects .lead{
+  color:#F4F2EE;
+  text-shadow:0 1px 4px rgba(7,15,22,.72),0 2px 18px rgba(7,15,22,.4);
+}
+@media(max-width:760px){
+  .phero--projects .phero__shade{
+    background:
+      linear-gradient(180deg,rgba(10,19,27,.44) 0%,rgba(10,19,27,.08) 18%,rgba(10,19,27,.14) 45%,rgba(10,19,27,.62) 100%),
+      radial-gradient(ellipse 115% 44% at 8% 56%,rgba(10,19,27,.42) 0%,rgba(10,19,27,.12) 66%,rgba(10,19,27,0) 100%);
+  }
+}
