@@ -7,7 +7,9 @@ const marker = path.join(output, '.gerzoglu-generated');
 // Delete only a verified, previously generated output directory.
 if (path.relative(root, output) !== 'dist') throw new Error('Invalid output directory');
 if (fs.existsSync(output)) {
-  if (fs.lstatSync(output).isSymbolicLink() || !fs.existsSync(marker)) throw new Error('Output directory is not a generated build');
+  if (fs.lstatSync(output).isSymbolicLink()) throw new Error('Output directory cannot be a symbolic link');
+  const disposable = fs.existsSync(marker) || fs.readdirSync(output).length === 0 || process.env.VERCEL === '1';
+  if (!disposable) throw new Error('Output directory is not a generated build');
   fs.rmSync(output, { recursive: true, force: true });
 }
 fs.mkdirSync(output);
