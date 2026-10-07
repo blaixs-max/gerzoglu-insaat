@@ -1,0 +1,277 @@
+{
+  "retrievedAt": "2026-10-07T09:44:23.870Z",
+  "sourceCSS": {
+    "url": "https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Montserrat:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap",
+    "sha256": "904c882b04202fb55934618fb7847ea03d1edfce24cffb79ce0fb825ca946848",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+  },
+  "fontFaceCount": 41,
+  "fontFiles": [
+    {
+      "file": "archivo-332e6f66de84.woff2",
+      "family": "Archivo",
+      "bytes": 34464,
+      "sha256": "332e6f66de84927cdffc60894e4e186ced783f5cb4b3e88200f45b7c1d306810",
+      "contentType": "font/woff2",
+      "sources": [
+        "https://fonts.gstatic.com/s/archivo/v25/k3kQo8UDI-1M0wlSfdboLnnA.woff2"
+      ]
+    },
+    {
+      "file": "archivo-5717f3705966.woff2",
+      "family": "Archivo",
+      "bytes": 86240,
+      "sha256": "5717f37059660ca5c899bad6c48ee22c3ac55cb3c484055241689d0f905a1a86",
+      "contentType": "font/woff2",
+      "sources": [
+        "https://fonts.gstatic.com/s/archivo/v25/k3kQo8UDI-1M0wlSfdfoLnnA.woff2"
+      ]
+    },
+    {
+      "file": "archivo-e3a28eade21a.woff2",
+      "family": "Archivo",
+      "bytes": 90104,
+      "sha256": "e3a28eade21a900c7155a247757f4b2834c07bb7ef07ad7efa55cebaac1e8f5e",
+      "contentType": "font/woff2",
+      "sources": [
+        "https://fonts.gstatic.com/s/archivo/v25/k3kQo8UDI-1M0wlSfdnoLg.woff2"
+      ]
+    },
+    {
+      "file": "ibm-plex-mono-f8c22ec1804b.woff2",
+      "family": "IBM Plex Mono",
+      "bytes": 6912,
+      "sha256": "f8c22ec1804bd6966b70f43ac7c327025645b4c09597117fca2a5a6c750106fe",
+      "contentType": "font/woff2",
+      "sources": [
+        "https://fonts.gstatic.com/s/ibmplexmono/v20/-F63fjptAgt5VM-kVkqdyU8n1iIq129k.woff2"
+      ]
+    },
+    {
+      "file": "ibm-plex-mono-7635422bd10d.woff2",
+      "family": "IBM Plex Mono",
+      "bytes": 8356,
+      "sha256": "7635422bd10ddbbcb0e0caa1154b928298f5c8319b8c00b30978d4395f4783ce",
+      "contentType": "font/woff2",
+      "sources": [
+        "https://fonts.gstatic.com/s/ibmplexmono/v20/-F63fjptAgt5VM-kVkqdyU8n1isq129k.woff2"
+      ]
+    },
+    {
+      "file": "ibm-plex-mono-62632b637530.woff2",
+      "family": "IBM Plex Mono",
+      "bytes": 5868,
+      "sha256": "62632b6375305e70ddcafdd895218e6ae41a184fcd280a69c739460604ca00a9",
+      "contentType": "font/woff2",
+      "sources": [
+        "https://fonts.gstatic.com/s/ibmplexmono/v20/-F63fjptAgt5VM-kVkqdyU8n1iAq129k.woff2"
+      ]
+    },
+    {
+      "file": "ibm-plex-mono-6bc0f226a5b7.woff2",
+      "family": "IBM Plex Mono",
+      "bytes": 13348,
+      "sha256": "6bc0f226a5b7884a8170e3f62c63d7675609d4631bdc5931b5cdab81821f00eb",
+      "contentType": "font/woff2",
+      "sources": [
+        "https://fonts.gstatic.com/s/ibmplexmono/v20/-F63fjptAgt5VM-kVkqdyU8n1iEq129k.woff2"
+      ]
+    },
+    {
+      "file": "ibm-plex-mono-08949f728dc5.woff2",
+      "family": "IBM Plex Mono",
+      "bytes": 14708,
+      "sha256": "08949f728dc52d528e69b1667d15c89a5686a4ee9a296ff90983985f99c380f7",
+      "contentType": "font/woff2",
+      "sources": [
+        "https://fonts.gstatic.com/s/ibmplexmono/v20/-F63fjptAgt5VM-kVkqdyU8n1i8q1w.woff2"
+      ]
+    },
+    {
+      "file": "ibm-plex-mono-3febe5c7f22e.woff2",
+      "family": "IBM Plex Mono",
+      "bytes": 6972,
+      "sha256": "3febe5c7f22e4b07b4552738673c3dbe8bced2dc5f48b866edf7ccd9552d109a",
+      "contentType": "font/woff2",
+      "sources": [
+        "https://fonts.gstatic.com/s/ibmplexmono/v20/-F6qfjptAgt5VM-kVkqdyU8n3twJwl1FgtIU.woff2"
+      ]
+    },
+    {
+      "file": "ibm-plex-mono-1d89462e86cb.woff2",
+      "family": "IBM Plex Mono",
+      "bytes": 8460,
+      "sha256": "1d89462e86cb8e87e7e9d6f6635605bd7c3081baca6caaecee84916bf7b60edc",
+      "contentType": "font/woff2",
+      "sources": [
+        "https://fonts.gstatic.com/s/ibmplexmono/v20/-F6qfjptAgt5VM-kVkqdyU8n3twJwlRFgtIU.woff2"
+      ]
+    },
+    {
+      "file": "ibm-plex-mono-781633d95de8.woff2",
+      "family": "IBM Plex Mono",
+      "bytes": 6040,
+      "sha256": "781633d95de88040fb77141d1e65d928c87c0144691fbc74da5a64d137a7e910",
+      "contentType": "font/woff2",
+      "sources": [
+        "https://fonts.gstatic.com/s/ibmplexmono/v20/-F6qfjptAgt5VM-kVkqdyU8n3twJwl9FgtIU.woff2"
+      ]
+    },
+    {
+      "file": "ibm-plex-mono-6bb06407c975.woff2",
+      "family": "IBM Plex Mono",
+      "bytes": 13432,
+      "sha256": "6bb06407c97584b0867a959e05e8874693bfeb8c317de190811c51598f2d99ea",
+      "contentType": "font/woff2",
+      "sources": [
+        "https://fonts.gstatic.com/s/ibmplexmono/v20/-F6qfjptAgt5VM-kVkqdyU8n3twJwl5FgtIU.woff2"
+      ]
+    },
+    {
+      "file": "ibm-plex-mono-01d285447409.woff2",
+      "family": "IBM Plex Mono",
+      "bytes": 14888,
+      "sha256": "01d285447409c8a588692162439a038b8cbd7871309ee20267b0d2d91c6e8e22",
+      "contentType": "font/woff2",
+      "sources": [
+        "https://fonts.gstatic.com/s/ibmplexmono/v20/-F6qfjptAgt5VM-kVkqdyU8n3twJwlBFgg.woff2"
+      ]
+    },
+    {
+      "file": "ibm-plex-sans-7d0037a17088.woff2",
+      "family": "IBM Plex Sans",
+      "bytes": 23568,
+      "sha256": "7d0037a170882a49e65a45c38ef195237bb07b1cc791d078379f0ac0d7ae1935",
+      "contentType": "font/woff2",
+      "sources": [
+        "https://fonts.gstatic.com/s/ibmplexsans/v23/zYXzKVElMYYaJe8bpLHnCwDKr932-G7dytD-Dmu1syxTKYbABA.woff2"
+      ]
+    },
+    {
+      "file": "ibm-plex-sans-9409ee21811f.woff2",
+      "family": "IBM Plex Sans",
+      "bytes": 29512,
+      "sha256": "9409ee21811f0f5272b7e1d828fe8838005b0573481ef906e7e55b63f6610ab0",
+      "contentType": "font/woff2",
+      "sources": [
+        "https://fonts.gstatic.com/s/ibmplexsans/v23/zYXzKVElMYYaJe8bpLHnCwDKr932-G7dytD-Dmu1syxaKYbABA.woff2"
+      ]
+    },
+    {
+      "file": "ibm-plex-sans-f598dd0700f1.woff2",
+      "family": "IBM Plex Sans",
+      "bytes": 19500,
+      "sha256": "f598dd0700f155e2facfaa8ecfacace397d4c2c153e9ce37ab7ad310e8505bc2",
+      "contentType": "font/woff2",
+      "sources": [
+        "https://fonts.gstatic.com/s/ibmplexsans/v23/zYXzKVElMYYaJe8bpLHnCwDKr932-G7dytD-Dmu1syxdKYbABA.woff2"
+      ]
+    },
+    {
+      "file": "ibm-plex-sans-73e7f7b1c980.woff2",
+      "family": "IBM Plex Sans",
+      "bytes": 13160,
+      "sha256": "73e7f7b1c980416ae0c2461268b14c7cfcce0668e683dc43fbb11a82a227b9f2",
+      "contentType": "font/woff2",
+      "sources": [
+        "https://fonts.gstatic.com/s/ibmplexsans/v23/zYXzKVElMYYaJe8bpLHnCwDKr932-G7dytD-Dmu1syxRKYbABA.woff2"
+      ]
+    },
+    {
+      "file": "ibm-plex-sans-d160e20920ae.woff2",
+      "family": "IBM Plex Sans",
+      "bytes": 30964,
+      "sha256": "d160e20920ae4d6556518d352d3af27a74e9b0de3d8fe17b1c1044fc75aa2f81",
+      "contentType": "font/woff2",
+      "sources": [
+        "https://fonts.gstatic.com/s/ibmplexsans/v23/zYXzKVElMYYaJe8bpLHnCwDKr932-G7dytD-Dmu1syxQKYbABA.woff2"
+      ]
+    },
+    {
+      "file": "ibm-plex-sans-e2291e842cf5.woff2",
+      "family": "IBM Plex Sans",
+      "bytes": 45712,
+      "sha256": "e2291e842cf5af167122a22881a740c7f2dda7716f1e8cd76680264f4a859470",
+      "contentType": "font/woff2",
+      "sources": [
+        "https://fonts.gstatic.com/s/ibmplexsans/v23/zYXzKVElMYYaJe8bpLHnCwDKr932-G7dytD-Dmu1syxeKYY.woff2"
+      ]
+    },
+    {
+      "file": "montserrat-0f7f5f2fbb4e.woff2",
+      "family": "Montserrat",
+      "bytes": 26368,
+      "sha256": "0f7f5f2fbb4eae126790fe6f01659ab3ee0806e8038a941908e893020569f51a",
+      "contentType": "font/woff2",
+      "sources": [
+        "https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459WRhyzbi.woff2"
+      ]
+    },
+    {
+      "file": "montserrat-a187b077090f.woff2",
+      "family": "Montserrat",
+      "bytes": 23828,
+      "sha256": "a187b077090fe8ae3fd2d7496aabbeae604819c718a282e0afc92df72b450766",
+      "contentType": "font/woff2",
+      "sources": [
+        "https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459W1hyzbi.woff2"
+      ]
+    },
+    {
+      "file": "montserrat-26b2403f995e.woff2",
+      "family": "Montserrat",
+      "bytes": 12928,
+      "sha256": "26b2403f995ed65fb49037a6498c074d3ec3c36031a69fc368c4c2180e2c01fa",
+      "contentType": "font/woff2",
+      "sources": [
+        "https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459WZhyzbi.woff2"
+      ]
+    },
+    {
+      "file": "montserrat-54d9a78b7ff6.woff2",
+      "family": "Montserrat",
+      "bytes": 70688,
+      "sha256": "54d9a78b7ff60b689ad9f3017ffac8547b5d871afec733f6c1c3ae36577ee504",
+      "contentType": "font/woff2",
+      "sources": [
+        "https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459Wdhyzbi.woff2"
+      ]
+    },
+    {
+      "file": "montserrat-06b16db7a969.woff2",
+      "family": "Montserrat",
+      "bytes": 37956,
+      "sha256": "06b16db7a969135d48d38c49183be7fb88d4452e2a3011957c7851941f4e4879",
+      "contentType": "font/woff2",
+      "sources": [
+        "https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459Wlhyw.woff2"
+      ]
+    }
+  ],
+  "licences": [
+    {
+      "family": "Archivo",
+      "file": "OFL-archivo.txt",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/archivo/OFL.txt",
+      "sha256": "108b4e57c9c796d3d38d0428ca7ee39de47ad93187302718d9b2d8864b9b716b"
+    },
+    {
+      "family": "Montserrat",
+      "file": "OFL-montserrat.txt",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/montserrat/OFL.txt",
+      "sha256": "8b7141c03fa4f8d44e6345d5d4931709290f0f67875e452e95ac1fd3a027802e"
+    },
+    {
+      "family": "IBM Plex Mono",
+      "file": "OFL-ibmplexmono.txt",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/ibmplexmono/OFL.txt",
+      "sha256": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da"
+    },
+    {
+      "family": "IBM Plex Sans",
+      "file": "OFL-ibmplexmono.txt",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/ibmplexsans/OFL.txt",
+      "sha256": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da"
+    }
+  ]
+}

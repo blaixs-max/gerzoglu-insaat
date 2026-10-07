@@ -1,0 +1,54 @@
+# Gerzoğlu İnşaat
+
+> 2009’dan bu yana İstanbul Anadolu Yakası’nda konut, ticari yapı ve kentsel dönüşüm projeleri geliştiren Gerzoğlu İnşaat’ın web sitesi.
+
+## İletişim
+
+- Adres: Esenkent, Özmen Sk. 3/32, 34848 Maltepe/İstanbul
+- Telefonlar: +90 532 266 04 09; +90 532 326 99 20
+- E-posta: info@gerzoglu.com; mehmet@gerzoglu.com
+- Çalışma saatleri: Hafta içi 08:30–18:30
+
+## Ana sayfalar
+
+- [Anasayfa](https://gerzoglu-varyant-3.vercel.app/)
+- [Kurumsal](https://gerzoglu-varyant-3.vercel.app/kurumsal.html)
+- [Projeler](https://gerzoglu-varyant-3.vercel.app/projeler.html)
+- [Kentsel dönüşüm başvurusu](https://gerzoglu-varyant-3.vercel.app/kentsel-donusum.html)
+- [Çözüm ortakları](https://gerzoglu-varyant-3.vercel.app/cozum-ortaklarimiz.html)
+- [İletişim](https://gerzoglu-varyant-3.vercel.app/iletisim.html)
+- [KVKK ve çerez politikası](https://gerzoglu-varyant-3.vercel.app/kvkk.html)
+- [Gizlilik politikası](https://gerzoglu-varyant-3.vercel.app/gizlilik.html)
+- [Kullanım şartları](https://gerzoglu-varyant-3.vercel.app/kullanim-sartlari.html)
+
+## Projeler
+
+Proje durumları ve planlanan başlangıç/bitiş tarihleri ilgili proje sayfalarında belirtilir. Proje sayfalarındaki temsilî görseller ve hedef tarihler için güncel bilgi iletişim kanallarından alınabilir.
+
+- [Kılavuz Apartmanı · Maltepe / Altıntepe](https://gerzoglu-varyant-3.vercel.app/proje/altintepe-kilavuz-apartmani.html)
+- [Merve Apartmanı · Maltepe / Altıntepe](https://gerzoglu-varyant-3.vercel.app/proje/altintepe-merve-apartmani.html)
+- [Girne Projesi · Tuzla](https://gerzoglu-varyant-3.vercel.app/proje/girne-tuzla.html)
+- [Gerzoğlu 2 Apartmanı · Maltepe / İdealtepe](https://gerzoglu-varyant-3.vercel.app/proje/idealtepe-gerzoglu-2.html)
+- [Sahil Damla Apartmanı · Maltepe / İdealtepe](https://gerzoglu-varyant-3.vercel.app/proje/idealtepe-sahil-damla.html)
+- [Zeynep Azra Apartmanı · İdealtepe, Maltepe](https://gerzoglu-varyant-3.vercel.app/proje/idealtepe-zeynep-azna.html)
+- [Zeynep Azra Apartmanı · Rıfkı Tongsir Caddesi, İdealtepe](https://gerzoglu-varyant-3.vercel.app/proje/idealtepe-zeynep-azra.html)
+- [Karabaş Apartmanı · Kartal](https://gerzoglu-varyant-3.vercel.app/proje/kartal-karabas-apartmani.html)
+- [Küçüktur Yolu Dermancı Apartmanı · Maltepe / İdealtepe](https://gerzoglu-varyant-3.vercel.app/proje/kucuktur-yolu-dermanci-apartmani.html)
+- [Yeni Erdem Sitesi · Maltepe / Küçükyalı](https://gerzoglu-varyant-3.vercel.app/proje/kucukyali-yeni-erdem.html)
+- [Birlik Apartmanı · Maltepe](https://gerzoglu-varyant-3.vercel.app/proje/maltepe-birlik-apartmani.html)
+- [Gerzoğlu Kartal Plaza · Maltepe / E-5 üstü](https://gerzoglu-varyant-3.vercel.app/proje/maltepe-gerzoglu-plaza.html)
+- [Girne Konut Projesi · Maltepe](https://gerzoglu-varyant-3.vercel.app/proje/maltepe-girne-konut.html)
+- [Mehmet Akif Apartmanı · Maltepe](https://gerzoglu-varyant-3.vercel.app/proje/maltepe-mehmet-akif.html)
+- [Nova Projesi · Tuzla](https://gerzoglu-varyant-3.vercel.app/proje/nova-tuzla.html)
+- [Park Sitesi Projesi · Tuzla](https://gerzoglu-varyant-3.vercel.app/proje/park-site-tuzla.html)
+- [Gerzoğlu Residans · Sahrayıcedit](https://gerzoglu-varyant-3.vercel.app/proje/sahrayicedit-gerzoglu-residans.html)
+- [Samandıra Konut ve İşyeri Projesi · Samandıra](https://gerzoglu-varyant-3.vercel.app/proje/samandira-konut-isyeri.html)
+- [Samandıra Konut ve Ticari Projesi · Samandıra](https://gerzoglu-varyant-3.vercel.app/proje/samandira-konut-ticari.html)
+- [Gerzoğlu Sitesi · Sancaktepe](https://gerzoglu-varyant-3.vercel.app/proje/sancaktepe-gerzoglu-sitesi.html)
+- [Sancaktepe Konut ve İşyeri Projesi · Sancaktepe](https://gerzoglu-varyant-3.vercel.app/proje/sancaktepe-konut-isyeri.html)
+- [Tuzla Konut Ticari Projesi · Tuzla](https://gerzoglu-varyant-3.vercel.app/proje/tuzla-konut-ticari.html)
+- [Mehmet Akif Apartmanı · Tuzla](https://gerzoglu-varyant-3.vercel.app/proje/tuzla-mehmet-akif.html)
+- [Tepeören Villa Projesi · Tuzla](https://gerzoglu-varyant-3.vercel.app/proje/tuzla-tepeoren-villa.html)
+- [Ümraniye Residans Projesi · Ümraniye](https://gerzoglu-varyant-3.vercel.app/proje/umraniye-residans.html)
+- [Yılmaz Apartmanı · Üsküdar](https://gerzoglu-varyant-3.vercel.app/proje/uskudar-yilmaz-apartmani.html)
+- [Gerzoğlu İş Merkezi · Yenidoğan](https://gerzoglu-varyant-3.vercel.app/proje/yenidogan-gerzoglu-is-merkezi.html)

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://gerzoglu-varyant-3.vercel.app/sitemap.xml
