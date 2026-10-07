@@ -14,7 +14,7 @@ HTML/CSS/JS sitesi ve Vercel Node.js iletişim işlevi. Tasarım Gerzoğlu Varya
 
 ## Mevcut yayın durumu
 
-Varyant 3 geliştirme sürümüdür: tüm sayfalarda `noindex, nofollow` meta etiketi ve HTTP başlığı bilinçli olarak korunur. Asıl alan adı daha sonra `gerzoglu.com` olacaktır. Alan adını, DNS'i veya orijinal/V2 projelerini değiştirmeyin.
+Ana yayın adresi `https://gerzoglu.com` olarak bağlanmış ve HTTPS doğrulanmıştır. Gerçek içerik sayfaları indekslemeye açıktır; canonical, sosyal paylaşım ve yapılandırılmış veri adresleri ana alan adını gösterir. Varyant 3 ve diğer geliştirme adresleri, ana alan adı dışındaki hostlara uygulanan `X-Robots-Tag: noindex, nofollow` başlığıyla kapalı kalır. robots.txt taramaya izin verir; böylece Google bu noindex başlığını okuyabilir. 404 ve API yolları her alan adında indekslemeye kapalıdır. Orijinal/V2 projelerine dokunmayın.
 
 GoDaddy üzerinden alınan `info@gerzoglu.com` hesabı henüz aktif değildir. Mevcut projede SMTP kimlik bilgileri yoktur; bu yüzden gerçek e-posta teslimatı açık değildir. `GET /api/contact` bunu `{ "available": false }` ile bildirir. Formlarda telefon/WhatsApp seçenekleri gösterilir; gönderilmemiş talep için başarı gösterilmez.
 
@@ -36,7 +36,7 @@ Fonksiyon sunucu doğrulaması, sabit alıcı, JSON boyut sınırı, aynı site 
 
 ## gerzoglu.com'a geçiş
 
-Alan adı bu V3 projesine bağlandıktan ve HTTPS doğrulandıktan sonra canonical, `og:url`, işletme JSON-LD URL/ID, sitemap ve llms içindeki V3 adreslerini yeni ana adresle eşitleyin. 404 sayfasının `noindex` etiketini koruyarak gerçek sayfalardaki geliştirme `noindex` meta/HTTP başlıklarını kaldırın. Sitemap'i Search Console'a gönderin. Orijinal/V2 projelerine ayrıca yayın yapmayın.
+Ana alan adı SEO adresleri güncellenmiştir. `/index.html` kalıcı olarak `/` yoluna yönlendirilir; www ve HTTP adresleri HTTPS ana adrese yönlenir. Search Console mülkiyeti kullanıcı hesabıyla doğrulandıktan sonra `https://gerzoglu.com/sitemap.xml` gönderilmeli ve ana sayfa için URL Denetimi yapılmalıdır. Site haritası göndermek veya indekslemeye izin vermek, Google sonuçlarında görünme garantisi değildir.
 
 Vercel Web Analytics bu geliştirme sürümünde etkinleştirilmez; gerçek trafik ölçümü ana alan adı yayınına aittir. Çerez denetleyicisi `window.GerzogluMeasurement` sağlayıcı arayüzünü destekler; sağlayıcı etkinleştirildiğinde gizlilik metni ve izin arayüzü gerçek veri kullanımıyla eşitlenmelidir. Reklam/analitik izleme şu anda çalışmaz.
 

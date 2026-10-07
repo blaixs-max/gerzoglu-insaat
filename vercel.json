@@ -4,6 +4,11 @@
   "framework": null,
   "redirects": [
     {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
       "source": "/proje/idealtepe-kucuktur-yolu.html",
       "destination": "/proje/idealtepe-gerzoglu-2.html",
       "permanent": true
@@ -190,10 +195,6 @@
       "source": "/(.*)",
       "headers": [
         {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow"
-        },
-        {
           "key": "X-Content-Type-Options",
           "value": "nosniff"
         },
@@ -226,6 +227,39 @@
         {
           "key": "Cache-Control",
           "value": "public, max-age=2592000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "missing": [
+        {
+          "type": "host",
+          "value": "gerzoglu\\.com"
+        }
+      ],
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/404.html",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
         }
       ]
     }
