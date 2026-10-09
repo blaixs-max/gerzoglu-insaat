@@ -34,7 +34,7 @@ Proje durumları ve planlanan başlangıç/bitiş tarihleri ilgili proje sayfala
 - [Zeynep Azra Apartmanı · Rıfkı Tongsir Caddesi, İdealtepe](https://gerzoglu.com/proje/idealtepe-zeynep-azra.html)
 - [Karabaş Apartmanı · Kartal](https://gerzoglu.com/proje/kartal-karabas-apartmani.html)
 - [Küçüktur Yolu Dermancı Apartmanı · Maltepe / İdealtepe](https://gerzoglu.com/proje/kucuktur-yolu-dermanci-apartmani.html)
-- [Yeni Erdem Sitesi · Maltepe / Küçükyalı](https://gerzoglu.com/proje/kucukyali-yeni-erdem.html)
+- [Küçükyalı Yeni Erdem Kent · Maltepe / Küçükyalı](https://gerzoglu.com/proje/kucukyali-yeni-erdem.html)
 - [Birlik Apartmanı · Maltepe](https://gerzoglu.com/proje/maltepe-birlik-apartmani.html)
 - [Gerzoğlu Kartal Plaza · Maltepe / E-5 üstü](https://gerzoglu.com/proje/maltepe-gerzoglu-plaza.html)
 - [Girne Konut Projesi · Maltepe](https://gerzoglu.com/proje/maltepe-girne-konut.html)
