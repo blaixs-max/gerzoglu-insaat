@@ -1,4 +1,11 @@
 /* Projects page: give every building image more room beside compact details. */
+.project-anchor {display:block;scroll-margin-top:140px}
+[data-ordered-projects] {scroll-margin-top:120px}
+.prow__order {font-size:.75rem;letter-spacing:.14em;color:var(--text-2)}
+.prow.prow--first-visible {margin-top:0;padding-top:0;border-top:0}
+.chips--dark .chip[aria-current="true"] {background:var(--bone);border-color:var(--bone);color:var(--ink)}
+.chips--dark .chip[aria-current="true"] .n {color:var(--ink)}
+.project-list-empty p {margin-bottom:20px}
 @media (min-width:1081px) {
   .pgroup > .wrap {
     max-width:1840px;
