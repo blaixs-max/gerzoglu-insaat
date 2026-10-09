@@ -90,7 +90,7 @@ h1,h2,h3,h4{font-family:var(--f-d);font-weight:600;margin:0;letter-spacing:-.015
 .logo--stack .logo__txt{justify-items:center;gap:7px}
 .logo--stack .logo__txt b{font-size:28px}
 .logo--stack .logo__txt small{font-size:15px;letter-spacing:.34em;padding-left:.34em;color:var(--brass-2)}
-.nav{display:flex;align-items:center;gap:clamp(14px,1.3vw,24px);flex:none;margin-left:auto}
+.nav{display:flex;align-items:center;gap:clamp(14px,1.3vw,24px);flex:none;margin-left:auto;padding-inline-start:clamp(20px,2.5vw,40px)}
 .nav__a{position:relative;padding:.55rem 0;font:500 .8125rem/1 var(--f-d);font-stretch:116%;letter-spacing:.075em;text-transform:uppercase}
 .nav__a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--brass-2);transform:scaleX(0);transform-origin:right;transition:transform .5s var(--ease)}
 .nav__a:hover::after,.nav__a[aria-current="page"]::after{transform:scaleX(1);transform-origin:left}
