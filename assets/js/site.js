@@ -62,11 +62,6 @@
   }
 
   function runLoader() {
-    $$(".loader__mark .st").forEach(function (p, i) {
-      var len = Math.ceil(p.getTotalLength ? p.getTotalLength() : 400);
-      p.style.setProperty("--len", len);
-      p.style.setProperty("--dl", (0.25 + i * 0.12) + "s");
-    });
     store.set("sessionStorage", "gz-intro", "1");
     var skip = function () { finish(0); };
     loader.addEventListener("click", skip, { once: true });
@@ -79,7 +74,20 @@
         setTimeout(function () { root.classList.remove("intro"); loader.classList.remove("is-done"); }, 1100);
       }, delay);
     }
-    finish(650);
+    var began = false;
+    function revealLogo() {
+      if (began || done) return;
+      began = true;
+      loader.classList.add("is-ready");
+      finish(1100);
+    }
+    var introLogo = $(".loader__art img");
+    if (introLogo && !introLogo.complete && introLogo.decode) {
+      introLogo.decode().then(revealLogo, revealLogo);
+      setTimeout(revealLogo, 1200);
+    } else {
+      revealLogo();
+    }
   }
 
   if (root.classList.contains("intro") && loader && !reduce) {

@@ -636,3 +636,17 @@ a.tel{white-space:nowrap}
   .marquee__track{animation:none!important;flex-wrap:wrap;width:auto}
   .marquee--rev{display:none}
 }
+
+/* Logo 03: transparent matte champagne metal, stacked reference lockup. */
+:root{--hdr:116px}
+.logo:has(.logo__art){flex:none;gap:0}
+.logo__art{display:block;width:150px;flex:none}
+.logo__art img{display:block;width:100%;height:auto}
+.logo--stack .logo__art{width:260px;max-width:100%}
+.hero-signature{top:calc(var(--hdr) - 2px)}
+@media(max-width:760px){
+  :root{--hdr:98px}
+  .logo__art{width:128px}
+  .logo--stack .logo__art{width:230px}
+  .hero-signature{top:calc(var(--hdr) - 2px)}
+}
