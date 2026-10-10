@@ -71,7 +71,7 @@
       setTimeout(function () {
         loader.classList.add("is-done");
         setTimeout(startHero, 380);
-        setTimeout(function () { root.classList.remove("intro"); loader.classList.remove("is-done"); }, 1100);
+        setTimeout(function () { root.classList.remove("intro"); loader.classList.remove("is-done"); }, 1000);
       }, delay);
     }
     var began = false;
@@ -79,7 +79,8 @@
       if (began || done) return;
       began = true;
       loader.classList.add("is-ready");
-      finish(1100);
+      // Six seconds for the logo reveal and hold, then a one-second exit.
+      finish(6000);
     }
     var introLogo = $(".loader__art img");
     if (introLogo && !introLogo.complete && introLogo.decode) {
