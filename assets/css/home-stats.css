@@ -1,6 +1,6 @@
 /* Keep the enclosed-area figure beside the existing company statistics. */
 .stats--five {
-  grid-template-columns:minmax(0,1fr) minmax(0,1.65fr) minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr);
+  grid-template-columns:minmax(0,1fr) minmax(0,1.2fr) minmax(0,1.65fr) minmax(0,1fr) minmax(0,1fr);
 }
 .stats--five .stat {min-width:0}
 .stat--area .stat__n {white-space:nowrap}
