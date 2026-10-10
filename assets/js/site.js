@@ -79,8 +79,8 @@
       if (began || done) return;
       began = true;
       loader.classList.add("is-ready");
-      // Six seconds for the logo reveal and hold, then a one-second exit.
-      finish(6000);
+      // Three seconds for the slow logo reveal, then a one-second exit.
+      finish(3000);
     }
     var introLogo = $(".loader__art img");
     if (introLogo && !introLogo.complete && introLogo.decode) {

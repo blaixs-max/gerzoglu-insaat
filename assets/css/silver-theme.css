@@ -1,7 +1,7 @@
 /* Silver metal controls and opening animation matching Logo 29. */
-.loader__art{display:block;width:clamp(220px,36vw,340px);opacity:0;transform:translateY(12px) scale(.97)}
+.loader__art{display:block;width:clamp(220px,36vw,340px);opacity:0;transform:translateY(8px) scale(.72)}
 .loader__art img{display:block;width:100%;height:auto}
-.loader.is-ready .loader__art{animation:silver-logo-reveal .8s var(--ease) forwards}
+.loader.is-ready .loader__art{animation:silver-logo-reveal 3s cubic-bezier(.2,.4,.45,1) forwards}
 .loader__line{width:100px;height:1px;background:linear-gradient(90deg,transparent,#C5CAD0,transparent);transform:scaleX(0);transform-origin:center}
 .loader.is-ready .loader__line{animation:grow .8s var(--ease) .2s forwards}
 .curtain::after{background:#BFC4CA}
