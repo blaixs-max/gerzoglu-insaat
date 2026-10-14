@@ -21,11 +21,9 @@ if (fs.existsSync(output)) {
 fs.mkdirSync(output);
 fs.writeFileSync(marker, 'Gerzoglu static build output\n');
 for (const file of fs.readdirSync(root)) {
-  if (/\.html$/.test(file) || ['robots.txt', 'sitemap.xml', 'llms.txt'].includes(file)) fs.copyFileSync(path.join(root, file), path.join(output, file));
+  // Vercel resolves physical files before fallback rewrites. Managed HTML and
+  // discovery pages live exclusively in the CMS function, including old URLs.
+  if (['admin.html', '404.html', 'robots.txt'].includes(file)) fs.copyFileSync(path.join(root, file), path.join(output, file));
 }
 fs.cpSync(path.join(root, 'assets'), path.join(output, 'assets'), { recursive: true });
-fs.mkdirSync(path.join(output, 'proje'));
-for (const file of fs.readdirSync(path.join(root, 'proje'))) {
-  if (/\.html$/.test(file)) fs.copyFileSync(path.join(root, 'proje', file), path.join(output, 'proje', file));
-}
-console.log('Public pages and assets prepared; server source stays outside the public directory.');
+console.log('Public admin/assets prepared; managed pages resolve through the CMS function.');

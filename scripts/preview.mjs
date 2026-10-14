@@ -16,7 +16,7 @@ import health from '../api/health.js';
 // Rewritten media is streamed from its original URL, without replacing images.
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const publicRoot = path.join(root, 'dist');
-if (!(await stat(path.join(publicRoot, 'index.html')).catch(() => null))?.isFile()) {
+if (!(await stat(path.join(publicRoot, '.gerzoglu-generated')).catch(() => null))?.isFile()) {
   throw new Error('Run npm run build before npm run preview.');
 }
 const config = JSON.parse(await readFile(path.join(root, 'vercel.json'), 'utf8'));
