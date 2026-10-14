@@ -16,9 +16,10 @@ Her proje için dört durumdan yalnızca biri seçilir: **Teslim Edildi / Devam 
 2. Sayfa adresini sistem bina adından otomatik oluşturur; adres girmeniz gerekmez. Aynı isimde başka proje varsa sistem farklı bir adres ayırır ve mevcut projeye yazmaz. Adres ilk kayıttan sonra korunur; bina adı sonradan değiştirilebilir.
 3. İnşaat alanı, sayı bilgisi, başlangıç/bitiş tarihi ve listede gösterim sırasını girin. Bilinmeyen isteğe bağlı bilgileri boş bırakın.
 4. Kısa özet ve proje açıklamasını yazın. Yeni paragraf için boş satır bırakabilirsiniz.
-5. **Taslağı kaydet** deyin. Fotoğraf yüklemek için önce bu ilk kayıt yapılmalıdır.
-6. **Görseller** sekmesinden fotoğrafları yükleyin, kapağı seçin ve sıralayın.
-7. **Önizle** ile kontrol edin. Hazır olunca **Projeyi yayımla** seçip yayını onaylayın.
+5. **Devam et: Görseller** düğmesine basın. Zorunlu alanlar, sayılar ve tarihler hatasızsa ikinci adıma geçilir.
+6. Fotoğrafları yükleyin, kapağı seçin ve sıralayın. Yüklemeler tamamlanınca **Devam et: Ek Bilgiler** seçin. Yeni projede kapak seçmeden ilerlenmez.
+7. İsteğe bağlı ek bilgileri kontrol edin. Bir bilgi satırı eklediyseniz başlık ve değerini birlikte doldurun veya satırı kaldırın. **Taslağı kaydet** yalnız bu son adımda bulunur.
+8. Kayıttan sonra **Önizle** ve **Projeyi yayımla** açılır. Hazır olunca yayını ayrıca onaylayın. Sonradan değişiklik yaparsanız önce yeniden kaydedin.
 
 Başarı mesajından sonra **Canlı sayfayı aç** bağlantısını kullanın. Proje yayınında yeni Vercel dağıtımı veya GitHub işlemi gerekmez; yenilenen sayfa güncel yayın belgesini okur. Hata görülürse yayın tamamlandı varsaymayın, panelde yayın durumunu kontrol edin.
 
@@ -50,7 +51,7 @@ Kaynak genişliğini aşmadan uygun ekran boyutları üretilir; küçük fotoğr
 
 ## Yayındaki projeyi düzenleme
 
-**Düzenle** ile açın, bilgileri veya fotoğrafları değiştirip **Taslağı kaydet** deyin. Ziyaretçi son yayımlanmış sürümü görmeye devam eder; panelde **Yayınlanmamış düzenleme** işareti görünür. **Önizle** ile taslağı kontrol edip **Değişiklikleri yayımla** seçin. Önizleme arama motorlarına kapalıdır ve normal proje sayfasını yayımlamaz.
+**Düzenle** ile açın. **Proje Bilgileri → Görseller → Ek Bilgiler** adımlarını sırayla kontrol edip son adımda **Taslağı kaydet** deyin. Önceki adımlara dönebilirsiniz; değiştirilen adım ve sonrasının yeniden kontrol edilmesi gerekir. Ziyaretçi son yayımlanmış sürümü görmeye devam eder; panelde **Yayınlanmamış düzenleme** işareti görünür. **Önizle** ile taslağı kontrol edip **Değişiklikleri yayımla** seçin. Önizleme arama motorlarına kapalıdır ve normal proje sayfasını yayımlamaz.
 
 Aynı kayıt başka sekmede veya başka yönetici tarafından değiştirilmişse eski sürüm üzerine yazılmaz. Güncel kaydı yeniden yükleyip düzenlemelerinizi kontrol edin. Kaydetmeden ayrılmak son düzenlemelerin kaybolmasına neden olabilir.
 

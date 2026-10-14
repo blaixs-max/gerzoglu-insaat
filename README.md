@@ -77,6 +77,8 @@ Formlar gönderim hizmetini kontrol eder; yapılandırma yoksa telefon/WhatsApp 
 
 Çerez denetleyicisi `window.GerzogluMeasurement` arayüzünü destekler; kaynak kodda etkin bir analiz sağlayıcısı tanımlı değildir. Sağlayıcı etkinleştirildiğinde izin arayüzü ve gizlilik metni gerçek veri kullanımıyla birlikte güncellenmelidir.
 
+Yönetim panelinde proje düzenleme üç adımlıdır: **Proje Bilgileri → Görseller → Ek Bilgiler**. Her adım hatasızsa ilerlenir; **Taslağı kaydet** yalnız son adımdadır. Önizleme ve yayın, tamamlanan son kayıt sonrasında açılır. İlk geçiş, görsel yüklemelerinin bağlanacağı özel bir çalışma kaydı oluşturur; bu kayıt ziyaretçilere açılmaz ve son kaydın yerine geçmez.
+
 ## SEO ve proje yönetimi
 
 Canonical, paylaşım ve yapılandırılmış veri adresleri `https://gerzoglu.com` alan adını kullanır. `vercel.json`, ana alan adı dışındaki hostlara `noindex, nofollow` uygular; API ve 404 her hostta kapalıdır. `robots.txt` ana sayfaların taranmasına izin verir. Search Console doğrulaması ve site haritasının gönderilmiş olduğu ayrıca doğrulanmalıdır; indekslenebilir olmak arama sonuçlarında görünme garantisi değildir.

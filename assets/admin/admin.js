@@ -1,3 +1,5 @@
+import { STEPS, validateStep, validateAll, canVisitStep } from './project-wizard.mjs';
+
 const $ = (selector, root = document) => root.querySelector(selector);
 const app = $('#app');
 const clone = value => JSON.parse(JSON.stringify(value));
@@ -27,6 +29,7 @@ const state = {
   config: null, client: null, session: null, user: null, projects: [], current: null, draft: null,
   dirty: false, busy: false, uploading: false, tab: 'details', view: 'projects', authMode: 'login',
   search: '', status: '', publication: '', history: [],
+  validatedSteps: [], wizardSaved: false,
 };
 
 function safeImage(image) {
@@ -90,18 +93,20 @@ function showError(error) {
     const node = $('#editor-notice');
     if (node) node.innerHTML = `<div class="notice notice--error">${icon('info')}<span>${esc(error.message)}</span></div>`;
   }
-  if (error.fields) {
-    for (const [name, message] of Object.entries(error.fields)) {
-      const input = document.getElementsByName(name)[0];
-      if (input) { input.setAttribute('aria-invalid', 'true'); input.closest('.field')?.insertAdjacentHTML('beforeend', `<span class="field-error">${esc(Array.isArray(message) ? message.join(' ') : message)}</span>`); }
-    }
+  if (error.fields && state.draft) {
+    const errors = Object.entries(error.fields).map(([name, message]) => {
+      const field = ['start', 'end'].includes(name) ? name + '.value' : name;
+      const step = /^(cover|gallery|interiors)(\.|$)/.test(field) ? 'images' : /^(facts|legacy)(\.|$)/.test(field) ? 'extra' : 'details';
+      return { field, step, message: Array.isArray(message) ? message.join(' ') : message };
+    });
+    showValidationErrors(errors);
   }
   toast(error.message || 'Bağlantıyı kontrol edip yeniden deneyin.', true);
 }
 function setBusy(busy, message = '') {
   state.busy = busy;
   app.setAttribute('aria-busy', String(busy));
-  app.querySelectorAll('input, select, textarea, [data-mutation], [data-action="save"], [data-action="publish"], [data-action="preview"]').forEach(el => {
+  app.querySelectorAll('input, select, textarea, [data-mutation], [data-action="save"], [data-action="publish"], [data-action="preview"], [data-action="next-step"], [data-action="previous-step"], [data-action="tab"]').forEach(el => {
     if (busy || state.uploading) {
       if (!('busyWasDisabled' in el.dataset)) el.dataset.busyWasDisabled = String(el.disabled);
       el.disabled = true;
@@ -112,6 +117,7 @@ function setBusy(busy, message = '') {
   });
   const progress = $('#save-status');
   if (progress && busy) { progress.className = 'mini-progress'; progress.textContent = message || 'İşlem sürüyor…'; }
+  updateWizardChrome();
   if (!busy) updateDirty();
 }
 function updateDirty() {
@@ -124,9 +130,13 @@ function updateDirty() {
 }
 function markDirty() {
   state.dirty = true;
+  state.wizardSaved = false;
+  const index = STEPS.indexOf(state.tab);
+  state.validatedSteps = state.validatedSteps.filter(step => STEPS.indexOf(step) < index);
   document.querySelectorAll('.field-error').forEach(node => node.remove());
   document.querySelectorAll('[aria-invalid]').forEach(node => node.removeAttribute('aria-invalid'));
-  updateDirty();
+  $('#editor-notice .wizard-errors')?.remove();
+  updateDirty(); updateWizardChrome();
 }
 function renderLogin(message = '', error = false) {
   state.user = null;
@@ -190,7 +200,7 @@ function blankDocument() {
 function field(key, label, options = {}) {
   const value = key.split('.').reduce((obj, part) => obj?.[part], state.draft);
   const id = `field-${key.replaceAll('.', '-')}`;
-  const attrs = `${options.required ? 'required' : ''} ${options.disabled ? 'disabled' : ''} ${options.maxlength ? `maxlength="${options.maxlength}"` : ''} ${options.min !== undefined ? `min="${options.min}"` : ''} ${options.type === 'number' ? 'step="1" inputmode="numeric"' : ''}`;
+  const attrs = `${options.required ? 'required' : ''} ${options.disabled ? 'disabled' : ''} ${options.maxlength ? `maxlength="${options.maxlength}"` : ''} ${options.min !== undefined ? `min="${options.min}"` : ''} ${options.type === 'number' ? (key === 'constructionArea' ? 'step="any" inputmode="decimal"' : 'step="1" inputmode="numeric"') : ''}`;
   const input = options.textarea ? `<textarea id="${id}" name="${key}" data-field="${key}" rows="${options.rows || 4}" ${attrs}>${esc(value)}</textarea>` : options.select ? `<select id="${id}" name="${key}" data-field="${key}" ${attrs}>${options.select.map(item => { const [val, text] = Array.isArray(item) ? item : [item, item]; return `<option value="${esc(val)}" ${String(value) === String(val) ? 'selected' : ''}>${esc(text)}</option>`; }).join('')}</select>` : `<input id="${id}" name="${key}" data-field="${key}" type="${options.type || 'text'}" value="${esc(value)}" ${attrs} ${options.placeholder ? `placeholder="${esc(options.placeholder)}"` : ''}>`;
   return `<div class="field ${options.wide ? 'span-2' : ''}"><label for="${id}">${esc(label)}${options.required ? ' <span class="required" aria-label="zorunlu">*</span>' : ''}</label>${input}${options.help ? `<small>${esc(options.help)}</small>` : ''}</div>`;
 }
@@ -221,32 +231,144 @@ function mediaCards() {
   return `<div class="gallery-grid">${media.map(({ image, group, index }, i) => `<article class="media-card ${sameMedia(image, state.draft.cover) ? 'is-cover' : ''}" draggable="true" data-media-group="${group}" data-media-index="${index}" aria-label="${i + 1}. görsel"><div class="media-picture"><img src="${esc(safeImage(image))}" alt="${esc(image.alt || state.draft.name)}" loading="lazy" style="object-position:${Number(image.focalX ?? 50)}% ${Number(image.focalY ?? 50)}%"><span class="media-index">${String(i + 1).padStart(2, '0')}${group === 'interiors' ? ' · İç mekân' : ''}</span>${sameMedia(image, state.draft.cover) ? '<span class="cover-tag">✓ KAPAK GÖRSELİ</span>' : ''}</div><div class="media-card-body"><div class="field"><label for="media-alt-${i}">Görsel açıklaması</label><input id="media-alt-${i}" data-media-field="alt" data-group="${group}" data-index="${index}" value="${esc(image.alt)}" maxlength="300" placeholder="Örn. Binanın ön cephesi"></div><div class="field"><label for="media-caption-${i}">Fotoğraf alt yazısı</label><input id="media-caption-${i}" data-media-field="caption" data-group="${group}" data-index="${index}" value="${esc(image.caption)}" maxlength="500" placeholder="İsteğe bağlı"></div><div class="field"><label for="media-label-${i}">Görsel başlığı</label><input id="media-label-${i}" data-media-field="label" data-group="${group}" data-index="${index}" value="${esc(image.label)}" maxlength="150" placeholder="İsteğe bağlı"></div><div class="field"><label for="media-kind-${i}">Görsel türü</label><select id="media-kind-${i}" data-media-field="kind" data-group="${group}" data-index="${index}">${[['exterior', 'Dış cephe'], ['interior', 'İç mekân'], ['plan', 'Kat planı'], ['other', 'Diğer']].map(([v, l]) => `<option value="${v}" ${(image.kind || 'exterior') === v ? 'selected' : ''}>${l}</option>`).join('')}</select></div><div class="media-card-actions"><button type="button" class="button button--small" data-action="cover" data-group="${group}" data-index="${index}" data-mutation>${sameMedia(image, state.draft.cover) ? '✓ Kapak seçildi' : 'Kapak olarak seç'}</button><button type="button" class="icon-button" data-action="move-media" data-group="${group}" data-index="${index}" data-dir="-1" aria-label="Görseli önceye taşı" data-mutation ${mediaNeighbor(group, index, -1) == null ? 'disabled' : ''}>↑</button><button type="button" class="icon-button" data-action="move-media" data-group="${group}" data-index="${index}" data-dir="1" aria-label="Görseli sonraya taşı" data-mutation ${mediaNeighbor(group, index, 1) == null ? 'disabled' : ''}>↓</button><button type="button" class="icon-button" data-action="remove-media" data-group="${group}" data-index="${index}" aria-label="Görseli projeden çıkar" data-mutation>×</button></div><div class="media-meta">${image.width && image.height ? `${esc(image.width)} × ${esc(image.height)} px` : 'Mevcut site görseli'}${image.width && image.width < 1200 ? ' · Büyük alanlarda netliği sınırlı olabilir' : ''}</div></div></article>`).join('')}</div>`;
 }
 function renderFacts() {
-  return state.draft.facts.map((fact, i) => `<div class="fact-row"><input aria-label="${i + 1}. ek bilginin başlığı" placeholder="Örn. Dükkân" data-fact-index="${i}" data-fact-field="label" value="${esc(fact.label)}" maxlength="100"><input aria-label="${i + 1}. ek bilginin değeri" placeholder="Örn. 2" data-fact-index="${i}" data-fact-field="value" value="${esc(fact.value)}" maxlength="300"><button type="button" class="icon-button" data-action="remove-fact" data-index="${i}" aria-label="Ek bilgiyi kaldır">×</button></div>`).join('');
+  return state.draft.facts.map((fact, i) => `<div class="fact-row"><input aria-label="${i + 1}. ek bilginin başlığı" placeholder="Örn. Dükkân" name="facts.${i}.label" data-fact-index="${i}" data-fact-field="label" value="${esc(fact.label)}" maxlength="100"><input aria-label="${i + 1}. ek bilginin değeri" placeholder="Örn. 2" name="facts.${i}.value" data-fact-index="${i}" data-fact-field="value" value="${esc(fact.value)}" maxlength="300"><button type="button" class="icon-button" data-action="remove-fact" data-index="${i}" aria-label="Ek bilgiyi kaldır">×</button></div>`).join('');
 }
 function renderEditor() {
   const p = state.current;
   const d = state.draft;
   const archived = p?.publicationState === 'archived';
   const published = p?.publicationState === 'published';
-  shell(`<div class="page-header editor-header"><div><button type="button" class="back-link" data-action="library" data-view="${state.view}">${icon('arrow')} Projelere dön</button><span class="eyebrow">${p?.id ? 'Proje düzenle' : 'Yeni proje'}</span><div class="editor-title-row"><h1>${esc(d.name || 'Yeni proje ekle')}</h1><span class="badge badge--${esc(p?.publicationState || 'draft')}">${esc(publications[p?.publicationState || 'draft'])}</span></div><div class="editor-meta"><span>${p?.id ? `Son kayıt: ${esc(fmtDate(p.updatedAt, true))}` : 'Bilgileri doldurun ve ilk taslağınızı kaydedin.'}</span>${p?.id ? `<span>· Sürüm ${Number(p.version)}</span>` : ''}</div></div><div class="editor-actions"><button class="button" type="button" data-action="preview" ${archived ? 'disabled' : ''}>${icon('eye')} Önizle</button><button class="button" type="button" data-action="save" ${archived ? 'disabled' : ''}>${icon('save')} Taslağı kaydet</button><button class="button button--silver" type="button" data-action="${archived ? 'restore' : 'publish'}" data-mutation>${icon(archived ? 'archive' : 'globe')}${archived ? 'Arşivden geri yükle' : published ? 'Değişiklikleri yayımla' : 'Projeyi yayımla'}</button></div></div>
+  shell(`<div class="page-header editor-header"><div><button type="button" class="back-link" data-action="library" data-view="${state.view}">${icon('arrow')} Projelere dön</button><span class="eyebrow">${p?.id ? 'Proje düzenle' : 'Yeni proje'}</span><div class="editor-title-row"><h1>${esc(d.name || 'Yeni proje ekle')}</h1><span class="badge badge--${esc(p?.publicationState || 'draft')}">${esc(publications[p?.publicationState || 'draft'])}</span></div><div class="editor-meta"><span>${p?.id ? `Son kayıt: ${esc(fmtDate(p.updatedAt, true))}` : 'Bilgileri doldurun ve ilk taslağınızı kaydedin.'}</span>${p?.id ? `<span>· Sürüm ${Number(p.version)}</span>` : ''}</div></div><div class="editor-actions">${editorActionButtons(archived, published)}</div></div>
     <div id="editor-notice" class="editor-notice">${archived ? '<div class="notice notice--warning">Bu proje arşivde ve ziyaretçilere kapalı. Düzenlemek için önce arşivden geri yükleyin.</div>' : published ? '<div class="notice">'+icon('info')+'<span>Yayındaki sayfanız korunur. Düzenlemelerinizi taslağa kaydedin; hazır olduğunuzda yayımlayın.</span></div>' : ''}</div>
-    <div class="editor-layout"><form class="panel editor-main" id="project-form"><div class="editor-tabs" role="tablist" aria-label="Proje düzenleme bölümleri">${[['details', 'Proje bilgileri'], ['images', `Görseller (${visibleMedia().length})`], ['extra', 'Ek bilgiler']].map(([key, label]) => `<button type="button" class="editor-tab" id="tab-${key}" role="tab" aria-selected="${state.tab === key}" aria-controls="panel-${key}" tabindex="${state.tab === key ? '0' : '-1'}" data-action="tab" data-tab="${key}">${label}</button>`).join('')}</div><fieldset ${archived ? 'disabled' : ''} style="border:0;margin:0;padding:0;min-width:0"><legend class="visually-hidden">Proje bilgilerini düzenle</legend>
+    <div class="editor-layout"><form class="panel editor-main" id="project-form" novalidate>${wizardStepsMarkup()}<fieldset ${archived ? 'disabled' : ''} style="border:0;margin:0;padding:0;min-width:0"><legend class="visually-hidden">Proje bilgilerini düzenle</legend>
     <div class="tab-panel" id="panel-details" role="tabpanel" aria-labelledby="tab-details" ${state.tab !== 'details' ? 'hidden' : ''}><section class="form-section"><div class="section-heading"><div><h2>Temel bilgiler</h2><p>Projenizi ziyaretçilere doğru bilgilerle tanıtın.</p></div><span class="section-number">01</span></div><div class="form-grid">${field('name', 'Bina / proje adı', { required: true, wide: true, maxlength: 180, placeholder: 'Örn. Yılmaz Apartmanı' })}${field('district', 'İlçe', { required: true, maxlength: 100, placeholder: 'Örn. Maltepe' })}${field('neighborhood', 'Mahalle', { maxlength: 120, placeholder: 'Örn. Süreyya Plajı' })}${field('status', 'Proje durumu', { required: true, select: Object.entries(statuses), help: 'Her proje için yalnızca bir durum seçilir.' })}${field('structureType', 'Yapı türü', { maxlength: 100, placeholder: 'Örn. Konut, ticari yapı, villa' })}</div></section><section class="form-section"><div class="section-heading"><div><h2>Proje detayları</h2><p>Bilinmeyen bilgileri boş bırakabilirsiniz.</p></div><span class="section-number">02</span></div><div class="form-grid">${field('constructionArea', 'İnşaat alanı (m²)', { type: 'number', min: 0, placeholder: 'Örn. 2400' })}${field('unitCount', 'Bağımsız bölüm / daire sayısı', { type: 'number', min: 0, placeholder: 'Örn. 24' })}${field('unitLabel', 'Sayı bilgisinin başlığı', { maxlength: 80, help: 'Örn. Daire sayısı, Villa sayısı veya Bağımsız bölüm.' })}${field('listOrder', 'Listede gösterim sırası', { type: 'number', min: 1, required: true, help: 'Küçük numaralı projeler önce gösterilir.' })}${dateField('start', 'Başlangıç tarihi')}${dateField('end', 'Bitiş tarihi')}</div></section><section class="form-section"><div class="section-heading"><div><h2>Proje anlatımı</h2><p>Kısa özet listelerde, açıklama proje detayında kullanılır.</p></div><span class="section-number">03</span></div><div class="form-grid">${field('summary', 'Kısa özet', { textarea: true, wide: true, rows: 2, maxlength: 500 })}${field('description', 'Proje açıklaması', { textarea: true, wide: true, rows: 6, maxlength: 6000, help: 'Paragraflar arasında boş satır bırakabilirsiniz.' })}</div></section></div>
-    <div class="tab-panel" id="panel-images" role="tabpanel" aria-labelledby="tab-images" ${state.tab !== 'images' ? 'hidden' : ''}><section class="form-section" id="cover-section">${coverSection()}</section><section class="form-section"><div class="section-heading"><div><h2>Proje galerisi</h2><p>Görselleri taşıyarak sıralayın; kapak görselini ayrıca seçin.</p></div><span class="section-number">02</span></div><div class="upload-zone" id="upload-zone">${icon('upload')}<b>Fotoğrafları buraya bırakın</b><p>JPEG, PNG veya WebP · En fazla 20 MB / görsel<br>Orijinal dosya korunur; uygun ekran boyutları hazırlanır.</p><label class="button button--small" for="media-files">${icon('plus')} Dosya seç</label><input type="file" id="media-files" accept="image/jpeg,image/png,image/webp" multiple ${!p?.id ? 'disabled' : ''}>${!p?.id ? '<p>Görsel yüklemek için önce projeyi taslak olarak kaydedin.</p>' : ''}</div><div id="upload-progress" aria-live="polite"></div><div id="media-list">${mediaCards()}</div></section></div>
+    <div class="tab-panel" id="panel-images" role="tabpanel" aria-labelledby="tab-images" ${state.tab !== 'images' ? 'hidden' : ''}><section class="form-section" id="cover-section">${coverSection()}</section><section class="form-section"><div class="section-heading"><div><h2>Proje galerisi</h2><p>Görselleri taşıyarak sıralayın; kapak görselini ayrıca seçin.</p></div><span class="section-number">02</span></div><div class="upload-zone" id="upload-zone">${icon('upload')}<b>Fotoğrafları buraya bırakın</b><p>JPEG, PNG veya WebP · En fazla 20 MB / görsel<br>Orijinal dosya korunur; uygun ekran boyutları hazırlanır.</p><label class="button button--small" for="media-files">${icon('plus')} Dosya seç</label><input type="file" id="media-files" accept="image/jpeg,image/png,image/webp" multiple ${!p?.id ? 'disabled' : ''}>${!p?.id ? '<p>Önce Proje Bilgileri adımını tamamlayın.</p>' : ''}</div><div id="upload-progress" aria-live="polite"></div><div id="media-list">${mediaCards()}</div></section></div>
     <div class="tab-panel" id="panel-extra" role="tabpanel" aria-labelledby="tab-extra" ${state.tab !== 'extra' ? 'hidden' : ''}><section class="form-section"><div class="section-heading"><div><h2>Ek proje bilgileri</h2><p>Dükkân, ofis, showroom ve diğer özel bilgileri koruyun.</p></div></div><div id="facts-list">${renderFacts()}</div><button type="button" class="button button--small" data-action="add-fact">${icon('plus')} Bilgi satırı ekle</button></section><section class="form-section"><div class="section-heading"><div><h2>Mevcut site bilgileri</h2><p>Eski projelerden aktarılan özel konum bilgisidir.</p></div></div><div class="form-grid">${field('legacy.locationLabel', 'Özel konum yazısı', { wide: true, maxlength: 200, help: 'Boş bırakılırsa mahalle ve ilçe kullanılır.' })}</div></section></div>
-    </fieldset><div class="bottom-save"><small>Değişiklikleriniz “Yayımla” işleminden sonra ziyaretçilere açılır.</small><button class="button button--primary" type="button" data-action="save" ${archived ? 'disabled' : ''}>${icon('save')} Taslağı kaydet</button></div></form>
+    </fieldset>${wizardFooter(archived)}</form>
     <aside class="editor-side" aria-label="Yayın ayarları"><section class="side-panel"><h2>${icon('globe')} Yayın durumu</h2><div class="status-info"><span>Mevcut durum</span><span class="badge badge--${esc(p?.publicationState || 'draft')}">${esc(publications[p?.publicationState || 'draft'])}</span></div><div class="mini-progress" id="save-status"></div><div class="side-divider"></div><p>${archived ? 'Bu proje şu anda yayında değil.' : published ? 'Taslağınız, siz yayımlayana kadar canlı sayfayı değiştirmez.' : 'Bu proje henüz ziyaretçilere açık değil. Bilgileri tamamlayıp yayımlayın.'}</p>${published ? `<a class="button button--small" href="/proje/${encodeURIComponent(p.published.slug)}.html" target="_blank" rel="noopener">Canlı sayfayı aç ${icon('external')}</a><div class="publication-details" style="margin-top:10px">Son yayın: ${esc(fmtDate(p.publishedAt, true))}</div>` : ''}${p?.id ? `<button class="button button--small" type="button" data-action="history">${icon('clock')} Yayın geçmişi</button>` : ''}${p?.id && p.hasUnpublishedChanges && published && !archived ? '<button class="button button--small" type="button" data-action="discard" data-mutation>Taslak düzenlemelerini geri al</button>' : ''}</section>${p?.id && !archived ? `<section class="side-panel"><h2>${icon('archive')} Projeyi arşivle</h2><p>Projeyi yayından kaldırın. Bilgileri ve yayın geçmişi saklanır; daha sonra geri yükleyebilirsiniz.</p><button class="button button--danger button--small" type="button" data-action="archive" data-mutation>Arşive taşı</button></section>` : ''}</aside></div>`, true);
   updateDirty();
   if (state.busy || state.uploading) setBusy(true);
 }
-function selectTab(tab) {
+function selectTab(tab, { force = false, focus = false } = {}) {
+  if (!STEPS.includes(tab)) return false;
+  if (!force && (state.busy || state.uploading || (state.current?.publicationState !== 'archived' && !canVisitStep(tab, state.validatedSteps)))) return false;
   state.tab = tab;
-  document.querySelectorAll('[role=tab]').forEach(el => {
-    const active = el.dataset.tab === tab;
-    el.setAttribute('aria-selected', String(active)); el.tabIndex = active ? 0 : -1;
-  });
   document.querySelectorAll('.tab-panel').forEach(el => { el.hidden = el.id !== `panel-${tab}`; });
+  updateWizardChrome();
+  if (focus) { const panel = $(`#panel-${tab}`); panel?.setAttribute('tabindex', '-1'); panel?.focus({ preventScroll: true }); $('#project-form')?.scrollIntoView({ block: 'start', behavior: 'smooth' }); }
+  return true;
 }
+function resetWizard() { state.tab = 'details'; state.validatedSteps = []; state.wizardSaved = false; }
+
+function editorActionButtons(archived, published) {
+  if (archived) return `<button class="button button--silver" type="button" data-action="restore" data-mutation>${icon('archive')} Arşivden geri yükle</button>`;
+  if (!state.wizardSaved || state.dirty || state.tab !== 'extra') return '';
+  return `<button class="button" type="button" data-action="preview" ${state.busy ? 'disabled' : ''}>${icon('eye')} Önizle</button><button class="button button--silver" type="button" data-action="publish" data-mutation ${state.busy ? 'disabled' : ''}>${icon('globe')} ${published ? 'Değişiklikleri yayımla' : 'Projeyi yayımla'}</button>`;
+}
+
+function wizardStepsMarkup() {
+  const labels = ['Proje Bilgileri', `Görseller (${visibleMedia().length})`, 'Ek Bilgiler'];
+  return `<div class="editor-tabs editor-steps" role="tablist" aria-label="Proje oluşturma adımları">${STEPS.map((step, i) => {
+    const complete = state.validatedSteps.includes(step), active = state.tab === step;
+    const disabled = state.busy || state.uploading || (state.current?.publicationState !== 'archived' && !canVisitStep(step, state.validatedSteps));
+    return `<button type="button" class="editor-tab editor-step${complete ? ' is-complete' : ''}" id="tab-${step}" role="tab" aria-selected="${active}" aria-controls="panel-${step}" ${active ? 'aria-current="step"' : ''} tabindex="${active ? 0 : -1}" data-action="tab" data-tab="${step}" ${disabled ? 'disabled' : ''}><span class="step-number" aria-hidden="true">${complete ? '✓' : i + 1}</span><span>${labels[i]}</span></button>`;
+  }).join('')}</div>`;
+}
+
+function wizardFooter(archived) {
+  const index = STEPS.indexOf(state.tab), disabled = archived || state.busy || state.uploading;
+  return `<div class="bottom-save wizard-footer"><div><b>Adım ${index + 1} / 3</b><small>${index === 2 ? (state.wizardSaved && !state.dirty ? 'Taslağınız hazır. Önizleyebilir ve yayımlayabilirsiniz.' : 'Son kontrolü yapın ve taslağınızı kaydedin. Ek bilgiler isteğe bağlıdır.') : 'Bu adımı tamamlayıp sonraki adıma geçin.'}</small></div><div class="wizard-footer-actions">${index > 0 ? `<button class="button" type="button" data-action="previous-step" ${disabled ? 'disabled' : ''}>${icon('arrow')} Geri</button>` : ''}${index < 2 ? `<button class="button button--primary" type="button" data-action="next-step" ${disabled ? 'disabled' : ''}>Devam et: ${index === 0 ? 'Görseller' : 'Ek Bilgiler'} <span aria-hidden="true">→</span></button>` : `<button class="button button--primary" type="button" data-action="save" ${disabled ? 'disabled' : ''}>${icon('save')} Taslağı kaydet</button>`}</div></div>`;
+}
+
+function updateWizardChrome() {
+  if (!$('#project-form') || !state.draft) return;
+  const archived = state.current?.publicationState === 'archived';
+  const steps = $('.editor-steps');
+  if (steps) {
+    // Keep the focused step button in the DOM while updating progress.
+    const labels = ['Proje Bilgileri', `Görseller (${visibleMedia().length})`, 'Ek Bilgiler'];
+    STEPS.forEach((step, i) => {
+      const button = $(`#tab-${step}`); if (!button) return;
+      const active = state.tab === step, complete = state.validatedSteps.includes(step);
+      button.disabled = state.busy || state.uploading || (state.current?.publicationState !== 'archived' && !canVisitStep(step, state.validatedSteps));
+      button.setAttribute('aria-selected', String(active)); button.tabIndex = active ? 0 : -1;
+      if (active) button.setAttribute('aria-current', 'step'); else button.removeAttribute('aria-current');
+      button.classList.toggle('is-complete', complete);
+      button.innerHTML = `<span class="step-number" aria-hidden="true">${complete ? '✓' : i + 1}</span><span>${labels[i]}</span>`;
+    });
+  }
+  const footer = $('.wizard-footer'); if (footer) footer.outerHTML = wizardFooter(archived);
+  const actions = $('.editor-actions'); if (actions) actions.innerHTML = editorActionButtons(archived, state.current?.publicationState === 'published');
+}
+
+function validationOptions() { return { uploading: state.uploading, allowCoverless: !!state.current?.published && !state.current.published.cover }; }
+
+function showValidationErrors(errors) {
+  if (!errors.length) return true;
+  document.querySelectorAll('.field-error').forEach(node => node.remove());
+  document.querySelectorAll('[aria-invalid]').forEach(node => node.removeAttribute('aria-invalid'));
+  const first = errors[0];
+  if (first.step) selectTab(first.step, { force: true });
+  const notice = $('#editor-notice');
+  if (notice) notice.innerHTML = `<div class="notice notice--error wizard-errors" role="alert">${icon('info')}<div><b>Devam etmeden önce kontrol edin.</b><ul>${errors.map(error => `<li>${esc(error.message)}</li>`).join('')}</ul></div></div>`;
+  let firstInput;
+  errors.forEach(error => {
+    const parts = error.field.split('.');
+    const input = document.getElementsByName(error.field)[0] || (['gallery', 'interiors'].includes(parts[0]) ? $(`[data-group="${parts[0]}"][data-index="${Number(parts[1])}"][data-media-field="${parts[2] || 'alt'}"]`) : null);
+    if (input) { input.setAttribute('aria-invalid', 'true'); firstInput ||= input; }
+  });
+  if (firstInput) firstInput.focus();
+  else { const target = first.field.startsWith('cover') || first.step === 'images' ? $('#cover-section') : notice; target?.setAttribute('tabindex','-1'); target?.focus(); }
+  return false;
+}
+
+function validateCurrentStep() {
+  const errors = validateStep(state.draft, state.tab, validationOptions()).map(error => ({ ...error, step: state.tab }));
+  if (!showValidationErrors(errors)) return false;
+  const invalid = [...$(`#panel-${state.tab}`).querySelectorAll('input,textarea,select')].find(input => !input.checkValidity());
+  if (invalid) { invalid.focus(); invalid.reportValidity(); return false; }
+  $('#editor-notice .wizard-errors')?.remove();
+  return true;
+}
+
+async function nextWizardStep() {
+  if (state.busy || state.uploading || state.current?.publicationState === 'archived' || !validateCurrentStep()) return;
+  const step = state.tab, index = STEPS.indexOf(step);
+  if (index >= 2) return;
+  setBusy(true, 'Sonraki adım hazırlanıyor…');
+  try {
+    // A private working record gives signed uploads an owner. The final Save is still required.
+    if (step === 'details' && !state.current?.id) {
+      const data = await api('/projects', { method: 'POST', body: JSON.stringify({ draft: documentForSave() }) });
+      state.current = data.project;
+      const existing = state.projects.findIndex(project => project.id === data.project.id);
+      if (existing < 0) state.projects.push(data.project); else state.projects[existing] = data.project;
+      // Preserve unsaved form values and keep the completed wizard checkpoint pending.
+      state.dirty = true;
+    }
+    if (!state.validatedSteps.includes(step)) state.validatedSteps.push(step);
+    state.tab = STEPS[index + 1]; renderEditor();
+  } catch (error) { showError(error); }
+  finally { setBusy(false); }
+  $(`#panel-${state.tab}`)?.setAttribute('tabindex', '-1');
+  $(`#panel-${state.tab}`)?.focus({ preventScroll: true });
+  $('#project-form')?.scrollIntoView({ block: 'start', behavior: 'smooth' });
+}
+
+function readyToSave() {
+  if (state.tab !== 'extra' || !canVisitStep('extra', state.validatedSteps)) {
+    toast('Önce Proje Bilgileri ve Görseller adımlarını tamamlayın. Taslağı son adımda kaydedebilirsiniz.'); return false;
+  }
+  return validateForm();
+}
+
+function readyForPublication() {
+  if (!state.current?.id || state.tab !== 'extra' || !state.wizardSaved || state.dirty || !canVisitStep('extra', state.validatedSteps)) {
+    toast('Önce üç adımı tamamlayıp son adımda taslağı kaydedin.'); return false;
+  }
+  return validateForm();
+}
+
 function setNested(path, value) {
   const keys = path.split('.'); let target = state.draft;
   keys.slice(0, -1).forEach(key => { target[key] ||= {}; target = target[key]; });
@@ -275,20 +397,13 @@ async function openProject(id, bypassGuard = false) {
   try {
     const response = await api(`/projects/${encodeURIComponent(id)}`);
     syncProject(response.project); state.history = response.history || [];
-    state.tab = 'details'; renderEditor(); $('#main').focus({ preventScroll: true }); window.scrollTo(0, 0);
+    resetWizard(); renderEditor(); $('#main').focus({ preventScroll: true }); window.scrollTo(0, 0);
   } catch (error) { showError(error); }
   finally { setBusy(false); }
 }
 function validateForm() {
-  const form = $('#project-form');
-  if (!form) return false;
-  const invalid = [...document.querySelectorAll('[data-field]')].find(input => !input.disabled && !input.checkValidity());
-  if (invalid) {
-    const panel = invalid.closest('.tab-panel');
-    if (panel) selectTab(panel.id.replace('panel-', ''));
-    invalid.focus(); invalid.reportValidity(); return false;
-  }
-  return true;
+  if (!$('#project-form')) return false;
+  return showValidationErrors(validateAll(state.draft, validationOptions()));
 }
 function documentForSave() {
   const draft = clone(state.draft);
@@ -300,19 +415,22 @@ function documentForSave() {
   draft.gallery = draft.gallery.map(sanitizeImage); draft.interiors = draft.interiors.map(sanitizeImage);
   return draft;
 }
-async function saveDraft({ silent = false } = {}) {
-  if (!validateForm()) return false;
-  if (state.current?.id && !state.dirty) return true;
-  const draft = documentForSave();
+async function saveDraft() {
+  if (!readyToSave()) return false;
   const id = state.current?.id;
-  const data = await api(id ? `/projects/${encodeURIComponent(id)}` : '/projects', { method: id ? 'PUT' : 'POST', body: JSON.stringify({ draft, ...(id ? { expectedVersion: state.current.version } : {}) }) });
-  syncProject(data.project); renderEditor();
-  if (!silent) toast('Proje taslak olarak kaydedildi. Canlı sayfa henüz değiştirilmedi.');
+  if (!id || state.dirty) {
+    const data = await api(id ? `/projects/${encodeURIComponent(id)}` : '/projects', { method: id ? 'PUT' : 'POST', body: JSON.stringify({ draft: documentForSave(), ...(id ? { expectedVersion: state.current.version } : {}) }) });
+    syncProject(data.project);
+  }
+  state.wizardSaved = true; state.validatedSteps = [...STEPS]; state.tab = 'extra';
+  renderEditor(); toast('Proje taslak olarak kaydedildi. Önizleyebilir ve hazır olduğunuzda yayımlayabilirsiniz.');
   return true;
 }
 async function mutation(action) {
   if (state.busy || state.uploading) return;
-  if (['save', 'publish'].includes(action) && !validateForm()) return;
+  if (state.current?.publicationState === 'archived' && action !== 'restore') return;
+  if (action === 'save' && !readyToSave()) return;
+  if (action === 'publish' && !readyForPublication()) return;
   if (action === 'publish') {
     if (!(await confirmAction(state.current?.published ? 'Değişiklikler yayımlansın mı?' : 'Proje yayımlansın mı?', 'Kapak görseli, galeri ve proje bilgileriniz ziyaretçilere açılacak. Önceki yayın sürümü geçmişte saklanır.', 'Yayımla'))) return;
   }
@@ -321,22 +439,22 @@ async function mutation(action) {
   setBusy(true, action === 'publish' ? 'Görseller ve proje yayımlanıyor…' : 'Kaydediliyor…');
   try {
     if (action === 'save') { await saveDraft(); return; }
-    if (action === 'publish' && !(await saveDraft({ silent: true }))) return;
     const response = await api(`/projects/${encodeURIComponent(state.current.id)}/${action}`, { method: 'POST', body: JSON.stringify({ expectedVersion: state.current.version }) });
-    syncProject(response.project); renderEditor();
+    syncProject(response.project);
+    if (action === 'publish') { state.wizardSaved = true; state.validatedSteps = [...STEPS]; } else resetWizard();
+    renderEditor();
     toast({ publish: 'Proje yayımlandı. Canlı sayfada birkaç saniye içinde görebilirsiniz.', archive: 'Proje arşive taşındı ve yayından kaldırıldı.', restore: 'Proje arşivden geri yüklendi. Yayın durumunu kontrol edebilirsiniz.', discard: 'Taslak, yayındaki sürüme geri alındı.' }[action]);
   } catch (error) { showError(error); }
   finally { setBusy(false); }
 }
 async function previewProject() {
-  if (state.busy || state.uploading || !validateForm()) return;
+  if (state.busy || state.uploading || !readyForPublication()) return;
   const previewWindow = window.open('about:blank', '_blank');
   if (!previewWindow) { toast('Önizleme için bu sitede açılır pencerelere izin verin.', true); return; }
   previewWindow.opener = null;
   previewWindow.document.body.textContent = 'Proje önizlemesi hazırlanıyor…';
   setBusy(true, 'Önizleme hazırlanıyor…');
   try {
-    if (!(await saveDraft({ silent: true }))) { previewWindow.close(); return; }
     const html = await api(`/projects/${encodeURIComponent(state.current.id)}/preview`, { html: true });
     const body = html.replace(/<head([^>]*)>/i, '<head$1><base href="' + location.origin + '/"><meta name="robots" content="noindex,nofollow">');
     const url = URL.createObjectURL(new Blob([body], { type: 'text/html' }));
@@ -346,7 +464,7 @@ async function previewProject() {
   finally { setBusy(false); }
 }
 async function uploadFiles(files) {
-  if (state.busy || state.uploading || !state.current?.id || state.current.publicationState === 'archived') return;
+  if (state.busy || state.uploading || state.tab !== 'images' || !canVisitStep('images', state.validatedSteps) || !state.current?.id || state.current.publicationState === 'archived') return;
   const selected = [...files];
   if (!selected.length) return;
   const allowed = ['image/jpeg', 'image/png', 'image/webp'];
@@ -376,11 +494,11 @@ async function uploadFiles(files) {
       finished++; markDirty();
       $('#media-list').innerHTML = mediaCards(); $('#cover-section').innerHTML = coverSection();
     }
-    toast(`${finished} görsel eklendi. Galeriyi korumak için taslağı kaydedin.`);
+    toast(`${finished} görsel eklendi. Hazırsanız Ek Bilgiler adımına devam edin.`);
   } catch (error) { showError(error); }
   finally {
     state.uploading = false; progress.innerHTML = ''; $('#media-files').value = '';
-    $('#tab-images').textContent = `Görseller (${visibleMedia().length})`;
+    updateWizardChrome();
     setBusy(false);
   }
 }
@@ -400,7 +518,7 @@ async function restoreRevision(id) {
   $('#history-dialog').close(); setBusy(true);
   try {
     const response = await api(`/projects/${encodeURIComponent(state.current.id)}/restore-revision`, { method: 'POST', body: JSON.stringify({ revisionId: id, expectedVersion: state.current.version }) });
-    syncProject(response.project); renderEditor(); toast('Seçtiğiniz sürüm taslağa yüklendi. Kontrol ettikten sonra yayımlayabilirsiniz.');
+    syncProject(response.project); resetWizard(); renderEditor(); toast('Seçtiğiniz sürüm taslağa yüklendi. Kontrol ettikten sonra yayımlayabilirsiniz.');
   } catch (error) { showError(error); }
   finally { setBusy(false); }
 }
@@ -457,7 +575,7 @@ async function enterAdmin() {
 
 document.addEventListener('submit', event => {
   if (event.target.id === 'auth-form') { event.preventDefault(); authenticate(event.target); }
-  if (event.target.id === 'project-form') { event.preventDefault(); mutation('save'); }
+  if (event.target.id === 'project-form') { event.preventDefault(); if (state.tab === 'extra') mutation('save'); else nextWizardStep(); }
 });
 document.addEventListener('input', event => {
   const el = event.target;
@@ -530,7 +648,7 @@ document.addEventListener('click', async event => {
   }
   if (action === 'new') {
     if (!(await canLeave())) return;
-    state.current = null; state.draft = blankDocument(); state.dirty = false; state.tab = 'details'; state.history = [];
+    state.current = null; state.draft = blankDocument(); state.dirty = false; resetWizard(); state.history = [];
     state.draft.listOrder = Math.max(0, ...state.projects.map(p => Number(p.draft.listOrder) || 0)) + 1;
     renderEditor(); window.scrollTo(0, 0); $('#field-name').focus(); return;
   }
@@ -541,6 +659,8 @@ document.addEventListener('click', async event => {
   }
   if (action === 'move-project') { await moveProject(button.dataset.id, Number(button.dataset.dir)); return; }
   if (action === 'tab') { selectTab(button.dataset.tab); return; }
+  if (action === 'next-step') { await nextWizardStep(); return; }
+  if (action === 'previous-step') { selectTab(STEPS[STEPS.indexOf(state.tab) - 1], { focus: true }); return; }
   if (action === 'preview') { await previewProject(); return; }
   if (action === 'history') { await showHistory(); return; }
   if (action === 'restore-revision') { await restoreRevision(button.dataset.revision); return; }
@@ -555,7 +675,7 @@ document.addEventListener('click', async event => {
     if (!(await confirmAction('Görsel projeden çıkarılsın mı?', 'Görsel taslak galerinizden kaldırılacak. Mevcut canlı yayın, siz değişiklikleri yayımlayana kadar korunur.', 'Görseli çıkar', true))) return;
     const [removed] = state.draft[group].splice(index, 1);
     if (sameMedia(removed, state.draft.cover)) state.draft.cover = clone(visibleMedia()[0]?.image || null);
-    markDirty(); $('#cover-section').innerHTML = coverSection(); $('#media-list').innerHTML = mediaCards(); $('#tab-images').textContent = `Görseller (${visibleMedia().length})`;
+    markDirty(); $('#cover-section').innerHTML = coverSection(); $('#media-list').innerHTML = mediaCards(); updateWizardChrome();
   }
   if (action === 'add-fact') { state.draft.facts.push({ label: '', value: '' }); markDirty(); $('#facts-list').innerHTML = renderFacts(); $('#facts-list .fact-row:last-child input').focus(); }
   if (action === 'remove-fact') { state.draft.facts.splice(index, 1); markDirty(); $('#facts-list').innerHTML = renderFacts(); }
@@ -563,7 +683,7 @@ document.addEventListener('click', async event => {
 document.addEventListener('keydown', event => {
   if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 's' && state.draft) { event.preventDefault(); mutation('save'); }
   if (event.target.matches('[role=tab]') && ['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) {
-    event.preventDefault(); const tabs = [...document.querySelectorAll('[role=tab]')];
+    event.preventDefault(); const tabs = [...document.querySelectorAll('[role=tab]:not(:disabled)')];
     let i = tabs.indexOf(event.target); i = event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1 : (i + (event.key === 'ArrowLeft' ? -1 : 1) + tabs.length) % tabs.length;
     selectTab(tabs[i].dataset.tab); tabs[i].focus();
   }
