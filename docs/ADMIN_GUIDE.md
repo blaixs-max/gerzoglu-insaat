@@ -54,7 +54,7 @@ Aynı kayıt başka sekmede veya başka yönetici tarafından değiştirilmişse
 
 ## Ana sayfa ve sıra
 
-Yeni proje açılış görsellerine kendiliğinden eklenmez. **Öne çıkan proje kartında göster** ile kartı, **Açılış slaytlarında göster** ile büyük görseli seçin. **Kart sırası**, **Slayt sırası** ve genel **Listede gösterim sırası** bağımsızdır. Bu ayarları kaydedip yayımlayın.
+Paneli sade tutmak için **Ana sayfada görünüm** ayarları şimdilik kaldırılmıştır. Mevcut ana sayfa kartları, açılış slaytları ve bunların sıraları korunur. Yeni projeler yayımlandığında Projeler sayfasına eklenir; ana sayfaya kendiliğinden eklenmez. **Listede gösterim sırası**, Projeler sayfasındaki sıralamayı belirlemeye devam eder.
 
 Liste ekranındaki yukarı/aşağı oklar genel sırayı doğrudan günceller. Yayındaki projelerde yalnız sıra değişir; bekleyen metin/fotoğraf taslakları yayımlanmaz. Formdaki sıra numarasını değiştirirseniz normal taslak/yayın akışı uygulanır.
 
