@@ -1,5 +1,9 @@
 # Devam kaydı — 14 Ekim 2026
 
+## Son sadeleştirme
+
+Kullanıcının isteğiyle **Ana sayfada görünüm** bölümü proje düzenleyicisinden şimdilik kaldırıldı. Mevcut belgelerin `home` değerleri kaydetme/yayın sırasında korunur; yeni projeler kart/slayt seçimi kapalı başlar. Ana sayfa seçimi ve sırası için panelde kontrol yoktur; Projeler listesinin sırası düzenlenebilir. Veritabanı kayıtlarına bu değişiklik için yazılmadı. Kod `4366110`, canlı dağıtım `dpl_7YPCswkDR3QEfKo7hhABe5zupbFk` (`gerzoglu-varyant-3-nsqseld4t-blaixs-4009s-projects.vercel.app`). 40/40 test ve build geçti; canlı admin JavaScript'i kaynakla aynı ve kaldırılan alanları içermiyor.
+
 Bu dosya bilgisayar kapatılmadan önce kalıcı devam noktasıdır. Parola veya anahtar içermez.
 
 - Asıl kaynak: `C:\Users\Dell\Desktop\Gerz Oğlu\gerzoglu-varyant-3`; GitHub `blaixs-max/gerzoglu-insaat`, dal `main`.
