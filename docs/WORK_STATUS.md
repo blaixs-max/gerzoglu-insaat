@@ -1,5 +1,11 @@
 # Devam kaydı — 14 Ekim 2026
 
+## Örnek iç mekân kartları — güncel yayın
+
+Kullanıcı, örnek iç mekân fotoğraflarını içeren kartların tamamını panelden kaldırmayı seçti. Hazır yatak odası, mutfak ve banyo fotoğrafları, değişmez kaynak kimliklerinden tanınarak yönetim galerisinde gizlenir. Projeye özel yüklenen iç mekân görselleri ve diğer kartların açıklama/başlık/tür alanları düzenlenebilir. Görsel sayacı, sıralama okları ve kapak silme sonrası seçim yalnız görünür görselleri kullanır. Ham dizi indeksleri korunur; gizli örnekler kayıt/yayın belgesinden çıkarılmaz. Sitedeki örnek fotoğraflar ve cloud kayıtları değiştirilmedi.
+
+Kod `b22a1e4`, canlı dağıtım `dpl_C2eMErCCtLtjd3FZ1JMMRAdHm7BJ` (`gerzoglu-varyant-3-bhar3qvwi-blaixs-4009s-projects.vercel.app`). 47/47 test ve build geçti. Gerçek kart oluşturucusunda özel iç mekân/görünür komşu/kayıt koruması doğrulandı; staged ve canlı JS kaynakla birebir karşılaştırıldı. Başlangıçtaki 27 belgedeki 78 örnek kartın görünmediği ve belgelerin değişmediği doğrulandı.
+
 ## Otomatik proje adresleri — güncel yayın
 
 Proje adresi alanı kullanıcı isteğiyle kaldırıldı. Yeni adresi sunucu bina adından üretir; istemcinin gönderdiği adresi veya detay yolunu kullanmaz. Aynı isimde kayıt varsa `-2`, `-3` gibi ayrı adresler ayrılır. Taslak/arşivli adresler ve eski yönlendirmeler de rezerve kalır. Veritabanının benzersizlik kuralı eşzamanlı istekleri korur; oluşturma işlemi hiçbir kaydı güncellemez veya upsert yapmaz. Bina adı sonradan değiştirilse de eski proje adresi korunur. Şema veya cloud verisine bu değişiklik için yazılmadı.
