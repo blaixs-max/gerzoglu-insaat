@@ -1,5 +1,11 @@
 # Devam kaydı — 14 Ekim 2026
 
+## Otomatik proje adresleri — güncel yayın
+
+Proje adresi alanı kullanıcı isteğiyle kaldırıldı. Yeni adresi sunucu bina adından üretir; istemcinin gönderdiği adresi veya detay yolunu kullanmaz. Aynı isimde kayıt varsa `-2`, `-3` gibi ayrı adresler ayrılır. Taslak/arşivli adresler ve eski yönlendirmeler de rezerve kalır. Veritabanının benzersizlik kuralı eşzamanlı istekleri korur; oluşturma işlemi hiçbir kaydı güncellemez veya upsert yapmaz. Bina adı sonradan değiştirilse de eski proje adresi korunur. Şema veya cloud verisine bu değişiklik için yazılmadı.
+
+Uygulama commit'i `c5fd689`; canlı dağıtım `dpl_2GaSgEsp64z4fa3QU9nMrCe4AppH` (`gerzoglu-varyant-3-mslwasxii-blaixs-4009s-projects.vercel.app`). **47/47 test ve build geçti**, sekiz eşzamanlı aynı isimli proje, eski adres koruması, boş/uzun/Türkçe adlar ve istemci adresini yok sayma doğrulandı. Canlı admin JS kaynağı ile aynı; manuel adres alanı yok ve API cloud yapılandırması sağlıklı.
+
 ## Son sadeleştirme
 
 Kullanıcının isteğiyle **Ana sayfada görünüm** bölümü proje düzenleyicisinden şimdilik kaldırıldı. Mevcut belgelerin `home` değerleri kaydetme/yayın sırasında korunur; yeni projeler kart/slayt seçimi kapalı başlar. Ana sayfa seçimi ve sırası için panelde kontrol yoktur; Projeler listesinin sırası düzenlenebilir. Veritabanı kayıtlarına bu değişiklik için yazılmadı. Kod `4366110`, canlı dağıtım `dpl_7YPCswkDR3QEfKo7hhABe5zupbFk` (`gerzoglu-varyant-3-nsqseld4t-blaixs-4009s-projects.vercel.app`). 40/40 test ve build geçti; canlı admin JavaScript'i kaynakla aynı ve kaldırılan alanları içermiyor.
