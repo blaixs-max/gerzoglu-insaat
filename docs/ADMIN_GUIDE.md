@@ -42,6 +42,8 @@ Mevcut projelerden aktarılan ofis, dükkân, showroom, villa ve not bilgilerini
 
 Fotoğrafları yükleme alanına bırakın veya **Dosya seç** kullanın. İşlenme bitmeden yayımlamayın. Hatalı yüklemeyi yeniden deneyin. **Görsel açıklaması**, **Fotoğraf alt yazısı**, **Görsel başlığı** ve dış cephe/iç mekân/kat planı türünü düzenleyebilirsiniz.
 
+Hazır örnek yatak odası, mutfak ve banyo fotoğraflarının kartları panelde gösterilmez. Mevcut içerikteki bu görseller korunur. Projeye özel yüklediğiniz iç mekân fotoğrafları galeride düzenlenebilir; örnek fotoğraflar görsel sayısına veya kapak seçimine dahil edilmez.
+
 **Kapak olarak seç**, proje listesi, detay başlığı ve seçilmiş ana sayfa kartlarının ana fotoğrafını belirler. Yatay/dikey odak ayarları, dar ekranda fotoğrafın görünen bölümünü seçer; orijinali kesmez. Galeriyi sürükleyerek veya oklarla sıralayın. **×** fotoğrafı taslaktan çıkarır; orijinali depoda korunur. Bu işlem daha önce yayımlanmış bir görsel bağlantısını bütün önbelleklerden geri çekmez.
 
 Kaynak genişliğini aşmadan uygun ekran boyutları üretilir; küçük fotoğraf yapay olarak büyütülmez. Ana görsel için yüksek çözünürlüklü kaynak kullanın. Orijinaller özel depoda kalır; yalnız başarılı yayınla izin verilen WebP türevleri ziyaretçilere sunulur. Yeni projede kapak gerekir; ilk aktarımdaki Yılmaz Apartmanı'nın mevcut “görseller hazırlanıyor” durumu korunabilir.
