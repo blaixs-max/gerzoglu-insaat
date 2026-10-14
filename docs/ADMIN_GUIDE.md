@@ -4,6 +4,8 @@
 
 ## Giriş ve proje durumları
 
+İlk hesabın parola ile girişi doğrulanmıştır. E-posta ile şifre yenileme, `CMS_RECOVERY_ENABLED=1` açıkça etkinleştirilene kadar gösterilmez. 14 Ekim 2026 bağlantı doğrulamasında mevcut sitenin SMTP sunucusu `EAUTH` döndürmüştür; e-posta gönderilmemiştir. Geçerli SMTP bilgileriyle Supabase Auth özel SMTP yapılandırması ve gerçek kurtarma teslimatı doğrulanmadan bu seçenek açılmamalıdır.
+
 Yayın sonrasında [gerzoglu.com/admin](https://gerzoglu.com/admin) adresini açın. İlk yönetici hesabı **info@gerzoglu.com** adresidir. Parola belgelerde tutulmaz; herkese açık kullanıcı kaydı yoktur. İşiniz bitince **Güvenli çıkış** kullanın. **YEREL ÖNİZLEME** rozeti görüyorsanız bilgisayardaki deneme ortamındasınız; buradaki işlemler canlı siteyi değiştirmez.
 
 Her proje için dört durumdan yalnızca biri seçilir: **Teslim Edildi / Devam Eden Proje / Planlanan Proje / Satıştaki Proje**. Bundan ayrı **Taslak / Yayında / Arşivde** bilgisi bulunur. Örneğin “Planlanan Proje” ziyaretçilere açık olabilir; “Teslim Edildi” seçmek kaydı kendiliğinden yayımlamaz.

@@ -33,7 +33,7 @@ module.exports = async function cms(req, res) {
     const route = url.searchParams.has('__adminPath') ? '/api/admin/' + url.searchParams.get('__adminPath') : url.pathname.replace(/^\/api\/cms\/?/, '/api/admin/');
     if (route === '/api/admin/config' && req.method === 'GET') {
       const cfg = settings(), localPreview = isLocal(req);
-      return send(res, 200, { configured: localPreview || !!(cfg.url && cfg.key), url: cfg.url || '', publishableKey: cfg.key || '', localPreview });
+      return send(res, 200, { configured: localPreview || !!(cfg.url && cfg.key), url: cfg.url || '', publishableKey: cfg.key || '', localPreview, recoveryAvailable: process.env.CMS_RECOVERY_ENABLED === '1' });
     }
     const token = /^Bearer ([^\s]+)$/.exec(req.headers.authorization || '')?.[1];
     const store = await getStore(req);
