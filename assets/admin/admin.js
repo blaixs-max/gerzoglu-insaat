@@ -26,7 +26,7 @@ const icon = name => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
 const state = {
   config: null, client: null, session: null, user: null, projects: [], current: null, draft: null,
   dirty: false, busy: false, uploading: false, tab: 'details', view: 'projects', authMode: 'login',
-  search: '', status: '', publication: '', history: [], slugTouched: false,
+  search: '', status: '', publication: '', history: [],
 };
 
 function safeImage(image) {
@@ -219,11 +219,10 @@ function renderEditor() {
   const d = state.draft;
   const archived = p?.publicationState === 'archived';
   const published = p?.publicationState === 'published';
-  const lockedSlug = Boolean(p?.id);
   shell(`<div class="page-header editor-header"><div><button type="button" class="back-link" data-action="library" data-view="${state.view}">${icon('arrow')} Projelere dön</button><span class="eyebrow">${p?.id ? 'Proje düzenle' : 'Yeni proje'}</span><div class="editor-title-row"><h1>${esc(d.name || 'Yeni proje ekle')}</h1><span class="badge badge--${esc(p?.publicationState || 'draft')}">${esc(publications[p?.publicationState || 'draft'])}</span></div><div class="editor-meta"><span>${p?.id ? `Son kayıt: ${esc(fmtDate(p.updatedAt, true))}` : 'Bilgileri doldurun ve ilk taslağınızı kaydedin.'}</span>${p?.id ? `<span>· Sürüm ${Number(p.version)}</span>` : ''}</div></div><div class="editor-actions"><button class="button" type="button" data-action="preview" ${archived ? 'disabled' : ''}>${icon('eye')} Önizle</button><button class="button" type="button" data-action="save" ${archived ? 'disabled' : ''}>${icon('save')} Taslağı kaydet</button><button class="button button--silver" type="button" data-action="${archived ? 'restore' : 'publish'}" data-mutation>${icon(archived ? 'archive' : 'globe')}${archived ? 'Arşivden geri yükle' : published ? 'Değişiklikleri yayımla' : 'Projeyi yayımla'}</button></div></div>
     <div id="editor-notice" class="editor-notice">${archived ? '<div class="notice notice--warning">Bu proje arşivde ve ziyaretçilere kapalı. Düzenlemek için önce arşivden geri yükleyin.</div>' : published ? '<div class="notice">'+icon('info')+'<span>Yayındaki sayfanız korunur. Düzenlemelerinizi taslağa kaydedin; hazır olduğunuzda yayımlayın.</span></div>' : ''}</div>
     <div class="editor-layout"><form class="panel editor-main" id="project-form"><div class="editor-tabs" role="tablist" aria-label="Proje düzenleme bölümleri">${[['details', 'Proje bilgileri'], ['images', `Görseller (${allMedia().length})`], ['extra', 'Ek bilgiler']].map(([key, label]) => `<button type="button" class="editor-tab" id="tab-${key}" role="tab" aria-selected="${state.tab === key}" aria-controls="panel-${key}" tabindex="${state.tab === key ? '0' : '-1'}" data-action="tab" data-tab="${key}">${label}</button>`).join('')}</div><fieldset ${archived ? 'disabled' : ''} style="border:0;margin:0;padding:0;min-width:0"><legend class="visually-hidden">Proje bilgilerini düzenle</legend>
-    <div class="tab-panel" id="panel-details" role="tabpanel" aria-labelledby="tab-details" ${state.tab !== 'details' ? 'hidden' : ''}><section class="form-section"><div class="section-heading"><div><h2>Temel bilgiler</h2><p>Projenizi ziyaretçilere doğru bilgilerle tanıtın.</p></div><span class="section-number">01</span></div><div class="form-grid">${field('name', 'Bina / proje adı', { required: true, wide: true, maxlength: 180, placeholder: 'Örn. Yılmaz Apartmanı' })}${field('district', 'İlçe', { required: true, maxlength: 100, placeholder: 'Örn. Maltepe' })}${field('neighborhood', 'Mahalle', { maxlength: 120, placeholder: 'Örn. Süreyya Plajı' })}${field('status', 'Proje durumu', { required: true, select: Object.entries(statuses), help: 'Her proje için yalnızca bir durum seçilir.' })}${field('structureType', 'Yapı türü', { maxlength: 100, placeholder: 'Örn. Konut, ticari yapı, villa' })}<div class="field span-2"><label for="field-slug">Proje sayfasının adresi <span class="required">*</span></label><div class="field-prefix"><span>/proje/</span><input id="field-slug" name="slug" data-field="slug" value="${esc(d.slug)}" pattern="[a-z0-9]+(-[a-z0-9]+)*" maxlength="120" ${lockedSlug ? 'disabled' : 'required'} placeholder="yilmaz-apartmani"><span>.html</span></div><small>${lockedSlug ? 'İlk kayıttan sonra proje adresi, mevcut bağlantıların korunması için sabittir.' : 'Proje adına göre önerilir. Türkçe karakter ve boşluk kullanılmaz.'}</small></div></div></section><section class="form-section"><div class="section-heading"><div><h2>Proje detayları</h2><p>Bilinmeyen bilgileri boş bırakabilirsiniz.</p></div><span class="section-number">02</span></div><div class="form-grid">${field('constructionArea', 'İnşaat alanı (m²)', { type: 'number', min: 0, placeholder: 'Örn. 2400' })}${field('unitCount', 'Bağımsız bölüm / daire sayısı', { type: 'number', min: 0, placeholder: 'Örn. 24' })}${field('unitLabel', 'Sayı bilgisinin başlığı', { maxlength: 80, help: 'Örn. Daire sayısı, Villa sayısı veya Bağımsız bölüm.' })}${field('listOrder', 'Listede gösterim sırası', { type: 'number', min: 1, required: true, help: 'Küçük numaralı projeler önce gösterilir.' })}${dateField('start', 'Başlangıç tarihi')}${dateField('end', 'Bitiş tarihi')}</div></section><section class="form-section"><div class="section-heading"><div><h2>Proje anlatımı</h2><p>Kısa özet listelerde, açıklama proje detayında kullanılır.</p></div><span class="section-number">03</span></div><div class="form-grid">${field('summary', 'Kısa özet', { textarea: true, wide: true, rows: 2, maxlength: 500 })}${field('description', 'Proje açıklaması', { textarea: true, wide: true, rows: 6, maxlength: 6000, help: 'Paragraflar arasında boş satır bırakabilirsiniz.' })}</div></section></div>
+    <div class="tab-panel" id="panel-details" role="tabpanel" aria-labelledby="tab-details" ${state.tab !== 'details' ? 'hidden' : ''}><section class="form-section"><div class="section-heading"><div><h2>Temel bilgiler</h2><p>Projenizi ziyaretçilere doğru bilgilerle tanıtın.</p></div><span class="section-number">01</span></div><div class="form-grid">${field('name', 'Bina / proje adı', { required: true, wide: true, maxlength: 180, placeholder: 'Örn. Yılmaz Apartmanı' })}${field('district', 'İlçe', { required: true, maxlength: 100, placeholder: 'Örn. Maltepe' })}${field('neighborhood', 'Mahalle', { maxlength: 120, placeholder: 'Örn. Süreyya Plajı' })}${field('status', 'Proje durumu', { required: true, select: Object.entries(statuses), help: 'Her proje için yalnızca bir durum seçilir.' })}${field('structureType', 'Yapı türü', { maxlength: 100, placeholder: 'Örn. Konut, ticari yapı, villa' })}</div></section><section class="form-section"><div class="section-heading"><div><h2>Proje detayları</h2><p>Bilinmeyen bilgileri boş bırakabilirsiniz.</p></div><span class="section-number">02</span></div><div class="form-grid">${field('constructionArea', 'İnşaat alanı (m²)', { type: 'number', min: 0, placeholder: 'Örn. 2400' })}${field('unitCount', 'Bağımsız bölüm / daire sayısı', { type: 'number', min: 0, placeholder: 'Örn. 24' })}${field('unitLabel', 'Sayı bilgisinin başlığı', { maxlength: 80, help: 'Örn. Daire sayısı, Villa sayısı veya Bağımsız bölüm.' })}${field('listOrder', 'Listede gösterim sırası', { type: 'number', min: 1, required: true, help: 'Küçük numaralı projeler önce gösterilir.' })}${dateField('start', 'Başlangıç tarihi')}${dateField('end', 'Bitiş tarihi')}</div></section><section class="form-section"><div class="section-heading"><div><h2>Proje anlatımı</h2><p>Kısa özet listelerde, açıklama proje detayında kullanılır.</p></div><span class="section-number">03</span></div><div class="form-grid">${field('summary', 'Kısa özet', { textarea: true, wide: true, rows: 2, maxlength: 500 })}${field('description', 'Proje açıklaması', { textarea: true, wide: true, rows: 6, maxlength: 6000, help: 'Paragraflar arasında boş satır bırakabilirsiniz.' })}</div></section></div>
     <div class="tab-panel" id="panel-images" role="tabpanel" aria-labelledby="tab-images" ${state.tab !== 'images' ? 'hidden' : ''}><section class="form-section" id="cover-section">${coverSection()}</section><section class="form-section"><div class="section-heading"><div><h2>Proje galerisi</h2><p>Görselleri taşıyarak sıralayın; kapak görselini ayrıca seçin.</p></div><span class="section-number">02</span></div><div class="upload-zone" id="upload-zone">${icon('upload')}<b>Fotoğrafları buraya bırakın</b><p>JPEG, PNG veya WebP · En fazla 20 MB / görsel<br>Orijinal dosya korunur; uygun ekran boyutları hazırlanır.</p><label class="button button--small" for="media-files">${icon('plus')} Dosya seç</label><input type="file" id="media-files" accept="image/jpeg,image/png,image/webp" multiple ${!p?.id ? 'disabled' : ''}>${!p?.id ? '<p>Görsel yüklemek için önce projeyi taslak olarak kaydedin.</p>' : ''}</div><div id="upload-progress" aria-live="polite"></div><div id="media-list">${mediaCards()}</div></section></div>
     <div class="tab-panel" id="panel-extra" role="tabpanel" aria-labelledby="tab-extra" ${state.tab !== 'extra' ? 'hidden' : ''}><section class="form-section"><div class="section-heading"><div><h2>Ek proje bilgileri</h2><p>Dükkân, ofis, showroom ve diğer özel bilgileri koruyun.</p></div></div><div id="facts-list">${renderFacts()}</div><button type="button" class="button button--small" data-action="add-fact">${icon('plus')} Bilgi satırı ekle</button></section><section class="form-section"><div class="section-heading"><div><h2>Mevcut site bilgileri</h2><p>Eski projelerden aktarılan özel konum bilgisidir.</p></div></div><div class="form-grid">${field('legacy.locationLabel', 'Özel konum yazısı', { wide: true, maxlength: 200, help: 'Boş bırakılırsa mahalle ve ilçe kullanılır.' })}</div></section></div>
     </fieldset><div class="bottom-save"><small>Değişiklikleriniz “Yayımla” işleminden sonra ziyaretçilere açılır.</small><button class="button button--primary" type="button" data-action="save" ${archived ? 'disabled' : ''}>${icon('save')} Taslağı kaydet</button></div></form>
@@ -243,9 +242,6 @@ function setNested(path, value) {
   const keys = path.split('.'); let target = state.draft;
   keys.slice(0, -1).forEach(key => { target[key] ||= {}; target = target[key]; });
   target[keys.at(-1)] = value;
-}
-function slugify(value) {
-  return value.toLocaleLowerCase('tr').replaceAll('ı', 'i').replaceAll('ğ', 'g').replaceAll('ü', 'u').replaceAll('ş', 's').replaceAll('ö', 'o').replaceAll('ç', 'c').normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 160);
 }
 function hydrateProject(project) {
   state.current = project;
@@ -269,7 +265,7 @@ async function openProject(id, bypassGuard = false) {
   setBusy(true, 'Proje açılıyor…');
   try {
     const response = await api(`/projects/${encodeURIComponent(id)}`);
-    syncProject(response.project); state.history = response.history || []; state.slugTouched = true;
+    syncProject(response.project); state.history = response.history || [];
     state.tab = 'details'; renderEditor(); $('#main').focus({ preventScroll: true }); window.scrollTo(0, 0);
   } catch (error) { showError(error); }
   finally { setBusy(false); }
@@ -287,8 +283,7 @@ function validateForm() {
 }
 function documentForSave() {
   const draft = clone(state.draft);
-  draft.name = draft.name.trim(); draft.slug = draft.slug.trim(); draft.district = draft.district.trim();
-  if (!state.current?.published) draft.legacy.detailPath = `/proje/${draft.slug}.html`;
+  draft.name = draft.name.trim(); draft.district = draft.district.trim();
   draft.facts = draft.facts.filter(fact => fact.label.trim() || String(fact.value).trim());
   // previewSrc is supplied by authenticated read responses, never persisted in project JSON.
   const sanitizeImage = image => { const clean = { ...image }; delete clean.previewSrc; return clean; };
@@ -462,8 +457,6 @@ document.addEventListener('input', event => {
   if (el.dataset.field) {
     const value = el.type === 'checkbox' ? el.checked : el.type === 'number' ? (el.value === '' ? null : Number(el.value)) : el.value;
     setNested(el.dataset.field, value);
-    if (el.dataset.field === 'slug') state.slugTouched = true;
-    if (el.dataset.field === 'name' && !state.current?.id && !state.slugTouched) { state.draft.slug = slugify(value); $('#field-slug').value = state.draft.slug; }
     markDirty();
   }
   if (el.dataset.focal) {
@@ -528,7 +521,7 @@ document.addEventListener('click', async event => {
   }
   if (action === 'new') {
     if (!(await canLeave())) return;
-    state.current = null; state.draft = blankDocument(); state.dirty = false; state.slugTouched = false; state.tab = 'details'; state.history = [];
+    state.current = null; state.draft = blankDocument(); state.dirty = false; state.tab = 'details'; state.history = [];
     state.draft.listOrder = Math.max(0, ...state.projects.map(p => Number(p.draft.listOrder) || 0)) + 1;
     renderEditor(); window.scrollTo(0, 0); $('#field-name').focus(); return;
   }

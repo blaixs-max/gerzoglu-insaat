@@ -1,6 +1,7 @@
 'use strict';
 const { getStore, settings, isLocal } = require('../lib/cms-store.cjs');
 const { CmsError, normalizeDocument, adminProject } = require('../lib/cms-model.cjs');
+const { createProject } = require('../lib/cms-projects.cjs');
 const media = require('../lib/cms-media.cjs');
 const { renderPage } = require('../lib/cms-render.cjs');
 const UUID = /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i;
@@ -42,7 +43,7 @@ module.exports = async function cms(req, res) {
     if (route === '/api/admin/session' && req.method === 'GET') return send(res,200,{ user, isAdmin:true });
     if (route === '/api/admin/projects') {
       if (req.method === 'GET') return send(res,200,{ projects: await Promise.all((await store.list()).map(r => responseProject(store,r))) });
-      if (req.method === 'POST') { const input = await body(req); const doc = normalizeDocument(input.draft); const row = await store.rpc('cms_create_project',{p_document:doc}); return send(res,201,{project:await responseProject(store,row)}); }
+      if (req.method === 'POST') { const input = await body(req); const row = await createProject(store,input.draft); return send(res,201,{project:await responseProject(store,row)}); }
     }
     if (route === '/api/admin/projects/order' && req.method === 'POST') {
       const input = await body(req);

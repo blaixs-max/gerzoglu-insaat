@@ -161,6 +161,61 @@ test('CMS HTTP: validation protects exact status, cover, dates, immutable URL an
   r=await f.request(`/api/admin/projects/${project.id}`,{method:'PUT',body:{draft:changed,expectedVersion:project.version}});assert.equal(r.status,200);assert.equal(r.json.project.slug,project.slug);assert.equal(r.json.project.draft.slug,project.slug);
 });
 
+test('CMS HTTP: project URLs come from names, ignore supplied addresses and retain existing projects',async t=>{
+  const f=await fixture(t);
+  const existing=(await f.store.list()).find(row=>row.slug==='uskudar-yilmaz-apartmani');
+  const project=await f.create(freshDocument({name:'Yılmaz Apartmanı',slug:existing.slug,legacy:{detailPath:'/proje/'+existing.slug+'.html'}}));
+  assert.equal(project.slug,'yilmaz-apartmani');
+  assert.equal(project.draft.legacy.detailPath,'/proje/yilmaz-apartmani.html');
+  assert.deepEqual(await f.store.getRow(existing.id),existing);
+  const repeated=await f.create(freshDocument({name:'Yılmaz Apartmanı',slug:undefined}));
+  assert.equal(repeated.slug,'yilmaz-apartmani-2');
+  const oldName=await f.create(freshDocument({name:'Üsküdar Yılmaz Apartmanı'}));
+  assert.equal(oldName.slug,'uskudar-yilmaz-apartmani-2');
+  const saved=await f.request(`/api/admin/projects/${project.id}`,{method:'PUT',body:{expectedVersion:project.version,draft:{...project.draft,name:'Bina Adı Değişti',slug:existing.slug,legacy:{detailPath:'/proje/'+existing.slug+'.html'}}}});
+  assert.equal(saved.status,200,saved.text);
+  assert.equal(saved.json.project.slug,'yilmaz-apartmani');
+  assert.equal(saved.json.project.draft.name,'Bina Adı Değişti');
+  assert.equal(saved.json.project.draft.legacy.detailPath,'/proje/yilmaz-apartmani.html');
+  assert.deepEqual(await f.store.getRow(existing.id),existing);
+});
+
+test('CMS HTTP: archived project URLs and permanent redirect sources remain reserved',async t=>{
+  const f=await fixture(t);
+  const first=await f.create(freshDocument({name:'Aynı Bina'}));
+  const archived=await f.action(first,'archive');assert.equal(archived.status,200,archived.text);
+  const second=await f.create(freshDocument({name:'Aynı Bina'}));
+  assert.equal(second.slug,'ayni-bina-2');
+  assert.equal((await f.store.getRow(first.id)).publication_state,'archived');
+  for(const [name,slug] of [['Villa Projesi','villa-projesi'],['İdealtepe Küçüktür Yolu','idealtepe-kucuktur-yolu'],['İdealtepe Rıfkı Tongsir','idealtepe-rifki-tongsir']]){
+    const created=await f.create(freshDocument({name}));
+    assert.equal(created.slug,slug+'-2');
+  }
+});
+
+test('CMS HTTP: simultaneous same-name creates allocate distinct addresses without lost records',async t=>{
+  const f=await fixture(t);
+  const projects=await Promise.all(Array.from({length:8},()=>f.create(freshDocument({name:'Eşzamanlı Şahin Apartmanı',slug:undefined}))));
+  assert.equal(new Set(projects.map(project=>project.id)).size,8);
+  assert.deepEqual(projects.map(project=>project.slug).sort(),['eszamanli-sahin-apartmani',...Array.from({length:7},(_,index)=>'eszamanli-sahin-apartmani-'+(index+2))].sort());
+  const stored=await f.store.list();assert.equal(stored.length,35);
+  assert.equal(stored.filter(row=>row.draft.name==='Eşzamanlı Şahin Apartmanı').length,8);
+});
+
+test('CMS HTTP: empty names cannot write and generated URLs handle non-Latin or truncated names',async t=>{
+  const f=await fixture(t);const before=await f.store.list();
+  for(const name of ['', '   ', null]){
+    const response=await f.request('/api/admin/projects',{method:'POST',body:{draft:freshDocument({name,slug:'client-supplied-address'})}});
+    assert.equal(response.status,422);assert.equal(response.json.error.fields.name,'Bina adını girin.');
+  }
+  assert.deepEqual(await f.store.list(),before);
+  const unicode=await f.create(freshDocument({name:'東京',slug:undefined}));assert.equal(unicode.slug,'proje');
+  const longName='a'.repeat(99)+' b';
+  const first=await f.create(freshDocument({name:longName}));assert.equal(first.slug,'a'.repeat(99));
+  const second=await f.create(freshDocument({name:longName}));assert.equal(second.slug,'a'.repeat(99)+'-2');
+  assert.ok(second.slug.length<=120);assert.match(second.slug,/^[a-z0-9]+(?:-[a-z0-9]+)*$/);
+});
+
 test('CMS HTTP: archiving removes public detail, lists and sitemap; revision restore remains a draft',async t=>{
   const f=await fixture(t);let project=await f.create();
   let r=await f.action(project,'publish');project=r.json.project;

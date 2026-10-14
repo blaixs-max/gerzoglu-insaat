@@ -13,7 +13,7 @@ Her proje için dört durumdan yalnızca biri seçilir: **Teslim Edildi / Devam 
 ## Yeni proje ekleme
 
 1. **Yeni proje ekle** düğmesine basın. Bina/proje adı, ilçe, gerekiyorsa mahalle, tek bir proje durumu ve yapı türünü doldurun.
-2. Önerilen sayfa adresini kontrol edin. Boşluk ve Türkçe karakter kullanmayın. `yeni-apartman` adresi `/proje/yeni-apartman.html` olur. Adres ilk kayıttan sonra sabittir; bina adı sonradan değiştirilebilir.
+2. Sayfa adresini sistem bina adından otomatik oluşturur; adres girmeniz gerekmez. Aynı isimde başka proje varsa sistem farklı bir adres ayırır ve mevcut projeye yazmaz. Adres ilk kayıttan sonra korunur; bina adı sonradan değiştirilebilir.
 3. İnşaat alanı, sayı bilgisi, başlangıç/bitiş tarihi ve listede gösterim sırasını girin. Bilinmeyen isteğe bağlı bilgileri boş bırakın.
 4. Kısa özet ve proje açıklamasını yazın. Yeni paragraf için boş satır bırakabilirsiniz.
 5. **Taslağı kaydet** deyin. Fotoğraf yüklemek için önce bu ilk kayıt yapılmalıdır.

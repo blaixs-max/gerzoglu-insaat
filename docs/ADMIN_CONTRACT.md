@@ -33,6 +33,7 @@ Supabase browser auth uses an installed, bundled `/assets/vendor/supabase.mjs`; 
 - `GET /api/admin/session` → `{user:{id,email},isAdmin:true}`.
 - `GET /api/admin/projects` → `{projects:[AdminProject]}`.
 - `POST /api/admin/projects` body `{draft:Document}` → `{project}`.
+  The server derives the slug from the building name, ignores client-supplied slug/detailPath, reserves legacy redirect paths, and allocates a distinct numbered suffix for duplicates. Existing draft/archived addresses remain reserved; the database UNIQUE constraint resolves concurrent creation safely. No upsert or overwrite is used. The UI has no editable address field. After creation, renaming a project preserves its stored address.
 - `GET /api/admin/projects/:id` → `{project,history:[{id,createdAt,createdBy,document}]}`.
 - `PUT /api/admin/projects/:id` body `{draft,expectedVersion}` → `{project}`.
 - `POST /api/admin/projects/:id/publish`, `/archive`, `/restore`, `/discard` body `{expectedVersion}` → `{project}`.
