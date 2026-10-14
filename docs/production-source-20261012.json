@@ -1,0 +1,1369 @@
+{
+  "schemaVersion": 1,
+  "checkedOn": "2026-10-14",
+  "deploymentId": "dpl_5hyXm3Vf3DAKVP56fiL49NTocpZC",
+  "sourceCommit": "e22be147c33a77b4846526906e928207f218a8b9",
+  "source": "cli",
+  "files": [
+    {
+      "path": ".vercelignore",
+      "sha1": "4bfac077763b882d03e36f1d907105642a60b777"
+    },
+    {
+      "path": "404.html",
+      "sha1": "091e9a008eea5ff00a1fd8a40ea28d00eb59211d"
+    },
+    {
+      "path": "README.md",
+      "sha1": "d3f46155aafe1c08b320b70bf7ba3bfdbfd6f8f3"
+    },
+    {
+      "path": "api/contact.js",
+      "sha1": "2476e60914a9f61aa1829971ccfefa8fac55079f"
+    },
+    {
+      "path": "assets/cozum/agt.webp",
+      "sha1": "f679d068d76e78891b32ed24a3716281c85605af"
+    },
+    {
+      "path": "assets/cozum/alarko.webp",
+      "sha1": "361b905eb7ed3a268c52bce0efb8859cc68c7f44"
+    },
+    {
+      "path": "assets/cozum/alkan.webp",
+      "sha1": "8d6a4a495d8f7691eff249ab3813c7b738d960cb"
+    },
+    {
+      "path": "assets/cozum/arcelik.webp",
+      "sha1": "bc0da34e379e3fa802eb0e208ee393eaa0459509"
+    },
+    {
+      "path": "assets/cozum/artema.webp",
+      "sha1": "4f3bceb5735d77d26388db9750c0548aedb3c819"
+    },
+    {
+      "path": "assets/cozum/audio.webp",
+      "sha1": "a35b80e43df1a5cb3d051cb9f864382d9c0a01ee"
+    },
+    {
+      "path": "assets/cozum/balkotrade.webp",
+      "sha1": "bf00ca8d0deae9261bbdafa6af037b8a9fbe9299"
+    },
+    {
+      "path": "assets/cozum/bien.webp",
+      "sha1": "5ace5bb91e4a92225c7bb0083050c187dd37945b"
+    },
+    {
+      "path": "assets/cozum/blanco.webp",
+      "sha1": "7c0a5d1afff5a958360f16e4588fe2905264b1f6"
+    },
+    {
+      "path": "assets/cozum/bosch.webp",
+      "sha1": "313a9281e625ab7ab6984443fe85e1de3b51fcb5"
+    },
+    {
+      "path": "assets/cozum/braas.webp",
+      "sha1": "5f4c43458d3a243761ff3d54ca20689c694a43bc"
+    },
+    {
+      "path": "assets/cozum/buderus.webp",
+      "sha1": "1a64966c7f497382385d0aefdaac62b515744566"
+    },
+    {
+      "path": "assets/cozum/camsan.webp",
+      "sha1": "1174db293b043eb4dbf942e82d73705ea1be620b"
+    },
+    {
+      "path": "assets/cozum/canakkale-seramik.webp",
+      "sha1": "fffcdf3c45dfc51fab63c0b0786cf496b79ff50a"
+    },
+    {
+      "path": "assets/cozum/cbs.webp",
+      "sha1": "0a928d307bb33b1e8436a19ae36a3b6293d99d91"
+    },
+    {
+      "path": "assets/cozum/central-asansor.webp",
+      "sha1": "3eb06853c8a5fc321f93f2a3f99d05143ef026dc"
+    },
+    {
+      "path": "assets/cozum/cevas-asansor.webp",
+      "sha1": "258d7cd008bafaf761a0dff7e80f0461318c6668"
+    },
+    {
+      "path": "assets/cozum/dizayn-grup.webp",
+      "sha1": "d1ae8e887e21a94fc9f156fb3d447c2f7180c11a"
+    },
+    {
+      "path": "assets/cozum/dominox.webp",
+      "sha1": "ca7430b284b62352601d4c1149f9682c42cb5b97"
+    },
+    {
+      "path": "assets/cozum/dyo.webp",
+      "sha1": "912063459e67e12e1dfd1317d2600e6fffea292a"
+    },
+    {
+      "path": "assets/cozum/eca.webp",
+      "sha1": "bfe1b85b9ea7aacfc88e47590107b8422940ea4d"
+    },
+    {
+      "path": "assets/cozum/ege-seramik.webp",
+      "sha1": "e1a0753caaf7abd6fc6b7da6f86ff66fe7aa83b7"
+    },
+    {
+      "path": "assets/cozum/ersan.webp",
+      "sha1": "df5f074fb15a7e8ab67d7f4bf6cb2b6005258b1d"
+    },
+    {
+      "path": "assets/cozum/etna.webp",
+      "sha1": "b3c7c76d36627fcf0ca789748ca3f199797fcd5f"
+    },
+    {
+      "path": "assets/cozum/fersan.webp",
+      "sha1": "fbdbdec5c45dfe6b1eb5c3b53db1fa4578f828b1"
+    },
+    {
+      "path": "assets/cozum/filli-boya.webp",
+      "sha1": "c7fd2b36d7b14ebd4f06153e837c6716e0029f6b"
+    },
+    {
+      "path": "assets/cozum/firat.webp",
+      "sha1": "7860a84497050259a9ecffec15faf8319d269d85"
+    },
+    {
+      "path": "assets/cozum/franke.webp",
+      "sha1": "9f8505eedfa613374720bfb0f2db18fac4884420"
+    },
+    {
+      "path": "assets/cozum/gpd.webp",
+      "sha1": "8170b57a174361c5177015fb776fd87eb960a3fd"
+    },
+    {
+      "path": "assets/cozum/grohe.webp",
+      "sha1": "427f06fcfcfdacdc7130016710d139e7b1069f25"
+    },
+    {
+      "path": "assets/cozum/grundfos.webp",
+      "sha1": "9131709fcd7230b07728c74bd2dfecd9873f77cd"
+    },
+    {
+      "path": "assets/cozum/hakan-plastik.webp",
+      "sha1": "c19523c3a52b9f904664c4e7d6fec4f0a47e5e2b"
+    },
+    {
+      "path": "assets/cozum/hansgrohe.webp",
+      "sha1": "1248d39447fdba78118431ec6ecb88a050b091a7"
+    },
+    {
+      "path": "assets/cozum/hes-kablo.webp",
+      "sha1": "0c04995a1c12a983536cf27e0f218c641ee485f7"
+    },
+    {
+      "path": "assets/cozum/hikvision.webp",
+      "sha1": "46af0c4a9ca6cde55bbcc1bd6a557c0279884fa4"
+    },
+    {
+      "path": "assets/cozum/irka.webp",
+      "sha1": "1005fc90e08cc898bdc30dcea051c87c0504007f"
+    },
+    {
+      "path": "assets/cozum/izo-tugla.webp",
+      "sha1": "eef0aee5ff8d44a7a4670db4a3a5000a6dc01294"
+    },
+    {
+      "path": "assets/cozum/jotun.webp",
+      "sha1": "41f55f0518630d8b34a9f3f10f768b1fc2be5eac"
+    },
+    {
+      "path": "assets/cozum/kalde.webp",
+      "sha1": "54fbb7c7b1c9f2ae6664f63231a5f836d2d33899"
+    },
+    {
+      "path": "assets/cozum/kale-kapi-pencere.webp",
+      "sha1": "4bc46030e125228632d98c3b336de8dc13b9dc07"
+    },
+    {
+      "path": "assets/cozum/kampa.webp",
+      "sha1": "a5fbce5114109ec3e388be1fec99a1e36b4bea5b"
+    },
+    {
+      "path": "assets/cozum/kilicoglu.webp",
+      "sha1": "42097d1b1197c6f432ef9dd9effe63a468960d56"
+    },
+    {
+      "path": "assets/cozum/kone.webp",
+      "sha1": "baca21ae51b925c7c4c5663919c59769c880ca9d"
+    },
+    {
+      "path": "assets/cozum/kutahya-seramik.webp",
+      "sha1": "00e5adaf22884c10aac7dbad697acdb6b5dc40a4"
+    },
+    {
+      "path": "assets/cozum/legrand.webp",
+      "sha1": "801a2d33a5791a04b7d9b176bfdf90653a970a67"
+    },
+    {
+      "path": "assets/cozum/makel.webp",
+      "sha1": "295bc5ec4c35c139504c67e166207699fed3df3e"
+    },
+    {
+      "path": "assets/cozum/marshall.webp",
+      "sha1": "f57866998ad64e84224f971473602cd62d420d19"
+    },
+    {
+      "path": "assets/cozum/mas.webp",
+      "sha1": "2f4d7df791760ebae07c7b2d87126e39e39fdc61"
+    },
+    {
+      "path": "assets/cozum/multitek.webp",
+      "sha1": "0936b47215ec7e2d6495c26a429c4b9daf0005e8"
+    },
+    {
+      "path": "assets/cozum/mutlusan.webp",
+      "sha1": "2b5f4f4f49e092e883aae460c307c242e3c49226"
+    },
+    {
+      "path": "assets/cozum/netelsan.webp",
+      "sha1": "da384dac8875c53adf173dd94345d6f8e773e83e"
+    },
+    {
+      "path": "assets/cozum/nexans.webp",
+      "sha1": "f5fe162ea3182bad97d034eb934647f16e8a31b2"
+    },
+    {
+      "path": "assets/cozum/oznur-kablo.webp",
+      "sha1": "06f557bef81dbba29245232f4c55bf081b80416c"
+    },
+    {
+      "path": "assets/cozum/pimapen.webp",
+      "sha1": "441c00490b26f604414e9bcb0f4ddc84d5cc795c"
+    },
+    {
+      "path": "assets/cozum/prysmian.webp",
+      "sha1": "9a828e9ec1806264a232d8bbd14805e7aaa62d8b"
+    },
+    {
+      "path": "assets/cozum/schneider-electric.webp",
+      "sha1": "8639514b3baaf9158ec8596fd940851f7eb76087"
+    },
+    {
+      "path": "assets/cozum/siemens.webp",
+      "sha1": "d0f5c5961afa7d9bb53856b831d2c8805d171213"
+    },
+    {
+      "path": "assets/cozum/stildoor.webp",
+      "sha1": "e9d3d381858b7f190cd30f02df376c0ca4987bd6"
+    },
+    {
+      "path": "assets/cozum/sumak.webp",
+      "sha1": "718ce7852e5c45e8374dfee1805230e76b53b686"
+    },
+    {
+      "path": "assets/cozum/teka.webp",
+      "sha1": "16f98bc7a68ca323403638cb9fae0b98d8655ca8"
+    },
+    {
+      "path": "assets/cozum/ukinox.webp",
+      "sha1": "ac964756a2e6f4005916454ce22274a2c0cdedeb"
+    },
+    {
+      "path": "assets/cozum/uzunlar-celik-kapi.webp",
+      "sha1": "31d4dc56a9b537fc2a5ac4f9ff6c5ba940e68c14"
+    },
+    {
+      "path": "assets/cozum/vaillant.webp",
+      "sha1": "12d678aaaa14b6f6d0138086f9d42e5c1a0f98cf"
+    },
+    {
+      "path": "assets/cozum/vesbo.webp",
+      "sha1": "9b949e957a19507161f01c79e8de341693a6ce97"
+    },
+    {
+      "path": "assets/cozum/viessmann.webp",
+      "sha1": "8044416415b91e349eac1cd9e9e9b841801c06c6"
+    },
+    {
+      "path": "assets/cozum/viko.webp",
+      "sha1": "495d910b48aee2cd21c648e9b3f598bbd19306ef"
+    },
+    {
+      "path": "assets/cozum/vitra.webp",
+      "sha1": "b7a8d2f7d0de8647ffcbe9f4977a5de45fcdc231"
+    },
+    {
+      "path": "assets/cozum/weber.webp",
+      "sha1": "04496ef9d5d0f51aa6df3cd0ee1eaeb032837980"
+    },
+    {
+      "path": "assets/cozum/wilo.webp",
+      "sha1": "4b6f9eb8ecc5db1b3d62f15b0ea4389ad20f9efb"
+    },
+    {
+      "path": "assets/cozum/winsa.webp",
+      "sha1": "ddaf54a3a88cc2497209c445b9e0c53c784a2a25"
+    },
+    {
+      "path": "assets/css/fonts.css",
+      "sha1": "d668fa308a38f645db25083a79f6858893a3ce2e"
+    },
+    {
+      "path": "assets/css/home-stats.css",
+      "sha1": "569b4405346e344a0f822fc2b0faa91e9e7860ef"
+    },
+    {
+      "path": "assets/css/professional.css",
+      "sha1": "338acd9097099a5447fe7436fa2cd40e00cdf42f"
+    },
+    {
+      "path": "assets/css/projects-hero.css",
+      "sha1": "32501dc519a89bc3c3fe77da8789e69bbaa14f33"
+    },
+    {
+      "path": "assets/css/projects-layout.css",
+      "sha1": "c9ec9fa14900381abff7522a4b26017aa7a2f233"
+    },
+    {
+      "path": "assets/css/silver-theme.css",
+      "sha1": "2268eba032a4537ec9c9f487a18595b2570dbc07"
+    },
+    {
+      "path": "assets/css/site.css",
+      "sha1": "8ff007f3c001c3761b0a2f76e03920e709112ffb"
+    },
+    {
+      "path": "assets/fonts/OFL-archivo.txt",
+      "sha1": "35d54efe9577f2057e8bdb5f77ec50e21fd0c09c"
+    },
+    {
+      "path": "assets/fonts/OFL-ibmplexmono.txt",
+      "sha1": "0ae1afdcc6d9bc8ed3195c89cbcba5fcd3dda1db"
+    },
+    {
+      "path": "assets/fonts/OFL-montserrat.txt",
+      "sha1": "c6e5a0782514a498ac406c73aee2c0fe4170188b"
+    },
+    {
+      "path": "assets/fonts/README.md",
+      "sha1": "1e0a8eaca194eecd0ae2fcaaff382fff582bdb5e"
+    },
+    {
+      "path": "assets/fonts/archivo-332e6f66de84.woff2",
+      "sha1": "74011f871de52d0fac98636679e03ea145a61ace"
+    },
+    {
+      "path": "assets/fonts/archivo-5717f3705966.woff2",
+      "sha1": "837705d412798418c8b82dbfa62a8af2e9e83daf"
+    },
+    {
+      "path": "assets/fonts/archivo-e3a28eade21a.woff2",
+      "sha1": "258a93fe93ae4cd277dde1da554e5cc2c7728f2c"
+    },
+    {
+      "path": "assets/fonts/ibm-plex-mono-01d285447409.woff2",
+      "sha1": "d32f0e0701ac62043840131a800ce717a86e4ee2"
+    },
+    {
+      "path": "assets/fonts/ibm-plex-mono-08949f728dc5.woff2",
+      "sha1": "bb87500e3204a3a7c65d6633c79c5c840c3be8d3"
+    },
+    {
+      "path": "assets/fonts/ibm-plex-mono-1d89462e86cb.woff2",
+      "sha1": "caa0275bed3df1190752f433c23dbb268f6c2147"
+    },
+    {
+      "path": "assets/fonts/ibm-plex-mono-3febe5c7f22e.woff2",
+      "sha1": "a458a7d1793d5e518b86a768d7e9e91499324396"
+    },
+    {
+      "path": "assets/fonts/ibm-plex-mono-62632b637530.woff2",
+      "sha1": "6c8912d7cfd869389674ecdfce9e29157bcb9aa4"
+    },
+    {
+      "path": "assets/fonts/ibm-plex-mono-6bb06407c975.woff2",
+      "sha1": "3e942f428e7d887c4f2dc11406125f9859823ee0"
+    },
+    {
+      "path": "assets/fonts/ibm-plex-mono-6bc0f226a5b7.woff2",
+      "sha1": "4af8cef522bd8912cb2fad41e06b9025640feb62"
+    },
+    {
+      "path": "assets/fonts/ibm-plex-mono-7635422bd10d.woff2",
+      "sha1": "9836f315b5c3b9c898b910dd61b70991ca1c6965"
+    },
+    {
+      "path": "assets/fonts/ibm-plex-mono-781633d95de8.woff2",
+      "sha1": "ed50e383413682077d7349090c735187e16ee44d"
+    },
+    {
+      "path": "assets/fonts/ibm-plex-mono-f8c22ec1804b.woff2",
+      "sha1": "c39ef070ae66df4659e2c070b1a5b395c23717b7"
+    },
+    {
+      "path": "assets/fonts/ibm-plex-sans-73e7f7b1c980.woff2",
+      "sha1": "8b633380e51e0faf268cbad35221eb282ed55ff9"
+    },
+    {
+      "path": "assets/fonts/ibm-plex-sans-7d0037a17088.woff2",
+      "sha1": "9a3103b2da761f4c4cce8252c6c8969801dec839"
+    },
+    {
+      "path": "assets/fonts/ibm-plex-sans-9409ee21811f.woff2",
+      "sha1": "d60fe850d102bb1db73f3fc83f92fc92ef2df900"
+    },
+    {
+      "path": "assets/fonts/ibm-plex-sans-d160e20920ae.woff2",
+      "sha1": "69ec30990085277e6b32769c26764ce80f70d9e3"
+    },
+    {
+      "path": "assets/fonts/ibm-plex-sans-e2291e842cf5.woff2",
+      "sha1": "d8b4e62dbb826591e45b6b7245edbca76b4f48a4"
+    },
+    {
+      "path": "assets/fonts/ibm-plex-sans-f598dd0700f1.woff2",
+      "sha1": "b77f87bbc41209ff595fded2f193dfa39842d8f4"
+    },
+    {
+      "path": "assets/fonts/montserrat-06b16db7a969.woff2",
+      "sha1": "a5ec54920b589ebe2af3bc3bb7754a476db68abf"
+    },
+    {
+      "path": "assets/fonts/montserrat-0f7f5f2fbb4e.woff2",
+      "sha1": "9f10d2948d17ed748663d1acfb100fa9cec8e92e"
+    },
+    {
+      "path": "assets/fonts/montserrat-26b2403f995e.woff2",
+      "sha1": "404038f1a5087fd7e1241182f717806eaa8c21e4"
+    },
+    {
+      "path": "assets/fonts/montserrat-54d9a78b7ff6.woff2",
+      "sha1": "a63797c1e1c137082b7a58f6ee58ccb8640ac51e"
+    },
+    {
+      "path": "assets/fonts/montserrat-a187b077090f.woff2",
+      "sha1": "520cd39b1b5bb249f2f7587505f0e3711be52c90"
+    },
+    {
+      "path": "assets/fonts/provenance.json",
+      "sha1": "7c4bc91fd63e7aeeb41a269a971f50a4a146719f"
+    },
+    {
+      "path": "assets/icons/whatsapp-LICENSE.txt",
+      "sha1": "acac50435cf9dc993396653dcc5335fc4b52efb5"
+    },
+    {
+      "path": "assets/js/projects-order.js",
+      "sha1": "ce8c815c184c98bd7142952be4f9f9593112a59b"
+    },
+    {
+      "path": "assets/js/site.js",
+      "sha1": "22f29a7d6f7c97447288ac8d560cc716c798dde2"
+    },
+    {
+      "path": "assets/logo/apple-touch-icon-silver.png",
+      "sha1": "625d5e97212281171cfd4ad3bbef29a04e46757c"
+    },
+    {
+      "path": "assets/logo/favicon-silver-20261009.ico",
+      "sha1": "a748e06eaf77bb31865afe8296c555362fac5441"
+    },
+    {
+      "path": "assets/logo/favicon-silver-20261009.png",
+      "sha1": "544590a0447062690681da7b732e5d1c4a01f369"
+    },
+    {
+      "path": "assets/logo/favicon.svg",
+      "sha1": "2befa23b43da7e760cc139fba1bbf73777b37a2d"
+    },
+    {
+      "path": "assets/logo/gerzoglu-logo-03-matte.png",
+      "sha1": "c0909b8d4688c87f719b73a96f878314d3553af0"
+    },
+    {
+      "path": "assets/logo/gerzoglu-logo-03-matte.webp",
+      "sha1": "20114332121d7c2b9a9395f6efbe1d49a6541cf1"
+    },
+    {
+      "path": "assets/logo/gerzoglu-logo-29-gold-3d.png",
+      "sha1": "c4703a2ed69c9b40f3a5b4f123a6c8306fad7b9b"
+    },
+    {
+      "path": "assets/logo/gerzoglu-logo-29-gold-3d.webp",
+      "sha1": "d69df5013f0422c6668b73772d2e6189f87b3d86"
+    },
+    {
+      "path": "assets/logo/gerzoglu-logo-29-matte.png",
+      "sha1": "3935615a23854089ed4378d713edf1512dc5533d"
+    },
+    {
+      "path": "assets/logo/gerzoglu-logo-29-matte.webp",
+      "sha1": "d9b5e56fec13283ad4540d1a750fa2e4eaf8e0a7"
+    },
+    {
+      "path": "assets/logo/gerzoglu-logo-29-silver.png",
+      "sha1": "97e67391aff061ce8e0b92ee5187bc760a7c7e2b"
+    },
+    {
+      "path": "assets/logo/gerzoglu-logo-29-silver.webp",
+      "sha1": "ba1a983a8815155550df51d92bb6081161125fb7"
+    },
+    {
+      "path": "assets/logo/logo-03-notes.txt",
+      "sha1": "26d70ea2ae44cc75ae95c95a515cd6276d4757b0"
+    },
+    {
+      "path": "assets/logo/logo-29-gold-3d-notes.txt",
+      "sha1": "924a0da05ad677b14db854eceb90b789b1a0e47a"
+    },
+    {
+      "path": "assets/logo/logo-29-notes.txt",
+      "sha1": "047db6a790d32a218037fa4f300f125ca07af39e"
+    },
+    {
+      "path": "assets/logo/logo-29-silver-notes.txt",
+      "sha1": "1ff6d2984bd0ca779908cf12c9409b9462db2e53"
+    },
+    {
+      "path": "assets/logo/savas-gerzoglu-signature.svg",
+      "sha1": "330013051dcffda4dd6061b3a1efed715821cf36"
+    },
+    {
+      "path": "assets/logo/signature-license.txt",
+      "sha1": "adf262aaed4526edd35edc098e6af555d7ee3f8d"
+    },
+    {
+      "path": "assets/proje/dermanci-acik-tas-20261009.webp",
+      "sha1": "dc684c50f2b549004f26f1ab0a3662bd67c1a87c"
+    },
+    {
+      "path": "assets/proje/dermanci-ahsap-kapak-20261009.webp",
+      "sha1": "c4272c4912655c8557b58438e7c09a0c0de46eb0"
+    },
+    {
+      "path": "assets/proje/dermanci-aksam-42ad6dcf.webp",
+      "sha1": "9f9ff298488ecccd7e13a9b54f027c1fab9ffc6f"
+    },
+    {
+      "path": "assets/proje/dermanci-aksam-6826031b.webp",
+      "sha1": "502d769b6d8bfff0630b557c54ff724fea8a9897"
+    },
+    {
+      "path": "assets/proje/dermanci-aksam-f4b86ded.webp",
+      "sha1": "2736319991bec97fc373bcec601a43d44bb0c7e7"
+    },
+    {
+      "path": "assets/proje/dermanci-bulutlu-0d854275.webp",
+      "sha1": "12d489f59e743e1252961dc2849a2495ce1dcc40"
+    },
+    {
+      "path": "assets/proje/dermanci-bulutlu-de99f2e9.webp",
+      "sha1": "ac210698f87d790f86431eb4d1933e4a1f416de7"
+    },
+    {
+      "path": "assets/proje/dermanci-dikey-tas-20261009.webp",
+      "sha1": "e4b216c4c66d2b8bdcbf15d9a8c8e459cc4b3c2d"
+    },
+    {
+      "path": "assets/proje/dermanci-gece-0119969c.webp",
+      "sha1": "b56eac62d029cb9fb4972956f1a5739c0503d43c"
+    },
+    {
+      "path": "assets/proje/dermanci-gece-abdaae1d.webp",
+      "sha1": "a4de70c5be1cbc5b26d8753afa2e3426898c7baa"
+    },
+    {
+      "path": "assets/proje/dermanci-kose-bf0db9af.webp",
+      "sha1": "4c2de54d27a8b8c40d452ffb8013c590e1370462"
+    },
+    {
+      "path": "assets/proje/dermanci-koyu-tugla-20261009.webp",
+      "sha1": "d3c16b608b62119f274517a4c3fbe0d160ee13a4"
+    },
+    {
+      "path": "assets/proje/dermanci-on-cephe-8240f4ee.webp",
+      "sha1": "c61095e04241c960cb883fe84663123c6aaed96c"
+    },
+    {
+      "path": "assets/proje/dermanci-yan-801e184d.webp",
+      "sha1": "4473bf4649937d7a889a13cff8c7681cc30f0608"
+    },
+    {
+      "path": "assets/proje/gerzoglu-residans-10-5-1f18e338.webp",
+      "sha1": "1da472fe68a4a1d07f6871717542dcd1be549ed0"
+    },
+    {
+      "path": "assets/proje/gerzoglu-residans-10-5-cbb48440.webp",
+      "sha1": "da1b275b3b9a57f5ab0b3706dc367921a75861ae"
+    },
+    {
+      "path": "assets/proje/karabas-apartmani-mevcut-20261012.png",
+      "sha1": "c7a3372cd238502ec42759d73dcf0075afbe0a86"
+    },
+    {
+      "path": "assets/proje/karabas-apartmani-mevcut-duz-20261012.png",
+      "sha1": "798075dfce7d53e73890fedef6d8e1bebed79a48"
+    },
+    {
+      "path": "assets/proje/kucukyali-yeni-erdem-kent-20261009.webp",
+      "sha1": "36047e49963b17e7f3ace6da277be876fce27949"
+    },
+    {
+      "path": "assets/proje/merve-apartmani-cephe-20261009.webp",
+      "sha1": "d65afa479fca599ed1ee4bac9aced6760e4e0989"
+    },
+    {
+      "path": "assets/proje/zeynep-azna-708be9fc.webp",
+      "sha1": "37445359f5b5cb07514f21759e71e997c2a14d70"
+    },
+    {
+      "path": "assets/responsive/banyo-e1f62517-1280-4918c9ad332e.webp",
+      "sha1": "879620fe0a18a9d486f8349b4f8700fb01fdc02e"
+    },
+    {
+      "path": "assets/responsive/banyo-e1f62517-1920-4918c9ad332e.webp",
+      "sha1": "481ffc3901fc2288c8b870db7b0c8c78be760f57"
+    },
+    {
+      "path": "assets/responsive/banyo-e1f62517-640-4918c9ad332e.webp",
+      "sha1": "964a2424614c60fe7f3b350cd85e490fe5bdc7dd"
+    },
+    {
+      "path": "assets/responsive/beton-dokum-3b698979-1280-1cb6ce4f54df.webp",
+      "sha1": "bc085682283f1bf27fa4e7a477959807fe8578dd"
+    },
+    {
+      "path": "assets/responsive/beton-dokum-3b698979-1920-1cb6ce4f54df.webp",
+      "sha1": "df38b326189ddc2ed432f158b70056c75ddd5221"
+    },
+    {
+      "path": "assets/responsive/beton-dokum-3b698979-640-1cb6ce4f54df.webp",
+      "sha1": "e90272272d0b5c566c249ca4843614febe202bfa"
+    },
+    {
+      "path": "assets/responsive/birlik-apartmani-d1a32ec9-1280-4d5a85b20829.webp",
+      "sha1": "173f93aefe904abe85f45aff47ce6dda47bf6d91"
+    },
+    {
+      "path": "assets/responsive/birlik-apartmani-d1a32ec9-1920-4d5a85b20829.webp",
+      "sha1": "ef9d6588f503d7eeb7078e4c80b15668240802ec"
+    },
+    {
+      "path": "assets/responsive/birlik-apartmani-d1a32ec9-640-4d5a85b20829.webp",
+      "sha1": "6e9c0d94efd12e342bb0d255425edef498ef328e"
+    },
+    {
+      "path": "assets/responsive/cephe-detay-6e1b1040-1280-664c04363749.webp",
+      "sha1": "2aa499115f4d0c8505cb30ddc6c137d37d5bda05"
+    },
+    {
+      "path": "assets/responsive/cephe-detay-6e1b1040-1920-664c04363749.webp",
+      "sha1": "9c294fe973033910e050a7c8ac809c34575a8594"
+    },
+    {
+      "path": "assets/responsive/cephe-detay-6e1b1040-640-664c04363749.webp",
+      "sha1": "43a654207434fa9c28d0038b3e47bf04942c84e0"
+    },
+    {
+      "path": "assets/responsive/dermanci-acik-tas-20261009-1280.webp",
+      "sha1": "50ff883c05d12e33ad854347646f9fd2975575d3"
+    },
+    {
+      "path": "assets/responsive/dermanci-acik-tas-20261009-1920.webp",
+      "sha1": "0869defe339390766d3304c4afff5df875322866"
+    },
+    {
+      "path": "assets/responsive/dermanci-acik-tas-20261009-640.webp",
+      "sha1": "8b41cbf9578dd0620e268959ba7be55252ab222b"
+    },
+    {
+      "path": "assets/responsive/dermanci-ahsap-kapak-20261009-1280.webp",
+      "sha1": "a95005ed14d2ff87852155af24525d0667e8fbcb"
+    },
+    {
+      "path": "assets/responsive/dermanci-ahsap-kapak-20261009-1920.webp",
+      "sha1": "61e203e7d80d8063bc6a640fa24789d8b862e27c"
+    },
+    {
+      "path": "assets/responsive/dermanci-ahsap-kapak-20261009-640.webp",
+      "sha1": "2fd80c4c8e3445cfbd5b4bb3f9367fd5ce349695"
+    },
+    {
+      "path": "assets/responsive/dermanci-aksam-6826031b-1280-6a850eab2ea0.webp",
+      "sha1": "dd31ed372e1612c8eee645bd17a51c0aaf4c2ba9"
+    },
+    {
+      "path": "assets/responsive/dermanci-aksam-6826031b-1920-6a850eab2ea0.webp",
+      "sha1": "02edd095c01bd09149f6344eae6ea9972bed8e04"
+    },
+    {
+      "path": "assets/responsive/dermanci-aksam-6826031b-640-6a850eab2ea0.webp",
+      "sha1": "497477bb6d235dd0a7b00743c51ba0647a5770fa"
+    },
+    {
+      "path": "assets/responsive/dermanci-bulutlu-de99f2e9-1280-2e230aa416a1.webp",
+      "sha1": "98074fb60b6ea18c7dfed5b36a63f5d531ee4245"
+    },
+    {
+      "path": "assets/responsive/dermanci-bulutlu-de99f2e9-1920-2e230aa416a1.webp",
+      "sha1": "0f302abaabcb6cd597f663d1e3c87d289af8bc92"
+    },
+    {
+      "path": "assets/responsive/dermanci-bulutlu-de99f2e9-640-2e230aa416a1.webp",
+      "sha1": "14d85d24c11dcb44ff8a78196446f010dfe0d883"
+    },
+    {
+      "path": "assets/responsive/dermanci-dikey-tas-20261009-1280.webp",
+      "sha1": "2e03f0a1bce69fe5f159bfefbd49667c01a550ee"
+    },
+    {
+      "path": "assets/responsive/dermanci-dikey-tas-20261009-1920.webp",
+      "sha1": "e3247fc66b7d0f3eae65fcf6df5198c75bca9ea3"
+    },
+    {
+      "path": "assets/responsive/dermanci-dikey-tas-20261009-640.webp",
+      "sha1": "06b9a46ac2b48b7112ab5e066e96f75191e169f0"
+    },
+    {
+      "path": "assets/responsive/dermanci-eski-yatay-89338220-1280-9581e7ff1462.webp",
+      "sha1": "4b1fbb37d9d9e59f5f25b1dbcf8db60d019740ba"
+    },
+    {
+      "path": "assets/responsive/dermanci-eski-yatay-89338220-1920-9581e7ff1462.webp",
+      "sha1": "ab8998d9f8fdba4fc616885438711b49355e0e30"
+    },
+    {
+      "path": "assets/responsive/dermanci-eski-yatay-89338220-640-9581e7ff1462.webp",
+      "sha1": "c56405caa6a7e72f3d569c48034212111620b0f2"
+    },
+    {
+      "path": "assets/responsive/dermanci-gece-0119969c-1280-675dd6b596b2.webp",
+      "sha1": "f712e34bdfd5f777f445f771aeab08f17491c457"
+    },
+    {
+      "path": "assets/responsive/dermanci-gece-0119969c-1920-675dd6b596b2.webp",
+      "sha1": "58f349fbce542c23b254d77726ec4a0732f8adac"
+    },
+    {
+      "path": "assets/responsive/dermanci-gece-0119969c-640-675dd6b596b2.webp",
+      "sha1": "852a47ea84fde3dab403d28aeb8d7d05f792c98a"
+    },
+    {
+      "path": "assets/responsive/dermanci-koyu-tugla-20261009-1280.webp",
+      "sha1": "375ab87ea3c36939c9768fb790f9182bdb177471"
+    },
+    {
+      "path": "assets/responsive/dermanci-koyu-tugla-20261009-1920.webp",
+      "sha1": "13bbae87d37978bc82b8e4ba38292a073d27f45f"
+    },
+    {
+      "path": "assets/responsive/dermanci-koyu-tugla-20261009-640.webp",
+      "sha1": "327d58eff5066cf9178e118c995882c48fff3076"
+    },
+    {
+      "path": "assets/responsive/donati-caa92d10-1280-293eded6d747.webp",
+      "sha1": "407e565e516a97480874cda810310e52727443a0"
+    },
+    {
+      "path": "assets/responsive/donati-caa92d10-1920-293eded6d747.webp",
+      "sha1": "4e06476151f2a05bd3815460fd2532d5299bf0fa"
+    },
+    {
+      "path": "assets/responsive/donati-caa92d10-640-293eded6d747.webp",
+      "sha1": "78b4f91a98280b2cc6a72e4608e02aa30205c543"
+    },
+    {
+      "path": "assets/responsive/gerzoglu-2-0da6e084-1280-94ff7da068aa.webp",
+      "sha1": "8c988533e9d3bd60fe4a34b852edccbb83856640"
+    },
+    {
+      "path": "assets/responsive/gerzoglu-2-0da6e084-1920-94ff7da068aa.webp",
+      "sha1": "4cfb5c86962cefdce5f42d44673b9c3a0df7fc08"
+    },
+    {
+      "path": "assets/responsive/gerzoglu-2-0da6e084-640-94ff7da068aa.webp",
+      "sha1": "e0602f0008d3c604689bd3f4500a92c05765f2c8"
+    },
+    {
+      "path": "assets/responsive/gerzoglu-is-merkezi-067271a5-1280-7f3aa542ee39.webp",
+      "sha1": "4e8f31099db0b796fcfa4efc733022b4a3c3e690"
+    },
+    {
+      "path": "assets/responsive/gerzoglu-is-merkezi-067271a5-1920-7f3aa542ee39.webp",
+      "sha1": "983034744d4662f7ca005c1307c54b1098fd8d80"
+    },
+    {
+      "path": "assets/responsive/gerzoglu-is-merkezi-067271a5-640-7f3aa542ee39.webp",
+      "sha1": "dac49ad69b1195df4fc9d43991f9d9d2546e383e"
+    },
+    {
+      "path": "assets/responsive/gerzoglu-plaza-9e25d17e-1280-6d9eda7c1bfd.webp",
+      "sha1": "b244bbc5ef7cae29ef9dd01f8d30a395675a1bf5"
+    },
+    {
+      "path": "assets/responsive/gerzoglu-plaza-9e25d17e-1920-6d9eda7c1bfd.webp",
+      "sha1": "80a9d60d9d98db3d7cda6b58bf632c26cea8fbf5"
+    },
+    {
+      "path": "assets/responsive/gerzoglu-plaza-9e25d17e-640-6d9eda7c1bfd.webp",
+      "sha1": "c3a23d9af39191ba5852bde835020bd8255eadc5"
+    },
+    {
+      "path": "assets/responsive/gerzoglu-residans-10-5-cbb48440-1280-cedeaab2020c.webp",
+      "sha1": "8f44a2a0961000e337123f990d046ba2dfe97daa"
+    },
+    {
+      "path": "assets/responsive/gerzoglu-residans-10-5-cbb48440-1920-cedeaab2020c.webp",
+      "sha1": "c588af08aa1719b62807209060df54ef0384cfd2"
+    },
+    {
+      "path": "assets/responsive/gerzoglu-residans-10-5-cbb48440-640-cedeaab2020c.webp",
+      "sha1": "ed241cf0ac458e31a2ea28f939e358263afb8f6a"
+    },
+    {
+      "path": "assets/responsive/gerzoglu-sitesi-0e9dbd0a-1280-14548b6d32f5.webp",
+      "sha1": "0b7e120859c049ce52f4e13ab49da0dd855a80fb"
+    },
+    {
+      "path": "assets/responsive/gerzoglu-sitesi-0e9dbd0a-1920-14548b6d32f5.webp",
+      "sha1": "19b20fa6dd9ce975b3b780c00229a9985a167ae8"
+    },
+    {
+      "path": "assets/responsive/gerzoglu-sitesi-0e9dbd0a-640-14548b6d32f5.webp",
+      "sha1": "7c25071cb26794386bcf2d489927e0822d0aac94"
+    },
+    {
+      "path": "assets/responsive/girne-konut-maltepe-65a864d2-1280-bfbedfc2da63.webp",
+      "sha1": "c8b3363ffa6ed41ab9656fef994a2770f4b6e262"
+    },
+    {
+      "path": "assets/responsive/girne-konut-maltepe-65a864d2-1920-bfbedfc2da63.webp",
+      "sha1": "911917fc9daefbbb18820e08dbcebbd7799adf70"
+    },
+    {
+      "path": "assets/responsive/girne-konut-maltepe-65a864d2-640-bfbedfc2da63.webp",
+      "sha1": "ebe871abf0b1c41825d2c2792d2dc78d5c3e04c4"
+    },
+    {
+      "path": "assets/responsive/girne-tuzla-e35912cc-1280-f9a5b1f7c3d7.webp",
+      "sha1": "2c5e4d02a7dcebd01db39db1041a930b8584e8d3"
+    },
+    {
+      "path": "assets/responsive/girne-tuzla-e35912cc-1920-f9a5b1f7c3d7.webp",
+      "sha1": "7a5634e1e5a3046df264e8e5072fc476a85390a5"
+    },
+    {
+      "path": "assets/responsive/girne-tuzla-e35912cc-640-f9a5b1f7c3d7.webp",
+      "sha1": "08a59a88a1d18baa7084164ecb76e3aeabe34f14"
+    },
+    {
+      "path": "assets/responsive/hafriyat-624d33ac-1280-4ea6ff1755b5.webp",
+      "sha1": "2a413968d3d93369985ade9b485447bd3253a830"
+    },
+    {
+      "path": "assets/responsive/hafriyat-624d33ac-1920-4ea6ff1755b5.webp",
+      "sha1": "11bbdb9d539f6b9395e0ee64e5b381ee685d8972"
+    },
+    {
+      "path": "assets/responsive/hafriyat-624d33ac-640-4ea6ff1755b5.webp",
+      "sha1": "f3a40942a72aa8fd1a3469e72aeb96284648c66a"
+    },
+    {
+      "path": "assets/responsive/hero-santiye-fb537cb1-1280-f29dbb23ab7e.webp",
+      "sha1": "2f74f119e4b93915e9b1a6c1d8a54b2b315bdc98"
+    },
+    {
+      "path": "assets/responsive/hero-santiye-fb537cb1-1920-f29dbb23ab7e.webp",
+      "sha1": "2d05c986fdbf4c85b6b5dccf581bdbe058c90e62"
+    },
+    {
+      "path": "assets/responsive/hero-santiye-fb537cb1-640-f29dbb23ab7e.webp",
+      "sha1": "8f2aa3574b121d6127921c9b148cadc6215850fa"
+    },
+    {
+      "path": "assets/responsive/karabas-apartmani-mevcut-20261012-1280.webp",
+      "sha1": "d1392df36d634501fe5f943e00182510a4ed8bbb"
+    },
+    {
+      "path": "assets/responsive/karabas-apartmani-mevcut-20261012-1536.webp",
+      "sha1": "18493f9622e0e789ee31ca3adbaa335e17724326"
+    },
+    {
+      "path": "assets/responsive/karabas-apartmani-mevcut-20261012-640.webp",
+      "sha1": "815652dc2f2c8c1c63c4db2b92d6617aa72a7b76"
+    },
+    {
+      "path": "assets/responsive/karabas-apartmani-mevcut-duz-20261012-1280.webp",
+      "sha1": "05c03b0d2f4f234bc16707ef4b84dd238b8ffd20"
+    },
+    {
+      "path": "assets/responsive/karabas-apartmani-mevcut-duz-20261012-1536.webp",
+      "sha1": "6c5a86dab779d4f3f8c19955404bda2329440f73"
+    },
+    {
+      "path": "assets/responsive/karabas-apartmani-mevcut-duz-20261012-640.webp",
+      "sha1": "6d49ac474e1a17d11819e1b810db6852ec7e4bed"
+    },
+    {
+      "path": "assets/responsive/kentsel-donusum-fc39adba-1280-30fe3846aca6.webp",
+      "sha1": "7b3852848859864f98632ae3234b97c1adeef245"
+    },
+    {
+      "path": "assets/responsive/kentsel-donusum-fc39adba-1920-30fe3846aca6.webp",
+      "sha1": "3d61a8cf55382cef11f7c83ef74c4f5716174704"
+    },
+    {
+      "path": "assets/responsive/kentsel-donusum-fc39adba-640-30fe3846aca6.webp",
+      "sha1": "850e2cd5c899e53636ea06d923261221e25e275d"
+    },
+    {
+      "path": "assets/responsive/kilavuz-arsa-7e5fdbff-1280-ac6538e6472d.webp",
+      "sha1": "7b54daa39340bed24dc07c7e3c2ddbb0af5924b4"
+    },
+    {
+      "path": "assets/responsive/kilavuz-arsa-7e5fdbff-1920-ac6538e6472d.webp",
+      "sha1": "4174d8e0b67df361884d87eb490617e47cbda825"
+    },
+    {
+      "path": "assets/responsive/kilavuz-arsa-7e5fdbff-640-ac6538e6472d.webp",
+      "sha1": "bdd8040859715ede01d757751fdb4416def4c387"
+    },
+    {
+      "path": "assets/responsive/kilavuz-sokak-5981f00a-1280-6e771002c506.webp",
+      "sha1": "e0444edf5b04a9240fffbc32d25a27405700141d"
+    },
+    {
+      "path": "assets/responsive/kilavuz-sokak-5981f00a-1920-6e771002c506.webp",
+      "sha1": "a2dbef028f92ff13334c2a7fc7cdf7e9d3e54a36"
+    },
+    {
+      "path": "assets/responsive/kilavuz-sokak-5981f00a-640-6e771002c506.webp",
+      "sha1": "16664208181273125fecbc7d0a97853d32ef3066"
+    },
+    {
+      "path": "assets/responsive/kucukyali-yeni-erdem-kent-20261009-1280.webp",
+      "sha1": "5a69574efb9c675281e478c8e567a16dbadf3fb9"
+    },
+    {
+      "path": "assets/responsive/kucukyali-yeni-erdem-kent-20261009-1920.webp",
+      "sha1": "c655941106ec66745e853d8c195a124e79a00326"
+    },
+    {
+      "path": "assets/responsive/kucukyali-yeni-erdem-kent-20261009-640.webp",
+      "sha1": "e1e90fff0b8183ceb5a27aae06fc10c1eb1bdcc4"
+    },
+    {
+      "path": "assets/responsive/mehmet-akif-maltepe-89667e1c-1280-aac53338be72.webp",
+      "sha1": "d50f1a047d03570f39f90321417389c3da964a0c"
+    },
+    {
+      "path": "assets/responsive/mehmet-akif-maltepe-89667e1c-1920-aac53338be72.webp",
+      "sha1": "833289a8810ea44e7dcac84edbffb780e962e667"
+    },
+    {
+      "path": "assets/responsive/mehmet-akif-maltepe-89667e1c-640-aac53338be72.webp",
+      "sha1": "be46652170d5f1dd5f99427c6dda4b8227e05c44"
+    },
+    {
+      "path": "assets/responsive/mehmet-akif-tuzla-556306e4-1280-d72cdfe3b47a.webp",
+      "sha1": "ac31ac0f2b9697308c7a07572baf98ce7caf2a35"
+    },
+    {
+      "path": "assets/responsive/mehmet-akif-tuzla-556306e4-1920-d72cdfe3b47a.webp",
+      "sha1": "de0722dbe9e3da0a9b69fec2b0f1cdcab7cd6cc6"
+    },
+    {
+      "path": "assets/responsive/mehmet-akif-tuzla-556306e4-640-d72cdfe3b47a.webp",
+      "sha1": "2529d5bc2807633b91755803f96872f277c36dc4"
+    },
+    {
+      "path": "assets/responsive/merve-apartmani-5dff1946-1280-9ade0873cfeb.webp",
+      "sha1": "7fcca4856420f11f9b26edd520057b8521124b80"
+    },
+    {
+      "path": "assets/responsive/merve-apartmani-5dff1946-1920-9ade0873cfeb.webp",
+      "sha1": "eee96ad02d866e552c65c5bbb5e15552412053b4"
+    },
+    {
+      "path": "assets/responsive/merve-apartmani-5dff1946-640-9ade0873cfeb.webp",
+      "sha1": "0a47699d5bb997ce4075c0377e885542680664d1"
+    },
+    {
+      "path": "assets/responsive/merve-apartmani-cephe-20261009-1280.webp",
+      "sha1": "63003abc518188806b38e810191f2e74578df3a8"
+    },
+    {
+      "path": "assets/responsive/merve-apartmani-cephe-20261009-1920.webp",
+      "sha1": "8fbeacf4ebb061d4a0540b808a33127afc2481c3"
+    },
+    {
+      "path": "assets/responsive/merve-apartmani-cephe-20261009-640.webp",
+      "sha1": "9928b45fb5f4f365ba83fe2293e9771557e41b0b"
+    },
+    {
+      "path": "assets/responsive/muhendisler-90141165-1280-1c2c50820cce.webp",
+      "sha1": "dd51b692656d7757e1c328be6ca81f1aa8541036"
+    },
+    {
+      "path": "assets/responsive/muhendisler-90141165-1920-1c2c50820cce.webp",
+      "sha1": "462df630295d0dd6047b35e43401322631513bb6"
+    },
+    {
+      "path": "assets/responsive/muhendisler-90141165-640-1c2c50820cce.webp",
+      "sha1": "b9f3ac291c0bb600814dfd15506c61a3a80957bb"
+    },
+    {
+      "path": "assets/responsive/mutfak-c12724cf-1280-e2d7725b92ca.webp",
+      "sha1": "dca32b9ef5ad2a9f23b219087bf460c06b43bb85"
+    },
+    {
+      "path": "assets/responsive/mutfak-c12724cf-1920-e2d7725b92ca.webp",
+      "sha1": "781a1bfcfdca1ab5d39e79fe182328745e03cc44"
+    },
+    {
+      "path": "assets/responsive/mutfak-c12724cf-640-e2d7725b92ca.webp",
+      "sha1": "eb8ef6a7c3572eb15395b584edeca5ee53aa5910"
+    },
+    {
+      "path": "assets/responsive/nova-c323f644-1280-98c323b7be69.webp",
+      "sha1": "0860abe2a7d075ae12dd1a8347ed1b94468fc64f"
+    },
+    {
+      "path": "assets/responsive/nova-c323f644-1920-98c323b7be69.webp",
+      "sha1": "1dffd7c87411b29085d423fd85cefe17877bf6e8"
+    },
+    {
+      "path": "assets/responsive/nova-c323f644-640-98c323b7be69.webp",
+      "sha1": "9b2e34ebb0348baddf6edf45d522818a4bde4caa"
+    },
+    {
+      "path": "assets/responsive/park-sitesi-078358bb-1280-d6a267d158d6.webp",
+      "sha1": "6ccc045d745be41d26bcec031228b7d25b73cd81"
+    },
+    {
+      "path": "assets/responsive/park-sitesi-078358bb-1920-d6a267d158d6.webp",
+      "sha1": "274581e8ecd74bab34a676974c8d039a47f5a755"
+    },
+    {
+      "path": "assets/responsive/park-sitesi-078358bb-640-d6a267d158d6.webp",
+      "sha1": "09dba7ab4e358d3da9aceb1ce0179ec1414e8117"
+    },
+    {
+      "path": "assets/responsive/sahil-damla-5f8160f4-1280-29fc76df93b2.webp",
+      "sha1": "9339849c411915282aea780331012f5ba8cbfa09"
+    },
+    {
+      "path": "assets/responsive/sahil-damla-5f8160f4-1920-29fc76df93b2.webp",
+      "sha1": "caf4a7d85584dc6679fbb69777da1bb1f2923def"
+    },
+    {
+      "path": "assets/responsive/sahil-damla-5f8160f4-640-29fc76df93b2.webp",
+      "sha1": "1369b223132600f0e5752f5b97f3fc5a4a162ba1"
+    },
+    {
+      "path": "assets/responsive/samandira-konut-isyeri-5d80a66c-1280-33127144df01.webp",
+      "sha1": "f25cc6cbe3f2d114c7ecacff1cd7189517d2a401"
+    },
+    {
+      "path": "assets/responsive/samandira-konut-isyeri-5d80a66c-1920-33127144df01.webp",
+      "sha1": "8f5a54b6d63f2451a6a1eda7b2284203ab87101a"
+    },
+    {
+      "path": "assets/responsive/samandira-konut-isyeri-5d80a66c-640-33127144df01.webp",
+      "sha1": "64a96fba905cbe8eaf3f434f330e4f0d32e63e36"
+    },
+    {
+      "path": "assets/responsive/samandira-konut-ticari-4ed7ae14-1280-d9e4e5ca9607.webp",
+      "sha1": "66597ac0ad0aece3463490a4c619bfb9cf1a7f05"
+    },
+    {
+      "path": "assets/responsive/samandira-konut-ticari-4ed7ae14-1920-d9e4e5ca9607.webp",
+      "sha1": "761a43296ee0ea3ced118d2926fd3fa543eb6ef4"
+    },
+    {
+      "path": "assets/responsive/samandira-konut-ticari-4ed7ae14-640-d9e4e5ca9607.webp",
+      "sha1": "313cec745f997af4fe4313d1afcba42f60ee8b25"
+    },
+    {
+      "path": "assets/responsive/sancaktepe-konut-isyeri-cbf0856b-1280-cbaf8c0e0eeb.webp",
+      "sha1": "409b1b468a43031a42b4cba0b7d9ea7feadf743f"
+    },
+    {
+      "path": "assets/responsive/sancaktepe-konut-isyeri-cbf0856b-1920-cbaf8c0e0eeb.webp",
+      "sha1": "1c2ad17aa6fc1582dee12e5808877ac2a0e7fc24"
+    },
+    {
+      "path": "assets/responsive/sancaktepe-konut-isyeri-cbf0856b-640-cbaf8c0e0eeb.webp",
+      "sha1": "8f2718da52dfb3adf4e2a3c2f0ec88abe5d6388f"
+    },
+    {
+      "path": "assets/responsive/tepeoren-villa-d520eeee-1280-53b1563ddc41.webp",
+      "sha1": "aff239fe96052146eebf2603ec8178743448e83e"
+    },
+    {
+      "path": "assets/responsive/tepeoren-villa-d520eeee-1920-53b1563ddc41.webp",
+      "sha1": "211dcb61bc047035b5050fa11d930ac56180921f"
+    },
+    {
+      "path": "assets/responsive/tepeoren-villa-d520eeee-640-53b1563ddc41.webp",
+      "sha1": "bbb5661a04f0c22f8877252192fe18c53f6d3eab"
+    },
+    {
+      "path": "assets/responsive/tuzla-konut-ticari-b94b7e2e-1280-eccd73d0c288.webp",
+      "sha1": "ad6ca67abedebd9f9dba9a110e1f933640d36759"
+    },
+    {
+      "path": "assets/responsive/tuzla-konut-ticari-b94b7e2e-1920-eccd73d0c288.webp",
+      "sha1": "2eedbb7af7db8eba416e80ed094093fa3ad0c4e5"
+    },
+    {
+      "path": "assets/responsive/tuzla-konut-ticari-b94b7e2e-640-eccd73d0c288.webp",
+      "sha1": "ea508b86006f39cee43bf51cad8b3c69547c7112"
+    },
+    {
+      "path": "assets/responsive/umraniye-residans-88492ba2-1280-d5a96e8baf12.webp",
+      "sha1": "4a29fc4b5f7c255a4dd8d997e9339873024f013e"
+    },
+    {
+      "path": "assets/responsive/umraniye-residans-88492ba2-1920-d5a96e8baf12.webp",
+      "sha1": "e4d7d86d50d0db21ab799ed22cc464219dfeb289"
+    },
+    {
+      "path": "assets/responsive/umraniye-residans-88492ba2-640-d5a96e8baf12.webp",
+      "sha1": "edf44156d4fd1d8a8c8df4ba0a83767ea4ffdea8"
+    },
+    {
+      "path": "assets/responsive/vinc-aksam-129e0cee-1280-0ca47eda6c8e.webp",
+      "sha1": "3358491513115dd5b0834add83543a99121a07fb"
+    },
+    {
+      "path": "assets/responsive/vinc-aksam-129e0cee-1920-0ca47eda6c8e.webp",
+      "sha1": "9c29bb3391d6fa0c51db8ee40feb8f9e79ed96e4"
+    },
+    {
+      "path": "assets/responsive/vinc-aksam-129e0cee-640-0ca47eda6c8e.webp",
+      "sha1": "89f732bd915751f9fbc9620d9ee26f4e10817d7c"
+    },
+    {
+      "path": "assets/responsive/yatak-odasi-3b77ec12-1280-656370ff4464.webp",
+      "sha1": "a6680de700c2a6503f592128003290131f00aebc"
+    },
+    {
+      "path": "assets/responsive/yatak-odasi-3b77ec12-1920-656370ff4464.webp",
+      "sha1": "c22e87c73d709332a91ca5510f9211c5f6b90925"
+    },
+    {
+      "path": "assets/responsive/yatak-odasi-3b77ec12-640-656370ff4464.webp",
+      "sha1": "cdd792fb1d2d3c6bdf27032f5fee6970e688c994"
+    },
+    {
+      "path": "assets/responsive/yeni-erdem-c89e0210-1280-ed933186844d.webp",
+      "sha1": "11b79bd0e5f1a148006f8ed8208a04aa821ba0b9"
+    },
+    {
+      "path": "assets/responsive/yeni-erdem-c89e0210-1920-ed933186844d.webp",
+      "sha1": "368e0f6d7fb7d868b7ccc765fbe0d2d0e58333b3"
+    },
+    {
+      "path": "assets/responsive/yeni-erdem-c89e0210-640-ed933186844d.webp",
+      "sha1": "c3f54914432ac0edaaac2bed7fd2f898313b8c80"
+    },
+    {
+      "path": "assets/responsive/zeynep-azna-708be9fc-1280-44466183f8c9.webp",
+      "sha1": "3d64207205dc62d9551c3372b736f9728a371219"
+    },
+    {
+      "path": "assets/responsive/zeynep-azna-708be9fc-1920-44466183f8c9.webp",
+      "sha1": "e3d89a96e3910c5a2e4870f5a969b97deb66770e"
+    },
+    {
+      "path": "assets/responsive/zeynep-azna-708be9fc-640-44466183f8c9.webp",
+      "sha1": "36cad213b39c270245ae9714aa5b21f7efc09b50"
+    },
+    {
+      "path": "assets/responsive/zeynep-azra-3e88d817-1280-8f986c80fd42.webp",
+      "sha1": "4bf5eef2d20c8d3034ea3bebe5cb86aa3f13e271"
+    },
+    {
+      "path": "assets/responsive/zeynep-azra-3e88d817-1920-8f986c80fd42.webp",
+      "sha1": "b99e4213f000a3ceb376130cee6ee051a05c3244"
+    },
+    {
+      "path": "assets/responsive/zeynep-azra-3e88d817-640-8f986c80fd42.webp",
+      "sha1": "e30e83bd404d3f8c455b8a79ab81dc52cdd290c8"
+    },
+    {
+      "path": "build-site.cjs",
+      "sha1": "9a05628cb5f63ab0c3b58a16c101ef7123c2df40"
+    },
+    {
+      "path": "cozum-ortaklarimiz.html",
+      "sha1": "e89ade29336567507e340f0a0c34aca42c8f2e65"
+    },
+    {
+      "path": "gizlilik.html",
+      "sha1": "33a235a340e7873ef9b146e5d879b55feee57725"
+    },
+    {
+      "path": "iletisim.html",
+      "sha1": "43e12bf334b7fa62d413ead3f701917ea5a90865"
+    },
+    {
+      "path": "index.html",
+      "sha1": "ac9ef80272c909c2d64436a4a231a29de058dc6f"
+    },
+    {
+      "path": "kentsel-donusum.html",
+      "sha1": "4a9c6dee3921278b3d380ae70ce9aa3c02ef1a57"
+    },
+    {
+      "path": "kullanim-sartlari.html",
+      "sha1": "d5eb8a3ab3ffe2e5067de5181fd4466a30d32edf"
+    },
+    {
+      "path": "kurumsal.html",
+      "sha1": "0f2c9c7ced4610c472dc4de77e66217744ac7bb5"
+    },
+    {
+      "path": "kvkk.html",
+      "sha1": "d3e6807107ad8f4293dc104d496ff051b0212aaa"
+    },
+    {
+      "path": "lib/contact.cjs",
+      "sha1": "61fbe00b8f674571303c6d782bfc74483d725977"
+    },
+    {
+      "path": "llms.txt",
+      "sha1": "4240f16af1190366dd6fca68dd1e5744d7a05650"
+    },
+    {
+      "path": "package-lock.json",
+      "sha1": "b9497a3ff6060648a644cd5ba0c0d20382660fc4"
+    },
+    {
+      "path": "package.json",
+      "sha1": "365d6ca3274affc637f3aefd93f2767fcccb0098"
+    },
+    {
+      "path": "proje/altintepe-kilavuz-apartmani.html",
+      "sha1": "bbf86cdfe440aa5924f571bebb412038be263733"
+    },
+    {
+      "path": "proje/altintepe-merve-apartmani.html",
+      "sha1": "299000d47428e0fd68b15e7f6b607ff00a70daa7"
+    },
+    {
+      "path": "proje/girne-tuzla.html",
+      "sha1": "7fe28667c9e61d8733c6497b4ff6c31f547eefa6"
+    },
+    {
+      "path": "proje/idealtepe-gerzoglu-2.html",
+      "sha1": "7d8a2503ba677d98a4d2bb79d768ff3b6035728f"
+    },
+    {
+      "path": "proje/idealtepe-sahil-damla.html",
+      "sha1": "dc253834fbf5ff9d08a7fc64e701164e8b66c3c4"
+    },
+    {
+      "path": "proje/idealtepe-zeynep-azna.html",
+      "sha1": "be022fe6e695114435956910c92166d44d4d651d"
+    },
+    {
+      "path": "proje/idealtepe-zeynep-azra.html",
+      "sha1": "b599585bcb7b44273055c1d9074c744486c42e7f"
+    },
+    {
+      "path": "proje/kartal-karabas-apartmani.html",
+      "sha1": "e1dc4e07448b269e57a791ad2fc6c35e27379479"
+    },
+    {
+      "path": "proje/kucuktur-yolu-dermanci-apartmani.html",
+      "sha1": "f40ddf94c60a49a56e0de79c9665954e013c8991"
+    },
+    {
+      "path": "proje/kucukyali-yeni-erdem.html",
+      "sha1": "774825ab0ccb8844c15b4626343ed7166d344330"
+    },
+    {
+      "path": "proje/maltepe-birlik-apartmani.html",
+      "sha1": "fd3832ddf2a388b88f396816271bc97aaa8626ae"
+    },
+    {
+      "path": "proje/maltepe-gerzoglu-plaza.html",
+      "sha1": "550f6afcd922779511c9f6a0039dc95c7b86a3a6"
+    },
+    {
+      "path": "proje/maltepe-girne-konut.html",
+      "sha1": "17899d4c4521bb561c6164b1e9333b62bb88f182"
+    },
+    {
+      "path": "proje/maltepe-mehmet-akif.html",
+      "sha1": "6260780f5055b559c1058fef33f91d0d0b7a65bc"
+    },
+    {
+      "path": "proje/nova-tuzla.html",
+      "sha1": "d49536157bb6abea186bea0294e514bb0fc5d2bf"
+    },
+    {
+      "path": "proje/park-site-tuzla.html",
+      "sha1": "0e89d7adfacc71f8e2226240b2f17ac69882613b"
+    },
+    {
+      "path": "proje/sahrayicedit-gerzoglu-residans.html",
+      "sha1": "d263dce40d0e5f79de4e68bbbdeb956ace34bfb5"
+    },
+    {
+      "path": "proje/samandira-konut-isyeri.html",
+      "sha1": "522767a5bad3b3837149c1529e0a21a150d88d96"
+    },
+    {
+      "path": "proje/samandira-konut-ticari.html",
+      "sha1": "58c1e429b641c0a0141b9dfe0f9c0c229740ae20"
+    },
+    {
+      "path": "proje/sancaktepe-gerzoglu-sitesi.html",
+      "sha1": "adcd35d2f33ae874323a98160ed817cf99323c27"
+    },
+    {
+      "path": "proje/sancaktepe-konut-isyeri.html",
+      "sha1": "307190e6b01633d9f7b255584e0b411034a5348c"
+    },
+    {
+      "path": "proje/tuzla-konut-ticari.html",
+      "sha1": "71779af80c94cec3e6ab3715f35bddf60020ad9a"
+    },
+    {
+      "path": "proje/tuzla-mehmet-akif.html",
+      "sha1": "99614b8c9babdcf944af0252b1f604eb3811756e"
+    },
+    {
+      "path": "proje/tuzla-tepeoren-villa.html",
+      "sha1": "1ee28f8990bb073f970fef2fba278d3c85ccc1d8"
+    },
+    {
+      "path": "proje/umraniye-residans.html",
+      "sha1": "39e589e56f51b05ca023ed8e78fe2675513bbb82"
+    },
+    {
+      "path": "proje/uskudar-yilmaz-apartmani.html",
+      "sha1": "da26aa9d9957938d29a9c23d73ff80f35c760800"
+    },
+    {
+      "path": "proje/yenidogan-gerzoglu-is-merkezi.html",
+      "sha1": "6d5e13ebc66df0db7363676de5590fec13f408d2"
+    },
+    {
+      "path": "projeler.html",
+      "sha1": "f86045177051ce1965311e4d6b24a9bd2c01b40f"
+    },
+    {
+      "path": "robots.txt",
+      "sha1": "796d97b91cab888684b0bdf11c5647eb7375b40c"
+    },
+    {
+      "path": "sitemap.xml",
+      "sha1": "a9dd02d0ed5938e4c0d7b075e0fc41d2eb323845"
+    },
+    {
+      "path": "vercel.json",
+      "sha1": "4c0fb6a5a1d2d3182338564ccbe1391ea5e83843"
+    }
+  ]
+}

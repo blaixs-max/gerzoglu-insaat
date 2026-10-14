@@ -4,3 +4,6 @@ dist/
 tests/
 scripts/
 .env*
+.cache/
+reports/
+docs/

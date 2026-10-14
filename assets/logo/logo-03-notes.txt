@@ -1,0 +1,16 @@
+Logo 03 / matte champagne gold / 2026-10-09
+
+Generated using the built-in image_gen tool from the user's selected tile 03.
+PNG: RGBA transparent original, 1536 x 1024.
+WebP: alpha-preserving web export, quality 88, approximately 124 KB.
+Header and footer use the WebP with a PNG fallback. Existing favicon is retained.
+Local integration only; no production deployment performed.
+
+Final generation brief:
+Preserve the building emblem and exact Turkish text GERZOĞLU / İNŞAAT.
+Match the original reference's tile 03 material: subdued desaturated antique
+champagne gold, matte brushed metal, diffuse lighting and subtle bevel.
+Target midtone #A5916A, shadows #665943, highlights #C3B18A.
+Avoid bright yellow, white hot highlights, halo, backlight and background.
+Use true alpha transparency including emblem holes and letter counters.
+No number, border, wall or black rectangle. Keep a safe transparent margin.

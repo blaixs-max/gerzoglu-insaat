@@ -1,0 +1,11 @@
+Logo 29 / yellow gold with deeper 3D relief / 2026-10-09
+Built-in image_gen edit; transparent PNG original and alpha-preserving WebP.
+Alternative asset only. Existing website logo not replaced.
+
+Prompt: Edit the geometric tower logo29, preserving its stepped interlocking
+blocks, stacked proportions and GERZOĞLU / İNŞAAT text. Increase physical
+embossing and extrusion about 1.6 times, with thicker bevels, side faces and
+localized contact shadows on emblem and lettering. Use the warm yellow gold
+of the user-supplied exec-894c9375 reference exclusively as the color/material
+reference. Brushed gold surfaces, warm brown shadows, pale gold edge highlights.
+Front-facing lockup, true alpha transparency, no border, number or wall.

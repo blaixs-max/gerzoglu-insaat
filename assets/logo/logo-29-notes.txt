@@ -1,0 +1,10 @@
+Logo 29 / matte champagne gold / 2026-10-09
+Generated with built-in image_gen using the user's geometric tower reference.
+PNG: transparent RGBA original, 1536 x 1024. WebP: alpha-preserving quality 88.
+Alternative asset only; does not replace the integrated Logo 03.
+
+Generation brief: Preserve reference tile 29 interlocking stepped architectural
+blocks and stacked GERZOĞLU / İNŞAAT lettering. Replace silver with muted matte
+brushed champagne gold: #A5916A midtone, #665943 shadows, #C3B18A highlights.
+Diffuse lighting, subtle bevel, no bright yellow or hot specular highlights.
+Isolated transparent alpha asset with safe margins; no number, wall or border.

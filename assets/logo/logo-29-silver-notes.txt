@@ -1,0 +1,10 @@
+Logo 29 / brushed silver and graphite metal / 2026-10-09
+Built-in image_gen, based on the user's grayscale reference tile29.
+Transparent RGBA PNG original and alpha-preserving WebP export, quality 88.
+Alternative asset only; existing preview remains matte gold.
+
+Prompt: Preserve the stepped architectural interlocking block tower and exact
+GERZOĞLU / İNŞAAT stacked typography. Neutral silver highlights, brushed steel
+midtone faces, deep graphite sides, visible embossed 3D thickness, refined
+bevels and soft directional studio light. No gold, yellow or blue tint.
+True alpha transparency including openings, safe margins, no number or border.
