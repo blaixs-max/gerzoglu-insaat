@@ -1,6 +1,6 @@
 # Proje yönetim paneli kullanım rehberi
 
-14 Ekim 2026'da uygulama kaynakları ve ayrı veritabanı hazırlanmıştır; bu özelliğin production yayını henüz doğrulanmamıştır. Canlıya geçiş bilgisi [yayın kaydıyla](DEPLOYMENT.md) birlikte değerlendirilir.
+14 Ekim 2026'da panel canlıya alınmış; 27 mevcut projenin sunucudan güncel içerikle sunulduğu doğrulanmıştır. Güncel devam ve yayın kaydı [WORK_STATUS.md](WORK_STATUS.md) içindedir.
 
 ## Giriş ve proje durumları
 

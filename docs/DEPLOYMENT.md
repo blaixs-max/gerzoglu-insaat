@@ -129,3 +129,8 @@ Marketplace'in `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
 Mevcut Vercel takımının Pro planı üzerinde `/api/health` için **UTC `37 */6 * * *`** korumalı cron kullanılır. Supabase Free planı yükseltilmez. GitHub Actions **UTC `17 */6 * * *`** ile ayrı public REST okuması yapan yedek kontroldür. GitHub varsayılan dal, zamanlama gecikmesi ve herkese açık depolardaki 60 gün etkinlik sınırına tabidir. İki kontrol de duraklamama veya kesintisiz erişim garantisi vermez. Kurulum, bildirim ve kota adımları [ADMIN_AVAILABILITY.md](ADMIN_AVAILABILITY.md) içindedir.
 
 Kod Git'te tutulur; cloud proje verisi ve iki Storage bucket'ı ayrıca yedeklenir. Yayın geçmişi bağımsız yedek değildir. Free planın otomatik veritabanı yedeği varmış gibi işlem yapılmaz.
+
+## 14 Ekim 2026 tamamlanan CMS yayını
+
+Uygulama commit'i 038c941, production dpl_9Gb4KpMkXRYM1YwwRWhXqy5RgULu doğru gerzoglu-varyant-3 projesinde gerzoglu.com alan adına promote edildi. Fiziksel HTML dosyalarının CMS rewrite'larını gölgelemesi build'de giderildi. Canlı 27/27 proje ve ana sayfa/liste/sitemap HTML'leri renderPage çıktısıyla birebir karşılaştırıldı; no-store ve doğru SEO başlıkları doğrulandı. 40/40 test geçti. Cron metadata'sı son dağıtıma bağlı ve disabledAt null; korumalı cloud kontrolü 200. GitHub kontrolü: https://github.com/blaixs-max/gerzoglu-insaat/actions/runs/38587790863 (başarılı). SMTP doğrulaması EAUTH döndü; gönderim yapılmadı ve e-posta kurtarma henüz etkinleştirilmedi. Güncel devam notu WORK_STATUS.md içindedir.
+
