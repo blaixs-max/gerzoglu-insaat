@@ -48,9 +48,9 @@ npm run build
 
 Derlemeden sonra `npm run preview` yerel `dist/` önizlemesini başlatır. `npm run verify:live` tüm oluşturulan herkese açık dosyaları `https://gerzoglu.com` ile karşılaştırır; yalnız GET istekleri kullanır. `/index.html` için `/` kontrol edilir; gerçek 404 durumu ve tanımlı yönlendirmeler dikkate alınır. Bu kontrol API'nin e-posta teslimatını test etmez.
 
-Vercel ayarları `vercel.json` içindedir: `buildCommand: npm run build`, `outputDirectory: dist`, `framework: null`. `build-site.cjs` yalnız kök HTML dosyaları, `proje/*.html`, `assets/`, `robots.txt`, `sitemap.xml` ve `llms.txt` dosyalarını statik çıktıya alır. Sunucu işlevi `api/contact.js` ve bağımlılığı `lib/contact.cjs`, `dist/` dışında tutulur; Vercel işlev olarak paketler. İletişim işlevinin azami süresi 45 saniyedir.
+Vercel ayarları `vercel.json` içindedir: `buildCommand: npm run build`, `outputDirectory: dist`, `framework: null`. Build, sabitlenmiş Supabase tarayıcı istemcisini esbuild ile yerel `assets/vendor/supabase.mjs` dosyasına paketler. Kök HTML, `proje/*.html`, `assets/`, `robots.txt`, `sitemap.xml` ve `llms.txt` statik çıktıya alınır; API, `lib/`, `data/` ve ortam dosyaları burada sunulmaz. Vercel CMS işlevlerine gereken kodu ve JSON şablonlarını ayrıca paketler. İletişim işlevinin azami süresi 45 saniyedir.
 
-`dist/` yeniden oluşturulabilir çıktıdır. Kaynakta yapılmayan bir değişikliği yalnız `dist/` içinde düzeltmek sonraki build'de kaybolur. `.vercel/`, `.env*`, `node_modules/` ve yerel çıktılar Git'e eklenmemelidir. Yedekleri ve kullanıcıya ait ham belgeleri yayın paketinden ayrı tutun.
+`dist/` yeniden oluşturulabilir çıktıdır. Kaynakta yapılmayan bir değişikliği yalnız `dist/` içinde düzeltmek sonraki build'de kaybolur. `.vercel/`, gerçek `.env*`, `node_modules/`, `.cache/` ve yerel çıktılar Git'e eklenmez; yalnız değersiz `.env.example` belgelenen istisnadır. HTML şablonu değiştiğinde `node scripts/import-projects.cjs` ile sunucunun kullandığı `data/site-templates.json` yenilenir ve farkı incelenir. Bu işlem cloud içeriklerini değiştirmez. Yedekleri ve ham kullanıcı belgelerini yayın paketinden ayrı tutun.
 
 ## Production yayını
 
@@ -90,6 +90,42 @@ Yapılandırma eksikse GET `available:false`, geçerli POST ise 503 döndürür;
 
 www/HTTP yönlendirmeleri Vercel alan adı ayarlarıyla birlikte kontrol edilmelidir. Search Console mülkiyeti ve site haritası gönderimi doğrulanmadıkça tamamlanmış sayılmaz. Ölçüm sağlayıcısı eklenmesi, mevcut `window.GerzogluMeasurement` izin arayüzü ve gizlilik metniyle birlikte ele alınır.
 
-## Henüz uygulanmayan admin paneli
+## Admin/CMS kaynak ve cloud kurulumu
 
-İstenen proje ekleme, düzenleme, görsel yükleme, liste sırası ve anında yayınlama özellikleri planlama aşamasındadır. Mevcut kaynakta admin hesabı, proje veritabanı veya CMS yoktur. Bu kaynak eşitlemesi, admin panelinin geliştirildiği ya da production'a çıkarıldığı anlamına gelmez.
+14 Ekim 2026 itibarıyla proje yönetimi kaynakta uygulanmıştır. Ayrı `gerzoglu-cms` Supabase projesi **`ibbyoetzgeqbrxyvzidb`**, Frankfurt bölgesinde Free planla kurulmuştur. Başka uygulamanın veritabanına bağlanılmaz. İlk 27 projenin özgün adresleri, görselleri, ek bilgileri ve başlangıç yayın geçmişleri aktarılmıştır. İlk yönetici `info@gerzoglu.com` hesabı oluşturulmuş ve Auth parola girişi doğrulanmıştır; parola depoda veya bu belgede bulunmaz.
+
+Bu kayıt yeni CMS özelliğinin production yayını tamamlandı anlamına gelmez. Son uçtan uca sonuçlar ve yeni dağıtım kimliği ayrıca doğrulanıp kaydedilir. Üstteki 12 Ekim dağıtım kaydı önceki production sürümünü tanımlar.
+
+Yayın sonrasındaki `/admin` → `/admin.html` paneli, `/api/admin/*` yollarından yetkili CMS işlevini kullanır. Proje durumları tek seçimdir; taslak ve yayın belgeleri ayrıdır. `api/site.js` yayın kataloğundan tam HTML, ortak sayaçlar ve keşif belgelerini üretir. Yeni proje veya bilgi değişikliği için Vercel dağıtımı gerekmez. Kod, şablon veya sunucu ortamı değişiklikleri için gerekir. Cloud bağlantı hatası eski statik içerikle gizlenmez; 503 döner.
+
+`project-media-originals` ve `project-media-variants` bucket'ları özeldir. JPEG/PNG/WebP yüklemeleri 20 MB sınırında doğrulanır; kaynak genişliğini aşmadan WebP türevleri üretilir. Orijinaller halka açılmaz. RLS, yönetici üyeliği, sürüm çatışması ve atomik yayın sözleşmesi [ADMIN_DATABASE.md](ADMIN_DATABASE.md) içindedir. SQL testleri PGlite kullanır, Docker gerekmez.
+
+### CMS ortamı
+
+| Değişken | Hedef ve sınır |
+| --- | --- |
+| `SUPABASE_URL` | Yalnız doğrulanmış Gerzoğlu proje ref'inin public API adresi |
+| `SUPABASE_PUBLISHABLE_KEY` | Public publishable anahtar; `SUPABASE_ANON_KEY` alternatifi desteklenir |
+| `SUPABASE_SECRET_KEY` | Yalnız sunucu; `SUPABASE_SERVICE_ROLE_KEY` uyumluluk alternatifi |
+| `CRON_SECRET` | Korumalı `/api/health` için rastgele, en az 16 karakterlik sunucu sırrı |
+| `CMS_LOCAL_PREVIEW` | Vercel'de tanımlanmaz; yalnız localhost/soket korumalı bağımsız geliştirme modu |
+
+Marketplace'in `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` adları desteklenir. Secret/service-role anahtarına hiçbir zaman `NEXT_PUBLIC_` öneki verilmez. `CMS_HEALTH_SECRET` uyumluluk ayarı `CRON_SECRET` üzerine önceliklidir; Vercel Cron kullanılırken boş bırakılır ya da aynı değere ayarlanır. Hiçbir sır GitHub public variables alanına konmaz. Ortam değişiklikleri yeni Vercel dağıtımında etkinleşir.
+
+### İlk CMS yayınının kabul adımları
+
+1. Yerel `HEAD`, GitHub sürümü ve `.vercel/project.json` proje/takımını doğrulayın. İki Vercel projesini karıştırmayın; mevcut `git.deploymentEnabled: false` korunur.
+2. `npm ci`, `npm test`, `npm run build` tamamlanmalı. Yerel panelde masaüstü/mobil görünüm, giriş ve form akışı kontrol edilmeli. Yerel mod cloud testinin yerine geçmez.
+3. Önce doğru Vercel projesinde önizleme dağıtımı hazırlayın; yetkili giriş, anonim erişim reddi, 27 aktarılan sayfa, taslağın yayını değiştirmemesi, fotoğraf işleme ve açık yayın/geri alma/arşiv akışlarını cloud servislerle doğrulayın. Geçici test projesini yayından kaldırıp katalog tutarlılığını kontrol edin.
+4. Production ortamındaki Supabase ref/anahtarları ve `CRON_SECRET` varlığını değerleri çıktılamadan doğrulayın. Kayıt/signup kapalı ve iki bucket özel kalmalı. Güvenlik danışmanı ve kritik testler geçmeli.
+5. Gözden geçirilen commit için doğru production dağıtımını alan adlarını taşımadan hazırlayın. Kontroller bitince doğrulanmış dağıtımı canonical `gerzoglu.com` alanına alın; dağıtım kimliği, commit ve test sonucu kaydedilsin.
+6. Normal ana hostta `/admin`, proje sayfaları, görseller, filtreler, sayaçlar, eski yönlendirmeler, gerçek 404 ve SEO kontrol edilsin. `/api/health` sırsız isteği reddetmeli, doğru sunucu sırrıyla gerçek cloud kontrolü başarılı olmalı. Sır URL'ye veya komut argümanına yazılmaz.
+7. Vercel Cron ve GitHub yedek kontrolünün etkinliği ayrı doğrulansın; yalnız dosya eklemek başarılı çalışma kanıtı değildir. Son kaynak/dokümanlar GitHub ile eşitlensin.
+
+`npm run verify:live` tarihsel statik dosya karşılaştırmasıdır. CMS HTML'si yeniden üretildiği için byte farkları tek başına gerileme veya yayın başarısı sayılmaz; işlevsel ve içerik karşılaştırması esastır.
+
+### Erişilebilirlik ve yedek
+
+Mevcut Vercel takımının Pro planı üzerinde `/api/health` için **UTC `37 */6 * * *`** korumalı cron kullanılır. Supabase Free planı yükseltilmez. GitHub Actions **UTC `17 */6 * * *`** ile ayrı public REST okuması yapan yedek kontroldür. GitHub varsayılan dal, zamanlama gecikmesi ve herkese açık depolardaki 60 gün etkinlik sınırına tabidir. İki kontrol de duraklamama veya kesintisiz erişim garantisi vermez. Kurulum, bildirim ve kota adımları [ADMIN_AVAILABILITY.md](ADMIN_AVAILABILITY.md) içindedir.
+
+Kod Git'te tutulur; cloud proje verisi ve iki Storage bucket'ı ayrıca yedeklenir. Yayın geçmişi bağımsız yedek değildir. Free planın otomatik veritabanı yedeği varmış gibi işlem yapılmaz.

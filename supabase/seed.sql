@@ -1,0 +1,2 @@
+-- Intentionally empty: no credentials, public accounts or shared test users.
+-- An administrator is provisioned server-side and explicitly added to cms_admins.

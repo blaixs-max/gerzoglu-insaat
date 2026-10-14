@@ -6,6 +6,10 @@ import { pipeline } from 'node:stream/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import contact from '../api/contact.js';
+import cms from '../api/cms.js';
+import site from '../api/site.js';
+import media from '../api/media.js';
+import health from '../api/health.js';
 
 // Loopback-only preview of the generated public output and contact API.
 // POST /api/contact uses the real handler; SMTP must be deliberately configured.
@@ -19,7 +23,7 @@ const config = JSON.parse(await readFile(path.join(root, 'vercel.json'), 'utf8')
 const port = Number(process.env.PREVIEW_PORT || 4173);
 const mime = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8',
-  '.js': 'text/javascript; charset=utf-8', '.json': 'application/json; charset=utf-8',
+  '.js': 'text/javascript; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8', '.json': 'application/json; charset=utf-8',
   '.svg': 'image/svg+xml', '.webp': 'image/webp', '.png': 'image/png',
   '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.ico': 'image/x-icon',
   '.woff': 'font/woff', '.woff2': 'font/woff2', '.txt': 'text/plain; charset=utf-8',
@@ -29,6 +33,16 @@ const sourceMatches = (source, pathname) => source === pathname ||
 
 const server = http.createServer(async (req, res) => {
   try {
+    const requestPath = new URL(req.url, 'http://127.0.0.1').pathname;
+    if (requestPath.startsWith('/api/admin/')) return await cms(req, res);
+    if (requestPath === '/api/health') return await health(req, res);
+    if (requestPath.startsWith('/media/')) return await media(req, res);
+    if (requestPath === '/' || requestPath.startsWith('/proje/') ||
+        ['projeler.html','kurumsal.html','iletisim.html','kentsel-donusum.html','cozum-ortaklarimiz.html','gizlilik.html','kvkk.html','kullanim-sartlari.html','sitemap.xml','llms.txt'].some(p => requestPath === '/' + p)) {
+      const redirect = config.redirects?.find(rule => rule.source === requestPath);
+      if (redirect) { res.writeHead(redirect.permanent ? 308 : 307, { Location: redirect.destination }); return res.end(); }
+      return await site(req, res);
+    }
     if (new URL(req.url, 'http://127.0.0.1').pathname === '/api/contact') {
       let body = '';
       for await (const chunk of req) { body += chunk; if (Buffer.byteLength(body) > 16384) { res.writeHead(413); res.end('Request too large'); return; } }

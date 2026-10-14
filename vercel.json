@@ -1,5 +1,7 @@
 {
-  "git": { "deploymentEnabled": false },
+  "git": {
+    "deploymentEnabled": false
+  },
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": null,
@@ -23,9 +25,70 @@
       "source": "/proje/villa-projesi.html",
       "destination": "/proje/tuzla-tepeoren-villa.html",
       "permanent": true
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin.html",
+      "permanent": false
     }
   ],
   "rewrites": [
+    {
+      "source": "/api/admin/:path*",
+      "destination": "/api/cms?__adminPath=:path*"
+    },
+    {
+      "source": "/media/:id/:file",
+      "destination": "/api/media?id=:id&file=:file"
+    },
+    {
+      "source": "/",
+      "destination": "/api/site?__path=/"
+    },
+    {
+      "source": "/cozum-ortaklarimiz.html",
+      "destination": "/api/site?__path=/cozum-ortaklarimiz.html"
+    },
+    {
+      "source": "/gizlilik.html",
+      "destination": "/api/site?__path=/gizlilik.html"
+    },
+    {
+      "source": "/iletisim.html",
+      "destination": "/api/site?__path=/iletisim.html"
+    },
+    {
+      "source": "/kentsel-donusum.html",
+      "destination": "/api/site?__path=/kentsel-donusum.html"
+    },
+    {
+      "source": "/kullanim-sartlari.html",
+      "destination": "/api/site?__path=/kullanim-sartlari.html"
+    },
+    {
+      "source": "/kurumsal.html",
+      "destination": "/api/site?__path=/kurumsal.html"
+    },
+    {
+      "source": "/kvkk.html",
+      "destination": "/api/site?__path=/kvkk.html"
+    },
+    {
+      "source": "/projeler.html",
+      "destination": "/api/site?__path=/projeler.html"
+    },
+    {
+      "source": "/proje/:slug",
+      "destination": "/api/site?__path=/proje/:slug"
+    },
+    {
+      "source": "/sitemap.xml",
+      "destination": "/api/site?__path=/sitemap.xml"
+    },
+    {
+      "source": "/llms.txt",
+      "destination": "/api/site?__path=/llms.txt"
+    },
     {
       "source": "/img/sahil-damla-5f8160f4.webp",
       "destination": "https://d8j0ntlcm91z4.cloudfront.net/user_3FGHE0yNB9xnbZHUoAtB0q9p5sy/hf_20261002_114630_5f8160f4-9501-4ed3-95e4-e03ba83e6d86_min.webp"
@@ -263,11 +326,51 @@
           "value": "noindex, nofollow"
         }
       ]
+    },
+    {
+      "source": "/admin.html",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/assets/admin/:path*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache"
+        }
+      ]
     }
   ],
   "functions": {
     "api/contact.js": {
       "maxDuration": 45
+    },
+    "api/cms.js": {
+      "maxDuration": 60,
+      "includeFiles": "data/**"
+    },
+    "api/site.js": {
+      "maxDuration": 30,
+      "includeFiles": "data/**"
+    },
+    "api/media.js": {
+      "maxDuration": 30,
+      "includeFiles": "lib/**"
     }
-  }
+  },
+  "crons": [
+    {
+      "path": "/api/health",
+      "schedule": "37 */6 * * *"
+    }
+  ]
 }

@@ -4,6 +4,12 @@ const path = require('node:path');
 const root = __dirname;
 const output = path.resolve(root, 'dist');
 const marker = path.join(output, '.gerzoglu-generated');
+// Bundle the pinned browser Auth/Storage client; no third-party script CDN.
+require('esbuild').buildSync({
+  stdin: { contents: "export { createClient } from '@supabase/supabase-js';", resolveDir: root },
+  bundle: true, format: 'esm', platform: 'browser', target: 'es2022', minify: true,
+  outfile: path.join(root, 'assets/vendor/supabase.mjs'),
+});
 // Delete only a verified, previously generated output directory.
 if (path.relative(root, output) !== 'dist') throw new Error('Invalid output directory');
 if (fs.existsSync(output)) {
