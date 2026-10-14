@@ -1,5 +1,15 @@
 # Devam kaydı — 14 Ekim 2026
 
+## Üç adımlı proje düzenleme — güncel yayın
+
+Proje düzenleyicisi **Proje Bilgileri → Görseller → Ek Bilgiler → Taslağı kaydet** olarak sıralandı. İlk iki adımda kayıt düğmesi yok. Zorunlu bilgiler, tarihler/sayısal sınırlar, kapak ve tamamlanan görsel yüklemeleri kontrol edilir. Kısmi ek bilgi satırı son kaydı engeller. Sekme tıklaması, Enter ve Ctrl+S aynı kurallara uyar. Önceki adım değişirse o adım ve sonrakiler yeniden doğrulanır. Önizleme/yayın yalnız son adımdaki başarılı açık kayıttan sonra açılır; otomatik kaydetme yoluyla adım atlanmaz. Arşivde tüm bölümler salt okunur incelenebilir.
+
+Yeni projede ilk geçiş, imzalı fotoğraf yüklemelerinin bağlanması için yalnız özel bir çalışma kaydı oluşturur. Kullanıcının formu ve kaydedilmemiş işareti korunur; son kayıt yine gerekir. Sürüm çakışmaları veri ezmez. Veritabanı şeması, mevcut cloud içerikler, görseller ve ana sayfa ayarları değiştirilmedi.
+
+Kod commit'i **4de3171**. **61/61 test ve build geçti**; bunların 14'ü yeni adım doğrulama ve gerçek kontrol kodu akış testidir. Yerel gerçek tarayıcıda boş alan/kapaksız ilerleme, üç adım geçişi, yarım ek bilgi engeli ve son kayıt sonrası yayın düğmelerinin açılması doğrulandı. Test değişiklikleri yalnız loopback önizlemesinde yapıldı.
+
+Canlı dağıtım **dpl_A6e45eG3Ke8tjYSKyFDHNtnQZDgp** (`gerzoglu-varyant-3-d0qn1w1y3-blaixs-4009s-projects.vercel.app`), doğru `gerzoglu-varyant-3` projesinde production ortamında hazırlanıp `gerzoglu.com` alan adına promote edildi. Hazırlanan ve canlı admin JS, doğrulama modülü ve CSS test edilen kaynakla karşılaştırıldı; birebir eşleşti. `.mjs` JavaScript MIME türünde, cloud admin yapılandırması sağlıklı, yerel istisna kapalı, Projeler sayfası 200. GitHub main eşitlendi. Geçici tarayıcı sekmesi ve 4181 yerel önizleme sunucusu kapatıldı.
+
 ## Örnek iç mekân kartları — güncel yayın
 
 Kullanıcı, örnek iç mekân fotoğraflarını içeren kartların tamamını panelden kaldırmayı seçti. Hazır yatak odası, mutfak ve banyo fotoğrafları, değişmez kaynak kimliklerinden tanınarak yönetim galerisinde gizlenir. Projeye özel yüklenen iç mekân görselleri ve diğer kartların açıklama/başlık/tür alanları düzenlenebilir. Görsel sayacı, sıralama okları ve kapak silme sonrası seçim yalnız görünür görselleri kullanır. Ham dizi indeksleri korunur; gizli örnekler kayıt/yayın belgesinden çıkarılmaz. Sitedeki örnek fotoğraflar ve cloud kayıtları değiştirilmedi.
