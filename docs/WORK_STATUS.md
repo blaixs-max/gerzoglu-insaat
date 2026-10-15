@@ -1,4 +1,14 @@
-# Devam kaydı — 14 Ekim 2026
+# Devam kaydı — 15 Ekim 2026
+
+## Arşivden kalıcı silme — güncel yayın
+
+Arşiv listesindeki **Sil** ve arşivlenmiş proje düzenleyicisindeki **Kalıcı olarak sil** düğmeleri eklendi. Yönetici proje adını aynen yazarak onaylar. Boş/yanlış adla silme açılmaz; Vazgeç ve Escape yazma isteği göndermez. Sunucu ve SQL etkin yönetici, arşiv durumu, güncel sürüm ve ad onayını birlikte denetler. Sürüm çakışmasında otomatik silme tekrarı yapılmaz. Başarılı işlem hedef projeyi ve ilişkili katalog/geçmiş/audit/medya kayıtlarını kaldırır. Diğer projeler korunur; eski adres ayrı rezervasyonda kalır. Storage dosyalarının fiziksel temizliği bu özelliğin kapsamında değildir.
+
+Kod commit'i **390dd8d**. **74/74 test ve build geçti**: SQL/HTTP yetki ve ad/sürüm kontrolleri, ilişkili kayıtların silinmesi, komşu projelerin korunması, adresin yeniden kullanılamaması, iptal/çift tıklama ve silme sonrası arşiv düğmelerinin çalışması doğrulandı. Yerel migration `20261014200125_cms_archived_project_deletion.sql`, yalnız `ibbyoetzgeqbrxyvzidb` projesine `cms_archived_project_deletion` adıyla uygulandı; cloud sürümü **20261015072308**. Eski migrationlar yeniden uygulanmadı. RLS ve rol izinleri kontrol edildi; güvenlik danışmanında yeni bulgu yok. Önceden bulunan [Auth parola sızıntısı koruması uyarısı](https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection) aynı kaldı.
+
+Canlı dağıtım **dpl_2ASSy2NBpA9dLjm4XDtwbwroy615** (`gerzoglu-varyant-3-9ykcnpoaz-blaixs-4009s-projects.vercel.app`), doğru Vercel projesinde production ortamında hazırlanıp `gerzoglu.com` alan adına promote edildi. Hazırlanan admin JS/HTML ve canlı JS/HTML/CSS kaynakla eşleşti. Cloud yapılandırması hazır, localPreview kapalı, Projeler sayfası 200.
+
+Gerçek canlı oturumda Arşiv → Sil penceresi açıldı; yanlış adla düğmenin kapalı, doğru adla açık olduğu görüldü ve **Vazgeç** ile kapatıldı. Kullanıcının **İşmen Apt** kaydı silinmedi: arşivde, sürüm 4, iki medya kaydı ve bir yayın geçmişi korunuyor. 27 yayındaki proje, 1 arşiv projesi, 28 adres rezervasyonu ve sıfır silinmiş adres doğrulandı. Gerçek kullanıcı kaydıyla başarılı silme denenmedi; bu yol izole SQL/HTTP/UI testlerinde doğrulandı. GitHub main, yerel kaynak ve belgeler eşitlendi.
 
 ## Üç adımlı proje düzenleme — güncel yayın
 
