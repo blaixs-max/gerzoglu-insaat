@@ -1,5 +1,13 @@
 # Devam kaydı — 15 Ekim 2026
 
+## Kentsel dönüşüm malik rehberi — güncel yayın
+
+Kullanıcının Word belgesindeki 22 konu, yazım/anlatım ve maddi hukuk hataları düzeltilerek **`kentsel-donusum.html#malik-rehberi`** bölümüne eklendi. Bölüm başvuru formundan önce yer alır; üst alanda doğrudan bağlantı ve üç konu başlığı vardır. Sorular yerel `details/summary` ile açılır, JavaScript gerektirmez. Cevaplarda resmî dayanaklar ve 15 Ekim 2026 kontrol tarihi bulunur. 4 Şubat ve 22 Mayıs 2026 düzenlemeleri de kontrol edildi. Hukuki düzeltmeler ve bakım kaynakları `KENTSEL_DONUSUM_REHBERI.md` içindedir.
+
+Kod commit'i **b82223f**. **74/74 test ve build geçti**. Masaüstü ve 390 px telefon görünümü, soru açma/kapama, Enter ile kullanım ve konu bağlantıları gerçek tarayıcıda doğrulandı; yatay taşma yok. HTML şablon paketi yeniden üretildi; yalnız Kentsel Dönüşüm şablonu değişti, `data/projects.json` ve cloud kayıtlarına yazılmadı. Başvuru formu ile eski sekiz genel soru korundu. Kullanıcıya ait özel çıktıların yayımlanmaması için `output/` Git ve Vercel yüklemesinden dışlandı.
+
+Canlı dağıtım **dpl_5ALNyp9hJfk28SwviHj5PNRdn6H3** (`gerzoglu-varyant-3-h84pglaxc-blaixs-4009s-projects.vercel.app`), doğru `gerzoglu-varyant-3` projesinde production ortamında hazırlanıp `gerzoglu.com` alan adına promote edildi. Korumalı önizleme mevcut Vercel CLI yetkisiyle okundu; koruma ayarı değiştirilmedi. Önizlemede ve canlıda 22 soru ve CSS kaynakla eşleşti, başvuru formu önceki canlı sürümle aynı kaldı, 27 proje bağlantısı ve sırası değişmedi. Ana sayfa, Projeler, Kentsel Dönüşüm ve admin HTTP 200; ana alanda yanlış `noindex` yok. Canlı tarayıcıda soru açılması doğrulandı, ekran görüntüsü `.cache/urban-guide/canli-rehber.jpg` olarak kaydedildi. E-posta gönderilmedi. GitHub main ile yerel kaynak eşitlendi.
+
 ## Arşivden kalıcı silme — güncel yayın
 
 Arşiv listesindeki **Sil** ve arşivlenmiş proje düzenleyicisindeki **Kalıcı olarak sil** düğmeleri eklendi. Yönetici proje adını aynen yazarak onaylar. Boş/yanlış adla silme açılmaz; Vazgeç ve Escape yazma isteği göndermez. Sunucu ve SQL etkin yönetici, arşiv durumu, güncel sürüm ve ad onayını birlikte denetler. Sürüm çakışmasında otomatik silme tekrarı yapılmaz. Başarılı işlem hedef projeyi ve ilişkili katalog/geçmiş/audit/medya kayıtlarını kaldırır. Diğer projeler korunur; eski adres ayrı rezervasyonda kalır. Storage dosyalarının fiziksel temizliği bu özelliğin kapsamında değildir.
