@@ -17,12 +17,19 @@ Bu belge `docs/ADMIN_CONTRACT.md` ile birlikte okunur. Veritabanı başka bir uy
 
 İlk kurulum testleri gerçek Postgres motorunu çalıştıran PGlite ile `node --test tests/cms-database.test.cjs` komutunda yapılır. Docker tabanlı Supabase servisleri kullanılmadan SQL migration, roller, RLS, fonksiyon yetkileri ve işlemler çalıştırılır. Bu testler, Supabase Auth/Storage HTTP servislerinin uçtan uca testi yerine geçmez. Cloud kurulumundan sonra Supabase security/performance advisors ve HTTP entegrasyon testleri ayrıca çalıştırılmalıdır.
 
+## Arşivden silme ve adres koruması
+
+`20261014200125_cms_archived_project_deletion.sql` migrationı `cms_project_addresses` adres kaydını oluşturur ve mevcut adresleri içe alır. Kayıt yalnız proje kimliği, adres, oluşturulma/silinme zamanı ve silen yöneticinin kimliğini tutar; silinen proje belgesini saklamaz. Etkin yöneticiler adresleri okuyabilir, doğrudan yazamaz. Yeni proje oluşturma adres kaydını ve projeyi aynı işlemde ayırır; silinmiş adresin yeniden kullanılması benzersizlik kuralıyla engellenir.
+
+`cms_delete_project(p_id,p_expected_version,p_confirmation_name)` yalnız arşivlenmiş kayıtta ve güncel sürüm/ad onayıyla çalışır. Public sarmalayıcı invoker, özel uygulama boş search_path kullanan definer olarak aynı yönetici kontrolünü uygular. Proje silinince dış anahtar cascade kuralları katalog, geçmiş, audit ve media satırlarını kaldırır. Adres kaydı kalır. Orijinal Storage dosyalarının fiziksel temizliği bu işlemin kapsamında değildir; bağımsız özel depolama kopyaları ve önceden önbelleklenen yayın türevleri için yok edilme garantisi verilmez. Paylaşılan kaynak `/assets` dosyaları korunur. Yeni medya istekleri kayıt bulunmadığından 404 döner.
+
 ## Tablolar ve okuma yetkileri
 
 | Tablo | İçerik | Tarayıcı/ziyaretçi erişimi |
 | --- | --- | --- |
 | `cms_admins` | `user_id`, `active`, `created_at` | Giriş yapan kişi yalnız kendi üyeliğini okuyabilir. Değiştiremez. |
 | `cms_projects` | Özel taslak, son yayımlanmış belge, sürüm ve işlem bilgisi | Yalnız etkin yönetici okuyabilir; doğrudan yazamaz. |
+| `cms_project_addresses` | Silme sonrasında da korunan proje adresi rezervasyonları | Yalnız etkin yönetici okuyabilir; doğrudan yazamaz. |
 | `cms_public_projects` | `id`, `slug`, `document`, `published_at`, `updated_at` | Ziyaretçi yalnız bu kataloğu okuyabilir. |
 | `cms_revisions` | `id`, `project_id`, `project_version`, `document`, `created_at`, `created_by` | Yalnız etkin yönetici okuyabilir. Yayımlanmış sürümler saklanır. |
 | `cms_media` | Yükleme kaydı, özel yol, doğrulama durumu, görsel/variant bilgisi | Yalnız etkin yönetici okuyabilir; yazma sunucuda yapılır. |
@@ -36,6 +43,7 @@ Public fonksiyonların tamamı **SECURITY INVOKER** çalışır. Yükseltilmiş 
 
 | Public RPC | Parametreler | Sonuç / davranış |
 | --- | --- | --- |
+| `cms_delete_project` | `p_id uuid`, `p_expected_version integer`, `p_confirmation_name text` | Yalnız arşivlenmiş projeyi kalıcı siler; adresi rezerve kalır. |
 | `cms_create_project` | `p_document jsonb` | Özel taslak oluşturur; JSON proje döndürür. |
 | `cms_save_project` | `p_id uuid`, `p_expected_version integer`, `p_document jsonb` | Yalnız taslağı kaydeder; yayındaki belge değişmez. |
 | `cms_publish_project` | `p_id uuid`, `p_expected_version integer` | Doğrulama, görsellerin yayın izni, yeni sürüm ve public katalog tek işlemde tamamlanır. |

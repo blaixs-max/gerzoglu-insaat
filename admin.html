@@ -16,6 +16,16 @@
   <div id="app" aria-busy="true"><main class="initial-loading" id="main"><span class="spinner" aria-hidden="true"></span><p>Yönetim paneli hazırlanıyor…</p></main></div>
   <div class="toasts" id="toasts" aria-live="polite" aria-atomic="false"></div>
   <dialog id="confirm-dialog" class="confirm-dialog" aria-labelledby="dialog-title"><form method="dialog"><div class="dialog-icon" aria-hidden="true">!</div><h2 id="dialog-title"></h2><p id="dialog-message"></p><div class="dialog-actions"><button class="button button--quiet" value="cancel">Vazgeç</button><button class="button button--primary" id="dialog-confirm" value="confirm">Devam et</button></div></form></dialog>
+  <dialog id="delete-dialog" class="confirm-dialog delete-dialog" aria-labelledby="delete-title" aria-describedby="delete-description">
+    <form id="delete-form" novalidate>
+      <div class="dialog-icon" aria-hidden="true">!</div><h2 id="delete-title">Proje kalıcı olarak silinsin mi?</h2>
+      <p id="delete-description">Bu proje ve yayın geçmişi kalıcı olarak silinecek. Bu işlem geri alınamaz.</p>
+      <div class="delete-project-name" id="delete-project-name"></div>
+      <div class="field"><label for="delete-confirmation-name">Onaylamak için yukarıdaki proje adını aynen yazın</label><input id="delete-confirmation-name" name="confirmationName" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="delete-error" required></div>
+      <p class="delete-error" id="delete-error" role="alert" hidden></p>
+      <div class="dialog-actions"><button class="button button--quiet" type="button" id="delete-cancel" data-action="cancel-delete">Vazgeç</button><button class="button button--danger" type="submit" id="delete-confirm" disabled>Kalıcı olarak sil</button></div>
+    </form>
+  </dialog>
   <dialog id="history-dialog" class="history-dialog" aria-labelledby="history-title"><div class="dialog-top"><div><span class="eyebrow">Yayın geçmişi</span><h2 id="history-title">Önceki sürümler</h2></div><button class="icon-button" type="button" data-action="close-history" aria-label="Yayın geçmişini kapat">×</button></div><p class="muted">Bir sürümü geri yüklemek yalnızca taslağı değiştirir. Canlıya almak için ayrıca yayımlayın.</p><div id="history-list"></div></dialog>
   <noscript><p class="noscript">Yönetim panelini kullanmak için tarayıcınızda JavaScript’i etkinleştirin.</p></noscript>
 </body>

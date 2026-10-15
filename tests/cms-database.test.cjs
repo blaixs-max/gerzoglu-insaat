@@ -6,6 +6,7 @@ const { PGlite } = require('@electric-sql/pglite');
 
 const ADMIN = '11111111-1111-4111-8111-111111111111';
 const OTHER = '22222222-2222-4222-8222-222222222222';
+const BACKFILLED = '99999999-9999-4999-8999-999999999999';
 let db;
 function document(slug, overrides = {}) {
   return { schemaVersion: 1, slug, name: 'Test Apartmanı', district: 'Kartal',
@@ -61,6 +62,9 @@ before(async () => {
   // This is the real checked-in migration, not an alternate test implementation.
   const directory = path.join(__dirname, '..', 'supabase', 'migrations');
   for (const file of fs.readdirSync(directory).filter(file => file.endsWith('.sql')).sort()) {
+    if (file.endsWith('_cms_archived_project_deletion.sql')) {
+      await db.query('insert into public.cms_projects(id,slug,draft) values($1,$2,$3)',[BACKFILLED,'pre-migration-address',document('pre-migration-address')]);
+    }
     await db.exec(fs.readFileSync(path.join(directory, file), 'utf8'));
   }
   await db.query('insert into public.cms_admins(user_id) values($1)', [ADMIN]);
@@ -69,10 +73,10 @@ after(async () => { if (db) await db.close(); });
 
 test('CMS database: public wrappers are invokers; private helpers and private tables are denied', async () => {
   const wrappers = await db.query("select proname,prosecdef from pg_proc join pg_namespace n on n.oid=pronamespace where n.nspname='public' and proname like 'cms_%'");
-  assert.equal(wrappers.rows.length, 8);
+  assert.equal(wrappers.rows.length, 9);
   assert.ok(wrappers.rows.every(row => row.prosecdef === false));
   const protections = await db.query("select c.relname,c.relrowsecurity from pg_class c join pg_namespace n on n.oid=c.relnamespace where n.nspname='public' and c.relkind='r' and c.relname like 'cms_%'");
-  assert.equal(protections.rows.length,6);
+  assert.equal(protections.rows.length,7);
   assert.ok(protections.rows.every(row=>row.relrowsecurity));
   const privileged = await db.query("select p.proname,p.proconfig,has_function_privilege('anon',p.oid,'EXECUTE') as anon_execute from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='cms_private' and p.prosecdef");
   assert.ok(privileged.rows.length > 8);
@@ -219,4 +223,92 @@ test('CMS database: only authoritative imported coverless publications can keep 
   standard = await actor('authenticated',ADMIN,()=>rpc('cms_save_project',[standard.id,standard.version,{...standard.draft,cover:null,legacy:{placeholder:true}}]));
   await assert.rejects(actor('authenticated',ADMIN,()=>rpc('cms_publish_project',[standard.id,standard.version])),/CMS_REQUIRED_FIELDS/);
   assert.ok((await db.query('select document from public.cms_public_projects where id=$1',[standard.id])).rows[0].document.cover);
+});
+
+test('CMS database: address migration backfills legacy rows and denies direct writes or non-admin reads', async () => {
+  const address = await actor('authenticated',ADMIN,()=>db.query('select slug,project_id,deleted_at from public.cms_project_addresses where project_id=$1',[BACKFILLED]));
+  assert.deepEqual(address.rows,[{slug:'pre-migration-address',project_id:BACKFILLED,deleted_at:null}]);
+  assert.equal((await actor('authenticated',OTHER,()=>db.query('select * from public.cms_project_addresses'))).rows.length,0);
+  await assert.rejects(actor('anon',null,()=>db.query('select * from public.cms_project_addresses')),/permission denied/);
+  for(const query of [
+    "insert into public.cms_project_addresses(slug,project_id) values('forged','aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa')",
+    "update public.cms_project_addresses set deleted_at=now()",
+    "delete from public.cms_project_addresses",
+    `delete from public.cms_projects where id='${BACKFILLED}'`,
+  ]) await assert.rejects(actor('authenticated',ADMIN,()=>db.query(query)),/permission denied/);
+});
+
+test('CMS database: deletion requires a current active administrator, archive state, exact name and version', async () => {
+  let project=await create('delete-guards',{name:'Kesin Adı Apartmanı'});
+  const args=()=>[project.id,project.version,'Kesin Adı Apartmanı'];
+  await assert.rejects(actor('anon',null,()=>rpc('cms_delete_project',args())),/permission denied/);
+  await assert.rejects(actor('authenticated',OTHER,()=>rpc('cms_delete_project',args())),/CMS_ADMIN_REQUIRED/);
+  await assert.rejects(actor('authenticated',null,()=>rpc('cms_delete_project',args())),/CMS_ADMIN_REQUIRED/);
+  await assert.rejects(actor('authenticated',ADMIN,()=>rpc('cms_delete_project',args())),/CMS_DELETE_REQUIRES_ARCHIVE/);
+  project=await actor('authenticated',ADMIN,()=>rpc('cms_publish_project',[project.id,project.version]));
+  await assert.rejects(actor('authenticated',ADMIN,()=>rpc('cms_delete_project',args())),/CMS_DELETE_REQUIRES_ARCHIVE/);
+  assert.equal(await countPublic(project.id),1);
+  project=await actor('authenticated',ADMIN,()=>rpc('cms_archive_project',[project.id,project.version]));
+  const snapshot=await db.query('select * from public.cms_projects where id=$1',[project.id]);
+  await db.query('update public.cms_admins set active=false where user_id=$1',[ADMIN]);
+  await assert.rejects(actor('authenticated',ADMIN,()=>rpc('cms_delete_project',args())),/CMS_ADMIN_REQUIRED/);
+  assert.equal((await actor('authenticated',ADMIN,()=>db.query('select * from public.cms_project_addresses'))).rows.length,0);
+  await db.query('update public.cms_admins set active=true where user_id=$1',[ADMIN]);
+  for(const name of [null,'','kesin Adı Apartmanı','Kesin Adı']) {
+    await assert.rejects(actor('authenticated',ADMIN,()=>rpc('cms_delete_project',[project.id,project.version,name])),/CMS_DELETE_NAME_MISMATCH/);
+  }
+  for(const expected of [null,project.version-1]) {
+    await assert.rejects(actor('authenticated',ADMIN,()=>rpc('cms_delete_project',[project.id,expected,project.draft.name])),error=>error.code==='P0001'&&error.message==='CMS_STALE_VERSION');
+  }
+  assert.deepEqual((await db.query('select * from public.cms_projects where id=$1',[project.id])).rows,snapshot.rows);
+  assert.equal((await db.query('select deleted_at from public.cms_project_addresses where project_id=$1',[project.id])).rows[0].deleted_at,null);
+});
+
+test('CMS database: deleting one archived project removes its child rows atomically and permanently reserves its address', async () => {
+  let project=await create('delete-complete',{name:'Silinecek Apartman'});
+  let other=await create('delete-neighbor',{name:'Korunacak Apartman'});
+  other=await actor('authenticated',ADMIN,()=>rpc('cms_publish_project',[other.id,other.version]));
+  const otherSnapshot=(await db.query('select * from public.cms_projects where id=$1',[other.id])).rows[0];
+  const otherMediaId='77777777-7777-4777-8777-777777777777';
+  await db.query("insert into public.cms_media(id,project_id,path,mime_type,size_bytes) values($1,$2,$3,'image/jpeg',1000)",[otherMediaId,other.id,`${other.id}/${otherMediaId}.jpg`]);
+  const otherMedia=(await db.query('select * from public.cms_media where id=$1',[otherMediaId])).rows[0];
+  const otherRevisions=(await db.query('select * from public.cms_revisions where project_id=$1',[other.id])).rows;
+  const mediaId='88888888-8888-4888-8888-888888888888';
+  const image={id:mediaId,src:`/media/${mediaId}/1600.webp`,srcset:'',width:1600,height:1200,kind:'exterior'};
+  await db.query("insert into public.cms_media(id,project_id,path,mime_type,size_bytes,status,width,height,image,variants) values($1,$2,$3,'image/jpeg',1000,'ready',1600,1200,$4,$5)",[mediaId,project.id,`${project.id}/${mediaId}.jpg`,image,[{width:1600,height:1200,path:`${project.id}/${mediaId}/1600.webp`,mime:'image/webp'}]]);
+  await db.query('insert into storage.objects(id,bucket_id,name) values($1,$2,$3)',[mediaId,'project-media-originals',`${project.id}/${mediaId}.jpg`]);
+  project=await actor('authenticated',ADMIN,()=>rpc('cms_save_project',[project.id,project.version,{...project.draft,cover:image}]));
+  project=await actor('authenticated',ADMIN,()=>rpc('cms_publish_project',[project.id,project.version]));
+  project=await actor('authenticated',ADMIN,()=>rpc('cms_archive_project',[project.id,project.version]));
+  for(const table of ['cms_media','cms_revisions','cms_audit_log']) {
+    assert.ok((await db.query(`select count(*)::integer as n from public.${table} where project_id=$1`,[project.id])).rows[0].n>0);
+  }
+  const deleted=await actor('authenticated',ADMIN,()=>rpc('cms_delete_project',[project.id,project.version,'  Silinecek Apartman  ']));
+  assert.deepEqual(deleted,{id:project.id,deleted:true});
+  for(const [table,key] of [['cms_projects','id'],['cms_public_projects','id'],['cms_media','project_id'],['cms_revisions','project_id'],['cms_audit_log','project_id']]) {
+    assert.equal((await db.query(`select count(*)::integer as n from public.${table} where ${key}=$1`,[project.id])).rows[0].n,0);
+  }
+  const address=(await db.query('select * from public.cms_project_addresses where slug=$1',[project.slug])).rows[0];
+  assert.equal(address.project_id,project.id);assert.equal(address.deleted_by,ADMIN);assert.ok(address.deleted_at);
+  await assert.rejects(create(project.slug),error=>error.code==='23505');
+  assert.equal((await db.query('select count(*)::integer as n from public.cms_project_addresses where slug=$1',[project.slug])).rows[0].n,1);
+  await assert.rejects(actor('authenticated',ADMIN,()=>rpc('cms_delete_project',[project.id,project.version,project.draft.name])),/CMS_PROJECT_NOT_FOUND/);
+  assert.deepEqual((await db.query('select * from public.cms_projects where id=$1',[other.id])).rows[0],otherSnapshot);
+  assert.deepEqual((await db.query('select * from public.cms_media where id=$1',[otherMediaId])).rows[0],otherMedia);
+  assert.deepEqual((await db.query('select * from public.cms_revisions where project_id=$1',[other.id])).rows,otherRevisions);
+  assert.equal(await countPublic(other.id),1);
+  // Metadata removal does not claim to purge private originals or cached immutable derivatives.
+  assert.equal((await db.query('select count(*)::integer as n from storage.objects where id=$1',[mediaId])).rows[0].n,1);
+});
+
+test('CMS database: imported rows reserve addresses on deletion and failed creation leaves no orphan reservation', async () => {
+  const imported=document('delete-service-import',{name:'Sonradan Aktarılan'});
+  const inserted=await actor('service_role',null,()=>db.query('insert into public.cms_projects(slug,draft) values($1,$2) returning id,version',[imported.slug,imported]));
+  let project=inserted.rows[0];
+  await assert.rejects(create(imported.slug),error=>error.code==='23505');
+  assert.equal((await db.query('select count(*)::integer as n from public.cms_project_addresses where slug=$1',[imported.slug])).rows[0].n,0);
+  project=await actor('authenticated',ADMIN,()=>rpc('cms_archive_project',[project.id,project.version]));
+  await actor('authenticated',ADMIN,()=>rpc('cms_delete_project',[project.id,project.version,imported.name]));
+  await assert.rejects(create(imported.slug),error=>error.code==='23505');
+  assert.ok((await db.query('select deleted_at from public.cms_project_addresses where slug=$1',[imported.slug])).rows[0].deleted_at);
 });

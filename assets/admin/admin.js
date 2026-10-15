@@ -29,7 +29,7 @@ const state = {
   config: null, client: null, session: null, user: null, projects: [], current: null, draft: null,
   dirty: false, busy: false, uploading: false, tab: 'details', view: 'projects', authMode: 'login',
   search: '', status: '', publication: '', history: [],
-  validatedSteps: [], wizardSaved: false,
+  validatedSteps: [], wizardSaved: false, deleteTarget: null, deleting: false,
 };
 
 function safeImage(image) {
@@ -70,6 +70,70 @@ async function confirmAction(title, message, label = 'Devam et', danger = false)
 async function canLeave() {
   if (state.busy || state.uploading) { toast('Devam eden işlemin tamamlanmasını bekleyin.'); return false; }
   return !state.dirty || confirmAction('Kaydedilmemiş değişiklikler var', 'Bu sayfadan ayrılırsanız son düzenlemeleriniz kaybolacak. Ayrılmadan önce taslağı kaydedebilirsiniz.', 'Kaydetmeden ayrıl');
+}
+function updateDeleteDialog() {
+  const target = state.deleteTarget;
+  const input = $('#delete-confirmation-name');
+  const locked = state.deleting || state.busy || state.uploading;
+  input.disabled = locked;
+  $('#delete-cancel').disabled = state.deleting;
+  $('#delete-confirm').disabled = !target || locked || input.value.trim() !== target.name;
+  $('#delete-confirm').textContent = state.deleting ? 'Siliniyor…' : 'Kalıcı olarak sil';
+  $('#delete-dialog').setAttribute('aria-busy', String(state.deleting));
+}
+function showDeleteError(message) {
+  const error = $('#delete-error');
+  error.textContent = message; error.hidden = false;
+}
+async function openDeleteDialog(id) {
+  if (state.busy || state.uploading || state.deleteTarget || state.deleting) return;
+  const observed = state.current?.id === id ? state.current : state.projects.find(project => project.id === id);
+  if (!observed || observed.publicationState !== 'archived') return;
+  setBusy(true, 'Proje kontrol ediliyor…');
+  try {
+    const { project } = await api(`/projects/${encodeURIComponent(id)}`);
+    if (!project || project.id !== id || project.publicationState !== 'archived') {
+      toast('Yalnızca arşivdeki projeler silinebilir. Proje listesini yenileyin.', true); return;
+    }
+    const name = String(project.draft?.name || '').trim();
+    if (!name || !Number.isInteger(project.version)) throw new Error('Proje bilgileri alınamadı. Listeyi yenileyip tekrar deneyin.');
+    // Consent is tied to the displayed name and version; a conflict never refreshes it silently.
+    state.deleteTarget = Object.freeze({ id: project.id, name, version: project.version });
+    $('#delete-project-name').textContent = name;
+    $('#delete-confirmation-name').value = '';
+    $('#delete-error').textContent = ''; $('#delete-error').hidden = true;
+    $('#delete-dialog').showModal();
+    $('#delete-cancel').focus();
+  } catch (error) { toast(error.message || 'Proje bilgileri alınamadı. Tekrar deneyin.', true); }
+  finally { setBusy(false); updateDeleteDialog(); }
+}
+function cancelDelete() {
+  if (state.deleting) return;
+  $('#delete-dialog').close(); state.deleteTarget = null;
+}
+async function deleteProject() {
+  const target = state.deleteTarget;
+  if (!target || !$('#delete-dialog').open || state.busy || state.uploading || state.deleting) return;
+  if ($('#delete-confirmation-name').value.trim() !== target.name) { updateDeleteDialog(); return; }
+  state.deleting = true; setBusy(true, 'Proje siliniyor…'); updateDeleteDialog();
+  $('#delete-error').hidden = true;
+  let deleted = false;
+  try {
+    const response = await api(`/projects/${encodeURIComponent(target.id)}`, { method: 'DELETE', body: JSON.stringify({ expectedVersion: target.version, confirmationName: target.name }) });
+    if (response.deleted !== true || response.id !== target.id) throw new Error('Silme işlemi doğrulanamadı. Proje listesini yenileyin.');
+    state.deleteTarget = null; $('#delete-dialog').close();
+    state.projects = state.projects.filter(project => project.id !== target.id);
+    state.current = null; state.draft = null; state.dirty = false; state.history = []; resetWizard();
+    state.view = 'archived'; deleted = true;
+  } catch (error) {
+    showDeleteError(error.status === 409 ? 'Proje başka bir oturumda değiştirildi. Silinmedi. Vazgeçip listeyi yenileyin ve güncel projeyi tekrar kontrol edin.' : error.message || 'Proje silinemedi. Bağlantınızı kontrol edip tekrar deneyin.');
+  } finally {
+    state.deleting = false; setBusy(false); updateDeleteDialog();
+    if (deleted) {
+      renderLibrary(); $('#main').focus({ preventScroll: true });
+      toast('Proje ve yayın geçmişi kalıcı olarak silindi.');
+    }
+  }
 }
 async function api(path, options = {}) {
   const headers = { ...(options.body ? { 'Content-Type': 'application/json' } : {}), ...options.headers };
@@ -180,14 +244,14 @@ function projectRows() {
   return `<table class="project-table"><thead><tr><th scope="col">Sıra</th><th scope="col" class="table-project">Proje</th><th scope="col" class="table-location">Konum</th><th scope="col" class="table-status">Proje durumu</th><th scope="col" class="table-publication">Yayın</th><th scope="col" class="table-updated">Son düzenleme</th><th scope="col" class="table-edit"><span class="visually-hidden">İşlemler</span></th></tr></thead><tbody>${projects.map(project => {
     const d = project.draft;
     const image = safeImage(d.cover);
-    return `<tr><td><div class="order-controls"><button type="button" data-action="move-project" data-id="${esc(project.id)}" data-dir="-1" data-mutation aria-label="${esc(d.name)} projesini yukarı taşı" ${state.view === 'archived' || state.busy ? 'disabled' : ''}>▲</button><b>${esc(d.listOrder ?? '—')}</b><button type="button" data-action="move-project" data-id="${esc(project.id)}" data-dir="1" data-mutation aria-label="${esc(d.name)} projesini aşağı taşı" ${state.view === 'archived' || state.busy ? 'disabled' : ''}>▼</button></div></td><td><div class="project-cell">${image ? `<img class="project-thumb" src="${esc(image)}" style="object-position:${Number(d.cover?.focalX ?? 50)}% ${Number(d.cover?.focalY ?? 50)}%" alt="" loading="lazy">` : `<div class="project-thumb no-image">${icon('image')}</div>`}<div><button type="button" class="project-name" data-action="open" data-id="${esc(project.id)}">${esc(d.name)}</button><span class="project-subtitle">${esc(d.structureType || 'Konut')} · ${d.unitCount != null ? `${esc(d.unitCount)} ${esc(d.unitLabel || 'Daire').toLocaleLowerCase('tr')}` : esc(d.district)}</span></div></div></td><td class="table-location">${esc(d.district)}<div class="project-subtitle">${esc(d.neighborhood)}</div></td><td class="table-status"><span class="badge badge--${esc(d.status)}">${esc(statuses[d.status] || d.status)}</span></td><td class="table-publication"><span class="badge badge--${esc(project.publicationState)}">${esc(publications[project.publicationState])}</span>${project.hasUnpublishedChanges && project.publicationState === 'published' ? '<span class="draft-dot">● Yayınlanmamış düzenleme</span>' : ''}</td><td class="table-updated table-date">${esc(fmtDate(project.updatedAt))}</td><td class="table-edit"><div class="row-actions"><button type="button" class="button button--small" data-action="open" data-id="${esc(project.id)}">Düzenle ${icon('pencil')}</button></div></td></tr>`;
+    return `<tr><td><div class="order-controls"><button type="button" data-action="move-project" data-id="${esc(project.id)}" data-dir="-1" data-mutation aria-label="${esc(d.name)} projesini yukarı taşı" ${state.view === 'archived' || state.busy ? 'disabled' : ''}>▲</button><b>${esc(d.listOrder ?? '—')}</b><button type="button" data-action="move-project" data-id="${esc(project.id)}" data-dir="1" data-mutation aria-label="${esc(d.name)} projesini aşağı taşı" ${state.view === 'archived' || state.busy ? 'disabled' : ''}>▼</button></div></td><td><div class="project-cell">${image ? `<img class="project-thumb" src="${esc(image)}" style="object-position:${Number(d.cover?.focalX ?? 50)}% ${Number(d.cover?.focalY ?? 50)}%" alt="" loading="lazy">` : `<div class="project-thumb no-image">${icon('image')}</div>`}<div><button type="button" class="project-name" data-action="open" data-id="${esc(project.id)}">${esc(d.name)}</button><span class="project-subtitle">${esc(d.structureType || 'Konut')} · ${d.unitCount != null ? `${esc(d.unitCount)} ${esc(d.unitLabel || 'Daire').toLocaleLowerCase('tr')}` : esc(d.district)}</span></div></div></td><td class="table-location">${esc(d.district)}<div class="project-subtitle">${esc(d.neighborhood)}</div></td><td class="table-status"><span class="badge badge--${esc(d.status)}">${esc(statuses[d.status] || d.status)}</span></td><td class="table-publication"><span class="badge badge--${esc(project.publicationState)}">${esc(publications[project.publicationState])}</span>${project.hasUnpublishedChanges && project.publicationState === 'published' ? '<span class="draft-dot">● Yayınlanmamış düzenleme</span>' : ''}</td><td class="table-updated table-date">${esc(fmtDate(project.updatedAt))}</td><td class="table-edit"><div class="row-actions"><button type="button" class="button button--small" data-action="open" data-id="${esc(project.id)}">Düzenle ${icon('pencil')}</button>${project.publicationState === 'archived' ? `<button type="button" class="button button--danger button--small" data-action="delete-project" data-id="${esc(project.id)}" data-mutation ${state.busy ? 'disabled' : ''}>Sil</button>` : ''}</div></td></tr>`;
   }).join('')}</tbody></table>`;
 }
 function renderLibrary() {
   state.current = null; state.draft = null; state.dirty = false;
   const active = state.projects.filter(p => p.publicationState !== 'archived');
   const stats = [{ label: 'Aktif proje', n: active.length, icon: 'projects' }, { label: 'Yayında', n: active.filter(p => p.publicationState === 'published').length, icon: 'globe' }, { label: 'Taslak', n: active.filter(p => p.publicationState === 'draft').length, icon: 'pencil' }, { label: 'Yayın bekleyen düzenleme', n: active.filter(p => p.publicationState === 'published' && p.hasUnpublishedChanges).length, icon: 'clock' }];
-  shell(`<div class="page-header"><div><span class="eyebrow">Proje portföyü</span><h1>${state.view === 'archived' ? 'Arşivlenen projeler' : 'Projeleriniz'}</h1><p>${state.view === 'archived' ? 'Yayından kaldırılan projeleri görüntüleyin ve geri yükleyin.' : 'Yeni projeler ekleyin, bilgileri güncelleyin ve yayınları yönetin.'}</p></div><button type="button" class="button button--primary" data-action="new">${icon('plus')} Yeni proje ekle</button></div><div class="stats-grid">${stats.map(s => `<div class="stat-card"><div class="stat-symbol">${icon(s.icon)}</div><div><b>${s.n}</b><span>${s.label}</span></div></div>`).join('')}</div><section class="panel" aria-label="Proje listesi"><div class="library-toolbar"><div class="search-field">${icon('search')}<label class="visually-hidden" for="project-search">Proje veya ilçe ara</label><input class="search-input" id="project-search" type="search" placeholder="Proje adı, ilçe veya mahalle ara…" value="${esc(state.search)}"></div><label class="visually-hidden" for="status-filter">Proje durumuna göre filtrele</label><select class="filter-select" id="status-filter"><option value="">Tüm proje durumları</option>${Object.entries(statuses).map(([key, label]) => `<option value="${key}" ${state.status === key ? 'selected' : ''}>${label}</option>`).join('')}</select>${state.view !== 'archived' ? `<label class="visually-hidden" for="publication-filter">Yayın durumuna göre filtrele</label><select class="filter-select" id="publication-filter"><option value="">Tüm yayınlar</option><option value="published" ${state.publication === 'published' ? 'selected' : ''}>Yayında</option><option value="draft" ${state.publication === 'draft' ? 'selected' : ''}>Taslak</option></select>` : ''}</div><div class="library-caption"><span id="result-count">${getFilteredProjects().length} proje gösteriliyor</span><span class="sort-help">Gösterim sırasına göre · Küçük numara önce</span></div><div id="project-rows">${projectRows()}</div><div class="toolbar-help">${icon('info')} Taslak kaydetmek canlı sayfayı değiştirmez. “Yayımla” işlemi, yeni bilgileri ziyaretçilere açar.</div></section>`);
+  shell(`<div class="page-header"><div><span class="eyebrow">Proje portföyü</span><h1>${state.view === 'archived' ? 'Arşivlenen projeler' : 'Projeleriniz'}</h1><p>${state.view === 'archived' ? 'Arşivlenen projeleri geri yükleyin veya kalıcı olarak silin.' : 'Yeni projeler ekleyin, bilgileri güncelleyin ve yayınları yönetin.'}</p></div><button type="button" class="button button--primary" data-action="new">${icon('plus')} Yeni proje ekle</button></div><div class="stats-grid">${stats.map(s => `<div class="stat-card"><div class="stat-symbol">${icon(s.icon)}</div><div><b>${s.n}</b><span>${s.label}</span></div></div>`).join('')}</div><section class="panel" aria-label="Proje listesi"><div class="library-toolbar"><div class="search-field">${icon('search')}<label class="visually-hidden" for="project-search">Proje veya ilçe ara</label><input class="search-input" id="project-search" type="search" placeholder="Proje adı, ilçe veya mahalle ara…" value="${esc(state.search)}"></div><label class="visually-hidden" for="status-filter">Proje durumuna göre filtrele</label><select class="filter-select" id="status-filter"><option value="">Tüm proje durumları</option>${Object.entries(statuses).map(([key, label]) => `<option value="${key}" ${state.status === key ? 'selected' : ''}>${label}</option>`).join('')}</select>${state.view !== 'archived' ? `<label class="visually-hidden" for="publication-filter">Yayın durumuna göre filtrele</label><select class="filter-select" id="publication-filter"><option value="">Tüm yayınlar</option><option value="published" ${state.publication === 'published' ? 'selected' : ''}>Yayında</option><option value="draft" ${state.publication === 'draft' ? 'selected' : ''}>Taslak</option></select>` : ''}</div><div class="library-caption"><span id="result-count">${getFilteredProjects().length} proje gösteriliyor</span><span class="sort-help">Gösterim sırasına göre · Küçük numara önce</span></div><div id="project-rows">${projectRows()}</div><div class="toolbar-help">${icon('info')} Taslak kaydetmek canlı sayfayı değiştirmez. “Yayımla” işlemi, yeni bilgileri ziyaretçilere açar.</div></section>`);
   updateDirty();
 }
 function refreshRows() {
@@ -261,7 +325,7 @@ function selectTab(tab, { force = false, focus = false } = {}) {
 function resetWizard() { state.tab = 'details'; state.validatedSteps = []; state.wizardSaved = false; }
 
 function editorActionButtons(archived, published) {
-  if (archived) return `<button class="button button--silver" type="button" data-action="restore" data-mutation>${icon('archive')} Arşivden geri yükle</button>`;
+  if (archived) return `<button class="button button--silver" type="button" data-action="restore" data-mutation>${icon('archive')} Arşivden geri yükle</button><button class="button button--danger" type="button" data-action="delete-project" data-id="${esc(state.current.id)}" data-mutation ${state.busy ? 'disabled' : ''}>Kalıcı olarak sil</button>`;
   if (!state.wizardSaved || state.dirty || state.tab !== 'extra') return '';
   return `<button class="button" type="button" data-action="preview" ${state.busy ? 'disabled' : ''}>${icon('eye')} Önizle</button><button class="button button--silver" type="button" data-action="publish" data-mutation ${state.busy ? 'disabled' : ''}>${icon('globe')} ${published ? 'Değişiklikleri yayımla' : 'Projeyi yayımla'}</button>`;
 }
@@ -574,11 +638,14 @@ async function enterAdmin() {
 }
 
 document.addEventListener('submit', event => {
+  if (event.target.id === 'delete-form') { event.preventDefault(); deleteProject(); return; }
+  if ($('#delete-dialog')?.open) { event.preventDefault(); return; }
   if (event.target.id === 'auth-form') { event.preventDefault(); authenticate(event.target); }
   if (event.target.id === 'project-form') { event.preventDefault(); if (state.tab === 'extra') mutation('save'); else nextWizardStep(); }
 });
 document.addEventListener('input', event => {
   const el = event.target;
+  if (el.id === 'delete-confirmation-name') { updateDeleteDialog(); return; }
   if (el.id === 'project-search') { state.search = el.value; refreshRows(); return; }
   if (!state.draft || state.busy || state.current?.publicationState === 'archived') return;
   if (el.dataset.field) {
@@ -628,6 +695,9 @@ document.addEventListener('click', async event => {
   if (!button || button.disabled) return;
   const action = button.dataset.action;
   event.preventDefault();
+  if (action === 'cancel-delete') { cancelDelete(); return; }
+  if ($('#delete-dialog')?.open) return;
+  if (action === 'delete-project') { await openDeleteDialog(button.dataset.id); return; }
   if (['save', 'publish', 'archive', 'restore', 'discard'].includes(action)) { await mutation(action); return; }
   if (action === 'menu') {
     const shellElement = $('.shell'); if (!shellElement) return;
@@ -680,7 +750,16 @@ document.addEventListener('click', async event => {
   if (action === 'add-fact') { state.draft.facts.push({ label: '', value: '' }); markDirty(); $('#facts-list').innerHTML = renderFacts(); $('#facts-list .fact-row:last-child input').focus(); }
   if (action === 'remove-fact') { state.draft.facts.splice(index, 1); markDirty(); $('#facts-list').innerHTML = renderFacts(); }
 });
+$('#delete-dialog')?.addEventListener('cancel', event => {
+  if (state.deleting) event.preventDefault();
+  else state.deleteTarget = null;
+});
+$('#delete-dialog')?.addEventListener('close', () => { if (!state.deleting) state.deleteTarget = null; });
 document.addEventListener('keydown', event => {
+  if ($('#delete-dialog')?.open) {
+    if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 's') event.preventDefault();
+    return;
+  }
   if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 's' && state.draft) { event.preventDefault(); mutation('save'); }
   if (event.target.matches('[role=tab]') && ['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) {
     event.preventDefault(); const tabs = [...document.querySelectorAll('[role=tab]:not(:disabled)')];

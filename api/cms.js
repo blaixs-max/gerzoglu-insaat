@@ -70,6 +70,15 @@ module.exports = async function cms(req, res) {
         const saved = await store.rpc('cms_save_project',{p_id:id,p_expected_version:version(input.expectedVersion),p_document:doc});
         return send(res,200,{project:await responseProject(store,saved)});
       }
+      if (!action && req.method === 'DELETE') {
+        const input = await body(req);
+        const expectedVersion = version(input.expectedVersion);
+        if (row.version !== expectedVersion) throw new CmsError(409,'VERSION_CONFLICT','Bu proje başka bir işlemde değişti. Güncel kaydı yeniden yükleyin.');
+        if (row.publication_state !== 'archived') throw new CmsError(409,'ARCHIVE_REQUIRED','Yalnızca arşivdeki projeler silinebilir. Önce projeyi arşivleyin.');
+        if (typeof input.confirmationName !== 'string' || !input.confirmationName.trim() || input.confirmationName.trim() !== row.draft.name?.trim()) throw new CmsError(422,'CONFIRMATION_MISMATCH','Silmek için proje adını eksiksiz ve aynı şekilde yazın.');
+        const result = await store.rpc('cms_delete_project',{p_id:id,p_expected_version:expectedVersion,p_confirmation_name:input.confirmationName.trim()});
+        return send(res,200,result);
+      }
       if (action && req.method === 'POST') {
         if (action === 'preview') { res.setHeader('Allow','GET'); throw new CmsError(405,'METHOD_NOT_ALLOWED','Önizleme için GET kullanın.'); }
         const input = await body(req);
@@ -79,6 +88,8 @@ module.exports = async function cms(req, res) {
         if (action === 'restore-revision') { if (!UUID.test(input.revisionId || '')) throw new CmsError(422,'VALIDATION','Geçmiş sürümü seçin.'); args.p_revision_id = input.revisionId; }
         const saved = await store.rpc(names[action],args); return send(res,200,{project:await responseProject(store,saved)});
       }
+      res.setHeader('Allow',!action?'GET, PUT, DELETE':action==='preview'?'GET':'POST');
+      throw new CmsError(405,'METHOD_NOT_ALLOWED','Bu işlem için uygun istek yöntemini kullanın.');
     }
     if (route === '/api/admin/media/sign' && req.method === 'POST') return send(res,200,await media.signMedia(store,await body(req),user));
     match = /^\/api\/admin\/media\/([a-f0-9-]{36})\/(finalize|upload|preview)$/.exec(route);

@@ -233,6 +233,81 @@ test('CMS HTTP: archiving removes public detail, lists and sitemap; revision res
   r=await f.request(`/proje/${project.slug}.html`,{token:false});assert.equal(r.status,200);assert.match(r.text,/HTTP Test Apartmanı/);
 });
 
+test('CMS HTTP: delete is authenticated, same-origin, archived-only, versioned and confirmed by exact name',async t=>{
+  const f=await fixture(t);let project=await f.create(freshDocument({name:'Silme Testi Apartmanı'}));
+  const target=`/api/admin/projects/${project.id}`;
+  const remove=(body={},options={})=>f.request(target,{method:'DELETE',body:{expectedVersion:project.version,confirmationName:project.draft.name,...body},...options});
+  let r=await remove({}, {token:false});assert.equal(r.status,401);
+  r=await remove({}, {token:'expired'});assert.equal(r.status,401);
+  f.state.active=false;r=await remove();assert.equal(r.status,403);f.state.active=true;
+  r=await remove({}, {headers:{Origin:'https://attacker.example'}});assert.equal(r.status,403);assert.equal(r.json.error.code,'ORIGIN_DENIED');
+  r=await remove();assert.equal(r.status,409);assert.equal(r.json.error.code,'ARCHIVE_REQUIRED');
+  r=await f.action(project,'publish');project=r.json.project;
+  r=await remove();assert.equal(r.status,409);assert.equal((await f.request(`/proje/${project.slug}.html`,{token:false})).status,200);
+  r=await f.action(project,'archive');project=r.json.project;
+  const snapshot=await f.store.getRow(project.id);
+  for(const body of [{},{confirmationName:project.draft.name},{expectedVersion:project.version},{expectedVersion:'4',confirmationName:project.draft.name}]){
+    r=await f.request(target,{method:'DELETE',body});assert.equal(r.status,422,r.text);
+  }
+  for(const name of ['',null,42,'silme Testi Apartmanı','Silme Testi']){
+    r=await remove({confirmationName:name});assert.equal(r.status,422);assert.equal(r.json.error.code,'CONFIRMATION_MISMATCH');
+  }
+  r=await remove({expectedVersion:project.version-1});assert.equal(r.status,409);assert.equal(r.json.error.code,'VERSION_CONFLICT');
+  r=await f.request(target,{method:'DELETE',body:'null'});assert.equal(r.status,400);
+  r=await f.request(target,{method:'POST',body:{expectedVersion:project.version}});assert.equal(r.status,405);assert.equal(r.headers.get('allow'),'GET, PUT, DELETE');
+  r=await f.request(target+'/archive',{method:'DELETE',body:{expectedVersion:project.version}});assert.equal(r.status,405);assert.equal(r.headers.get('allow'),'POST');
+  r=await f.request(target+'/delete',{method:'POST',body:{expectedVersion:project.version,confirmationName:project.draft.name}});assert.equal(r.status,404);
+  assert.deepEqual(await f.store.getRow(project.id),snapshot);
+});
+
+test('CMS HTTP: permanent archived deletion removes project, history and uploaded media while preserving other projects and URLs',async t=>{
+  const f=await fixture(t);const existing=(await f.store.list())[0];
+  const otherMedia={id:randomUUID(),project_id:existing.id,status:'pending',path:'test-only-other-media'};
+  await f.store.createMedia(otherMedia);
+  let project=await f.create(freshDocument({name:'Kalıcı Silme Apartmanı'}));
+  const original=await sharp({create:{width:96,height:64,channels:3,background:'#acb'}}).jpeg().toBuffer();
+  let r=await f.request('/api/admin/media/sign',{method:'POST',body:{projectId:project.id,fileName:'delete-test.jpg',type:'image/jpeg',size:original.length}});assert.equal(r.status,200,r.text);
+  const signed=r.json;
+  r=await f.request(signed.signedUrl,{method:'PUT',headers:{'Content-Type':'image/jpeg'},body:original});assert.equal(r.status,200,r.text);
+  r=await f.request(`/api/admin/media/${signed.mediaId}/finalize`,{method:'POST',body:{}});assert.equal(r.status,200,r.text);const image=r.json.media;
+  r=await f.request(`/api/admin/projects/${project.id}`,{method:'PUT',body:{expectedVersion:project.version,draft:{...project.draft,cover:image,gallery:[image]}}});assert.equal(r.status,200,r.text);project=r.json.project;
+  r=await f.action(project,'publish');assert.equal(r.status,200,r.text);project=r.json.project;
+  assert.ok((await f.store.history(project.id)).length);assert.equal((await f.request(image.src,{token:false})).status,200);
+  r=await f.action(project,'archive');assert.equal(r.status,200,r.text);project=r.json.project;
+  const rowBefore=await f.store.getRow(existing.id);
+  r=await f.request(`/api/cms?__adminPath=projects/${project.id}`,{method:'DELETE',headers:{Origin:f.base},body:{expectedVersion:project.version,confirmationName:'  '+project.draft.name+'  '}});
+  assert.equal(r.status,200,r.text);assert.deepEqual(r.json,{deleted:true,id:project.id});
+  r=await f.request(`/api/admin/projects/${project.id}`);assert.equal(r.status,404);
+  r=await f.request(`/api/admin/projects/${project.id}`,{method:'DELETE',body:{expectedVersion:project.version,confirmationName:project.draft.name}});assert.equal(r.status,404);
+  assert.deepEqual(await f.store.history(project.id),[]);assert.equal(await f.store.getMedia(signed.mediaId),null);
+  assert.equal((await f.request(image.src,{token:false})).status,404);
+  assert.equal((await f.request(image.previewSrc)).status,404);
+  assert.equal((await f.request(`/api/admin/media/${signed.mediaId}/finalize`,{method:'POST',body:{}})).status,404);
+  assert.equal((await f.request(`/proje/${project.slug}.html`,{token:false})).status,404);
+  for(const url of ['/projeler.html','/sitemap.xml','/llms.txt']){r=await f.request(url,{token:false});assert.equal(r.status,200);assert.ok(!r.text.includes(`/proje/${project.slug}.html`));}
+  assert.deepEqual(await f.store.getRow(existing.id),rowBefore);
+  assert.deepEqual(await f.store.getMedia(otherMedia.id),otherMedia);
+  assert.equal((await f.request(`/proje/${existing.slug}.html`,{token:false})).status,200);
+  assert.equal((await f.store.list()).length,27);
+  const restarted=new actualStore.LocalStore(f.directory);
+  assert.ok((await restarted.listSlugs()).includes(project.slug));
+  await assert.rejects(restarted.rpc('cms_create_project',{p_document:freshDocument({slug:project.slug})}),error=>error.code==='SLUG_EXISTS');
+  const replacement=await f.create(freshDocument({name:project.draft.name}));assert.equal(replacement.slug,project.slug+'-2');
+  assert.notEqual(replacement.id,project.id);
+});
+
+test('CMS cloud store: allocator reads live and deleted address pages and maps deletion RPC errors',async()=>{
+  const store=Object.create(actualStore.CloudStore.prototype);const pages=[];
+  const reserved=Array.from({length:1001},(_,index)=>({slug:'reserved-'+index}));
+  store.client={from(table){const query={select(){return query;},order(){return query;},async range(from,to){pages.push({table,from,to});return{data:(table==='cms_project_addresses'?reserved:[reserved[0],{slug:'service-import'}]).slice(from,to+1),error:null};}};return query;}};
+  const slugs=await store.listSlugs();assert.equal(slugs.length,1002);assert.ok(slugs.includes('reserved-1000'));assert.ok(slugs.includes('service-import'));
+  assert.deepEqual(pages.map(page=>[page.table,page.from]),[['cms_project_addresses',0],['cms_project_addresses',1000],['cms_projects',0]]);
+  for(const [message,code,status] of [['CMS_DELETE_REQUIRES_ARCHIVE','ARCHIVE_REQUIRED',409],['CMS_DELETE_NAME_MISMATCH','CONFIRMATION_MISMATCH',422],['CMS_STALE_VERSION','VERSION_CONFLICT',409]]){
+    store.client.rpc=async()=>({data:null,error:{code:'P0001',message}});
+    await assert.rejects(store.rpc('cms_delete_project',{}),error=>error.code===code&&error.status===status);
+  }
+});
+
 test('CMS HTTP: private upload/preview becomes an immutable public derivative only after publish',async t=>{
   const f=await fixture(t);let project=await f.create();
   const original=await sharp({create:{width:96,height:64,channels:3,background:'#bca'}}).jpeg().toBuffer();

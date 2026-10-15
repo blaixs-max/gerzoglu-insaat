@@ -67,6 +67,8 @@ Liste ekranındaki yukarı/aşağı oklar genel sırayı doğrudan günceller. Y
 
 **Yayın geçmişi → Taslağa geri yükle** önceki sürümü taslağa alır. Canlı sayfayı geri almak için ayrıca **Değişiklikleri yayımla** gerekir. **Taslak düzenlemelerini geri al** ise bekleyen düzenlemeleri mevcut yayındaki sürümle değiştirir.
 
+**Arşiv** listesindeki veya arşivlenmiş proje ekranındaki **Sil** düğmesi, projeyi ve yayın geçmişini kalıcı olarak kaldırır. Açılan pencerede ekrandaki proje adını aynen yazıp onaylayın. **Vazgeç** veya Escape işlemi iptal eder. Yayındaki ve taslak projeler doğrudan silinemez; önce arşivlenmelidir. Silinen proje panelden geri yüklenemez ve eski sayfa adresi başka bir projeye verilmez.
+
 ## Erişim, kota ve yedek
 
 Bağlantı hatasında tekrar tekrar yayımlamaya basmak yerine yayın durumunu kontrol edin. Sağlayıcı bağlantısı, kota veya Free proje duraklaması için teknik sorumlu [erişilebilirlik rehberini](ADMIN_AVAILABILITY.md) izler.

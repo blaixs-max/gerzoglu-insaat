@@ -77,7 +77,7 @@ Formlar gönderim hizmetini kontrol eder; yapılandırma yoksa telefon/WhatsApp 
 
 Çerez denetleyicisi `window.GerzogluMeasurement` arayüzünü destekler; kaynak kodda etkin bir analiz sağlayıcısı tanımlı değildir. Sağlayıcı etkinleştirildiğinde izin arayüzü ve gizlilik metni gerçek veri kullanımıyla birlikte güncellenmelidir.
 
-Yönetim panelinde proje düzenleme üç adımlıdır: **Proje Bilgileri → Görseller → Ek Bilgiler**. Her adım hatasızsa ilerlenir; **Taslağı kaydet** yalnız son adımdadır. Önizleme ve yayın, tamamlanan son kayıt sonrasında açılır. İlk geçiş, görsel yüklemelerinin bağlanacağı özel bir çalışma kaydı oluşturur; bu kayıt ziyaretçilere açılmaz ve son kaydın yerine geçmez.
+Yönetim panelinde proje düzenleme üç adımlıdır: **Proje Bilgileri → Görseller → Ek Bilgiler**. Her adım hatasızsa ilerlenir; **Taslağı kaydet** yalnız son adımdadır. Önizleme ve yayın, tamamlanan son kayıt sonrasında açılır. Arşivdeki projeler, proje adı yazılarak onaylandıktan sonra silinebilir; silinen adresler yeniden kullanılmaz. İlk geçiş, görsel yüklemelerinin bağlanacağı özel bir çalışma kaydı oluşturur; bu kayıt ziyaretçilere açılmaz ve son kaydın yerine geçmez.
 
 ## SEO ve proje yönetimi
 
