@@ -9,7 +9,9 @@
 - Canlı site: [gerzoglu.com](https://gerzoglu.com/)
 - Vercel projesi: `gerzoglu-varyant-3`
 
-14 Ekim 2026 denetiminde canlı dağıtımın Vercel CLI ile yerelden yayımlandığı doğrulandı. Eski GitHub kopyası 4 Ekim'de kalmıştı; eşitlemede güncel yerel kaynak esas alınır ve önceki Git geçmişleri korunur. GitHub'a commit/push yapmak ile yeni production yayını ayrı işlemlerdir. Eski Vercel projesine bağlı Git entegrasyonunun yanlış hedefte yayın yapmaması için `git.deploymentEnabled: false` açıkça tanımlıdır. Dağıtım kimliği, proje doğrulaması ve yayın adımları için [DEPLOYMENT.md](docs/DEPLOYMENT.md), eşitleme kanıtı için [SOURCE_SYNC.md](docs/SOURCE_SYNC.md) dosyasına bakın.
+14 Ekim 2026'daki ilk eşitlemede güncel yerel kaynak GitHub'a aktarıldı ve önceki Git geçmişleri korundu. Eski GitHub kopyasının 4 Ekim'de kalmış olması bu ilk denetimin tarihsel bulgusudur. Güncel durum ve yayın geçmişi için [WORK_STATUS.md](docs/WORK_STATUS.md), eşitleme kaydı için [SOURCE_SYNC.md](docs/SOURCE_SYNC.md) esas alınır.
+
+GitHub'a commit/push yapmak ile yeni production yayını ayrı işlemlerdir. Eski Vercel projesine bağlı Git entegrasyonunun yanlış hedefte yayın yapmaması için `git.deploymentEnabled: false` açıkça tanımlıdır. Canlı yayın, doğrulanmış `gerzoglu-varyant-3` projesinde Vercel CLI ile yapılır. Yalnız doküman değişikliği için yeniden yayın gerekmez. Proje doğrulaması ve yayın adımları [DEPLOYMENT.md](docs/DEPLOYMENT.md) içindedir.
 
 ## Dizinler
 
@@ -20,6 +22,7 @@
 | `assets/css/`, `assets/js/` | Ortak görünüm, gümüş tema, etkileşimler ve formlar |
 | `assets/logo/` | Gümüş Logo 29, diğer logo seçenekleri ve favicon dosyaları |
 | `assets/proje/`, `assets/responsive/` | Yerel proje kaynakları ve farklı boyutlardaki WebP görseller |
+| `assets/kurumsal/` | Yönetim kurulu başkanının kaynak portresi |
 | `assets/fonts/`, `assets/css/fonts.css` | Yerel fontlar, Türkçe karakter desteği, kaynak ve OFL lisansları |
 | `api/contact.js`, `lib/contact.cjs` | Sunucudan sabit `info@gerzoglu.com` alıcısına e-posta gönderimi |
 | `tests/contact.test.cjs` | Gerçek e-posta göndermeyen iletişim işlevi testleri |
@@ -35,6 +38,16 @@
 | `scripts/import-projects.cjs`, `scripts/seed-cms.cjs` | Deterministik ilk aktarım ve yalnız boş CMS için seed SQL üretimi |
 | `supabase/`, `tests/cms-*.test.cjs` | Migration, RLS ve gerçek Postgres motorlu PGlite kontrolleri |
 | `api/health.js`, `.github/workflows/cms-health.yml` | Gerçek dış veritabanı bağlantısı kontrolü |
+| `docs/` | Kullanım, veri sözleşmesi, kaynak eşitleme ve yayın kayıtları |
+
+### Yerel kullanım kılavuzları
+
+22 sayfalık ekran görüntülü PDF ile düzenlenebilir 22 slaytlık PowerPoint, asıl yerel çalışma dizininde korunur:
+
+- `output/pdf/Gerzoglu_Admin_Paneli_Kullanim_Kilavuzu.pdf`
+- `output/powerpoint/Gerzoglu_Admin_Paneli_Kullanim_Kilavuzu.pptx`
+
+Bu teslim dosyaları `output/` altında Git ve Vercel yüklemesinden dışlanır; GitHub'dan klonlama bu yerel dosyaları getirmez. Depodaki güncel yazılı kullanım kaynağı [ADMIN_GUIDE.md](docs/ADMIN_GUIDE.md) dosyasıdır.
 
 ## Yerel kurulum ve kontrol
 
@@ -46,7 +59,7 @@ npm test
 npm run build
 ```
 
-`npm run build`, tarayıcı Auth/Storage istemcisini `esbuild` ile `assets/vendor/supabase.mjs` dosyasına paketler; harici script CDN kullanılmaz. Ziyaretçiye açık sayfaları ve `assets/` içeriğini üretilmiş `dist/` dizinine kopyalar. API, `lib/`, `data/`, testler, dokümanlar ve ortam dosyaları statik çıktıya kopyalanmaz. Gerekli şablonlar Vercel işlevlerine ayrıca paketlenir. `dist/` ve vendor paketini elle düzenlemeyin. Docker gerekmez; SQL testleri PGlite kullanır.
+`npm run build`, tarayıcı Auth/Storage istemcisini `esbuild` ile `assets/vendor/supabase.mjs` dosyasına paketler; harici script CDN kullanılmaz. `admin.html`, `404.html`, `robots.txt` ve `assets/` içeriğini üretilmiş `dist/` dizinine kopyalar. Yönetilen site/proje sayfaları, `sitemap.xml` ve `llms.txt` CMS işlevinden sunulur; fiziksel dosyalar bu yönlendirmeleri gölgelememelidir. API, `lib/`, `data/`, testler, dokümanlar ve ortam dosyaları statik çıktıya kopyalanmaz. Gerekli şablonlar Vercel işlevlerine ayrıca paketlenir. `dist/` ve vendor paketini elle düzenlemeyin. Docker gerekmez; SQL testleri PGlite kullanır.
 
 Derlemeden sonra `npm run preview`, yalnız `http://127.0.0.1:4173` üzerinde statik çıktıyı ve CMS/iletişim işlevlerini sunar. Sunucu kaynaklarını statik dosya olarak sunmaz; `.env.local` veya `.env.cms.local` dosyasını kendiliğinden yüklemez. Gerçek cloud ortamıyla başlatılırsa panel işlemleri gerçek veritabanını etkiler; SMTP tanımlanmışsa form gerçek e-posta gönderebilir. Tam Vercel uyumu için doğru projeye bağlı dizinde `vercel dev` kullanılabilir.
 
@@ -77,6 +90,8 @@ Görseller `srcset` ve `sizes` ile sunulur. Çoğu görselde 640/1280/1920 pikse
 
 **14 Ekim 2026 kontrolünde** canlı `GET /api/contact`, HTTP 200 ve `{"available":true}` döndürdü. Bu, gerekli SMTP yapılandırmasının mevcut olduğunu gösterir; sağlayıcı bağlantısının veya gelen kutusuna teslimatın testi değildir. Bu denetimde e-posta gönderilmedi. Önceki dokümandaki “hesap aktif değil / SMTP bilgileri yok” bilgisi artık güncel kabul edilmemelidir.
 
+Aynı gün ayrı SMTP bağlantı doğrulaması `EAUTH` hatası verdi. Geçerli SMTP ve gerçek teslimat doğrulanana kadar e-posta hizmeti çalışıyor kabul edilmez; yönetici parola yenilemesi kapalıdır. Yönetici parola ile giriş yapabilir. Bu bilinen eksik, kaynak ve doküman eşitlemesiyle giderilmiş sayılmaz.
+
 Formlar gönderim hizmetini kontrol eder; yapılandırma yoksa telefon/WhatsApp seçeneklerini gösterir. Başarı yalnız sabit alıcı SMTP sunucusu tarafından kabul edildiğinde döner. SMTP kabulü, gelen kutusuna teslim garantisi değildir. Ortam değişkenleri ve gerçek teslimat doğrulaması [DEPLOYMENT.md](docs/DEPLOYMENT.md) içinde açıklanır.
 
 Çerez denetleyicisi `window.GerzogluMeasurement` arayüzünü destekler; kaynak kodda etkin bir analiz sağlayıcısı tanımlı değildir. Sağlayıcı etkinleştirildiğinde izin arayüzü ve gizlilik metni gerçek veri kullanımıyla birlikte güncellenmelidir.
@@ -87,7 +102,7 @@ Yönetim panelinde proje düzenleme üç adımlıdır: **Proje Bilgileri → Gö
 
 Canonical, paylaşım ve yapılandırılmış veri adresleri `https://gerzoglu.com` alan adını kullanır. `vercel.json`, ana alan adı dışındaki hostlara `noindex, nofollow` uygular; API ve 404 her hostta kapalıdır. `robots.txt` ana sayfaların taranmasına izin verir. Search Console doğrulaması ve site haritasının gönderilmiş olduğu ayrıca doğrulanmalıdır; indekslenebilir olmak arama sonuçlarında görünme garantisi değildir.
 
-**14 Ekim 2026 itibarıyla admin/CMS kaynak kodu uygulanmış; ayrı `gerzoglu-cms` Supabase projesine (`ibbyoetzgeqbrxyvzidb`, Frankfurt) 27 mevcut proje aktarılmıştır.** İlk yönetici `info@gerzoglu.com` hesabı oluşturulmuş ve parola ile Auth girişi doğrulanmıştır. Bu durum, bütün tarayıcı testleri veya yeni production yayını tamamlandı anlamına gelmez; önizleme ve doğru Vercel hedefine yayın ayrıca doğrulanır. Yönetim adresi yayın sonrasında `https://gerzoglu.com/admin` olacaktır.
+**Admin/CMS canlıda kullanımdadır:** [gerzoglu.com/admin](https://gerzoglu.com/admin) adresi giriş ekranına yönlenir. Ayrı `gerzoglu-cms` Supabase projesi (`ibbyoetzgeqbrxyvzidb`, Frankfurt) kullanılır. 27 mevcut proje ilk kurulumda aktarıldı; sonraki düzenlemeler cloud kataloğunda tutulur. İlk yönetici `info@gerzoglu.com` hesabının parola ile Auth girişi doğrulandı. Parola ve anahtarlar belgelerde tutulmaz. Son yayın ve doğrulama sonuçları [WORK_STATUS.md](docs/WORK_STATUS.md) içindedir.
 
 Durum yalnızca **Teslim Edildi / Devam Eden Proje / Planlanan Proje / Satıştaki Proje** seçeneklerinden biridir. Taslak/yayında/arşivde bilgisi ayrıdır. Kaydetmek yalnız taslağı değiştirir; açık yayın sonrasında ziyaretçiye yeni belge sunulur. Proje değişikliklerinde yeni dağıtım gerekmez. Sıra okları yayındaki kayıtların yalnız sırasını günceller. İlk kayıttan sonra URL sabittir; arşivlenen proje listelerden çıkar ve 404 döner. Eski 27 URL, aynı adlı farklı projeler, 4 açılış görseli, 8 öne çıkan kart ve ofis/dükkân/showroom/villa bilgileri korunur.
 
@@ -110,11 +125,15 @@ Marketplace uyumluluğu için `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_
 
 Yeni fotoğraf **JPEG/JPG, PNG veya WebP**, dosya başına en fazla **20 MB** olmalıdır. Gerçek biçim ve piksel sınırı kontrol edilir; hareketli görsel kabul edilmez. Kaynak korunur, EXIF yönü düzeltilir; 640/1280/1920 piksele kadar WebP türevleri kaynak genişliğini aşmadan üretilir. Düşük çözünürlüklü fotoğraf büyütülmez; türevlerde EXIF/konum bilgisi tutulmaz.
 
-14 Ekim 2026'da resmi Free plan: **500 MB veritabanı, 1 GB dosya depolama, 5 GB çıkış trafiği ve 5 GB önbellekli çıkış trafiği**. Yeni yüklemelerin orijinalleri ve türevleri dosya kotasını birlikte tüketir. Kullanımı sağlayıcı panelinden izleyin; güncel plan/marketplace sözleşmesi esas alınır. Free plan otomatik veritabanı yedeği sağlamaz. Kod Git'te, veritabanı ve iki özel bucket ayrıca yedeklenir; yayın geçmişi bağımsız yedek değildir. [Supabase fiyatlandırması](https://supabase.com/pricing).
+14 Ekim 2026'da resmi Free plan: **500 MB veritabanı, 1 GB dosya depolama, 5 GB çıkış trafiği ve 5 GB önbellekli çıkış trafiği**. Yeni yüklemelerin orijinalleri ve türevleri dosya kotasını birlikte tüketir. Kullanımı sağlayıcı panelinden izleyin; güncel plan/marketplace sözleşmesi esas alınır. Free plan otomatik veritabanı yedeği sağlamaz. Kod Git'te tutulur; veritabanı ve iki özel bucket ayrıca yedeklenmelidir. Yayın geçmişi bağımsız yedek değildir. [Supabase fiyatlandırması](https://supabase.com/pricing).
 
 Birincil dış kontrol, mevcut Vercel takımının Pro planında `/api/health` için altı saatte bir **UTC `37 */6 * * *`** korumalı crondur. Supabase Free planı yükseltilmez. GitHub Actions, altı saatte bir **UTC `17 */6 * * *`** bağımsız public REST okuması yapan yedek kontroldür. Vercel production yayını, GitHub doğru ref/variables/varsayılan dal ve başarılı gerçek çalışmalar ayrıca doğrulanmalıdır. GitHub hata bildirimleri açılmalıdır; zamanlama gecikebilir ve herkese açık depoda 60 gün etkinlik olmazsa kapanabilir. Vercel kontrolü bu GitHub kısıtına bağlı değildir. İki kontrol de Free duraklamama veya kesintisiz erişim garantisi vermez. [İşletim adımları](docs/ADMIN_AVAILABILITY.md).
 
-## Son canlı CMS doğrulaması — 14 Ekim 2026
+## Güncel yayın — 15 Ekim 2026
 
-Panel canlıda: https://gerzoglu.com/admin . Son production dpl_9Gb4KpMkXRYM1YwwRWhXqy5RgULu; uygulama kaynağı 038c941. Canlı 27/27 proje, ana sayfa, liste ve site haritası CMS HTML çıktısıyla birebir eşleşti ve no-store doğrulandı. Son test paketi 40/40 geçti. Vercel 6 saatlik görev etkin, GitHub yedek kontrolünün ilk çalışması başarılıdır. SMTP EAUTH nedeniyle e-posta kurtarma kapalıdır. Ayrıntılı güncel devam noktası docs/WORK_STATUS.md dosyasındadır.
+Canlı uygulama kaynağı **`8723a83`**, production dağıtımı **`dpl_GHPG6pHrJooEAm9ZyVTNxNuk13Q8`**. Bu yayın yönetim panelinin güncel akışlarını, arşivden kalıcı silmeyi, 22 soruluk malik rehberini ve Yönetim Kurulu Başkanından bölümünü içerir. Yayın öncesi **74/74 test ve build geçti**; son içeriklerin masaüstü/mobil görünümü ve canlı dosyaları doğrulandı, 27 proje bağlantısı korundu.
+
+15 Ekim akşam eşitlemesinde alan adının aynı production sürümüne bağlı olduğu yeniden doğrulandı. Canlı mesajın yedi paragrafı, üç portre türevi, 27 proje bağlantısı ve 22 rehber sorusu kontrol edildi; **74/74 test ve build tekrar geçti**. Aynı gün 19:57 Türkiye saatiyle başlayan [GitHub veritabanı kontrolü](https://github.com/blaixs-max/gerzoglu-insaat/actions/runs/38773307564), gerçek katalog okumasıyla başarılı tamamlandı.
+
+Arşivden silme dahil dört CMS migration'ı uygulanmıştır; kaynak dosyalar `supabase/migrations/` altındadır. İlk aktarım verisini yeniden çalıştırarak canlı düzenlemeleri ezmeyin. Vercel ve GitHub dış kontrollerinin işletim ayrıntıları [ADMIN_AVAILABILITY.md](docs/ADMIN_AVAILABILITY.md), bilinen SMTP eksikliği ve sürümlere ait tarihli doğrulamalar [WORK_STATUS.md](docs/WORK_STATUS.md) içindedir. Kaynak deposundaki daha yeni, yalnız doküman içeren commit'ler canlı uygulama kodunun geride olduğu anlamına gelmez.
 

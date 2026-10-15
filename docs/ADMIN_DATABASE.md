@@ -2,6 +2,8 @@
 
 Bu belge `docs/ADMIN_CONTRACT.md` ile birlikte okunur. Veritabanı başka bir uygulamanın verilerine bağlanmaz; Gerzoğlu için ayrılmış Supabase projesine kurulur. Depoya parola, hizmet anahtarı veya yönetici oturumu eklenmez.
 
+15 Ekim 2026 itibarıyla ayrı `gerzoglu-cms` projesi kurulmuş ve dört migration uygulanmıştır. Son migration'ın yerel dosyası `20261014200125_cms_archived_project_deletion.sql`, buluttaki uygulama sürümü `20261015072308` olarak kayıtlıdır. Güncel proje kimliği, doğrulamalar ve yayın durumu [WORK_STATUS.md](WORK_STATUS.md) içindedir. Aşağıdaki kurulum adımları mevcut canlı veritabanını yeniden oluşturma veya ilk verileri tekrar aktarma talimatı değildir.
+
 ## Kurulum ve sürümleme
 
 İlk migration: `supabase/migrations/20261014133155_admin_cms.sql`. Dosya adı Supabase CLI `migration new admin_cms` komutuyla oluşturuldu. Proje **imperative migrations** kullanır; `supabase/schemas/` veya ikinci bir şema kaynağı yoktur.

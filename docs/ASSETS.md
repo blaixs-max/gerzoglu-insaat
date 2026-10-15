@@ -1,6 +1,6 @@
 # Görseller, logo ve fontlar
 
-Bu dosya 14 Ekim 2026'da mevcut kaynak üzerinden düzenlenmiştir. Bir dosyanın var olması, ilgili seçeneğin canlı sayfalarda kullanıldığı anlamına gelmez; HTML referansları esas alınır.
+İlk kaynak kaydı 14 Ekim 2026'da hazırlandı; son içerik güncellemesi 15 Ekim 2026'da başkan portresi ve mesajı için yapıldı. Güncel yayın kaydı [WORK_STATUS.md](WORK_STATUS.md) içindedir. Bir dosyanın var olması, ilgili seçeneğin canlı sayfalarda kullanıldığı anlamına gelmez; HTML referansları esas alınır.
 
 ## Logo ve açılış
 
@@ -24,7 +24,7 @@ Ana sayfa, proje listesi ve detay sayfalarındaki `src`, `srcset`, ön yükleme 
 
 `vercel.json` içinde kalan uzak `*_min.webp` yönlendirmeleri tarihsel yollardır. Küçük bir önizleme dosyasını büyük alanlara yeniden bağlamak önceki bulanıklık sorununu geri getirebilir. Yerel büyük `srcset` dosyaları, yalnız kısa ad benzerliğine bakılarak bu uzak küçük kopyalarla değiştirilmemelidir. Kaynak genişliğini aşan büyütme gerçek detay üretmez.
 
-`npm run build` yalnız mevcut dosyaları `dist/` içine kopyalar; responsive görselleri yeniden üretmez. Yeni görsel için gereken boyutlar önceden oluşturulmalı ve kaynakla birlikte izlenmelidir. Geçici üretim araçları veya orijinal fotoğrafların kullanıcının Downloads klasöründe bulunduğu varsayımı, kalıcı yayın bağımlılığı yapılmamalıdır.
+`npm run build` mevcut görselleri `dist/` içine kopyalar; responsive görselleri yeniden üretmez. Yeni görsel için gereken boyutlar önceden oluşturulmalı ve kaynakla birlikte izlenmelidir. Geçici üretim araçları veya orijinal fotoğrafların kullanıcının Downloads klasöründe bulunduğu varsayımı, kalıcı yayın bağımlılığı yapılmamalıdır.
 
 ## Yönetim Kurulu Başkanı portresi ve mesajı
 

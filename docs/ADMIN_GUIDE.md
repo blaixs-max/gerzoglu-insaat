@@ -6,7 +6,7 @@
 
 İlk hesabın parola ile girişi doğrulanmıştır. E-posta ile şifre yenileme, `CMS_RECOVERY_ENABLED=1` açıkça etkinleştirilene kadar gösterilmez. 14 Ekim 2026 bağlantı doğrulamasında mevcut sitenin SMTP sunucusu `EAUTH` döndürmüştür; e-posta gönderilmemiştir. Geçerli SMTP bilgileriyle Supabase Auth özel SMTP yapılandırması ve gerçek kurtarma teslimatı doğrulanmadan bu seçenek açılmamalıdır.
 
-Yayın sonrasında [gerzoglu.com/admin](https://gerzoglu.com/admin) adresini açın. İlk yönetici hesabı **info@gerzoglu.com** adresidir. Parola belgelerde tutulmaz; herkese açık kullanıcı kaydı yoktur. İşiniz bitince **Güvenli çıkış** kullanın. **YEREL ÖNİZLEME** rozeti görüyorsanız bilgisayardaki deneme ortamındasınız; buradaki işlemler canlı siteyi değiştirmez.
+[gerzoglu.com/admin](https://gerzoglu.com/admin) adresini açın. Panel canlıda kullanıma açıktır. İlk yönetici hesabı **info@gerzoglu.com** adresidir. Parola belgelerde tutulmaz; herkese açık kullanıcı kaydı yoktur. İşiniz bitince **Güvenli çıkış** kullanın. **YEREL ÖNİZLEME** rozeti görüyorsanız bilgisayardaki deneme ortamındasınız; buradaki işlemler canlı siteyi değiştirmez.
 
 Her proje için dört durumdan yalnızca biri seçilir: **Teslim Edildi / Devam Eden Proje / Planlanan Proje / Satıştaki Proje**. Bundan ayrı **Taslak / Yayında / Arşivde** bilgisi bulunur. Örneğin “Planlanan Proje” ziyaretçilere açık olabilir; “Teslim Edildi” seçmek kaydı kendiliğinden yayımlamaz.
 
@@ -73,6 +73,6 @@ Liste ekranındaki yukarı/aşağı oklar genel sırayı doğrudan günceller. Y
 
 Bağlantı hatasında tekrar tekrar yayımlamaya basmak yerine yayın durumunu kontrol edin. Sağlayıcı bağlantısı, kota veya Free proje duraklaması için teknik sorumlu [erişilebilirlik rehberini](ADMIN_AVAILABILITY.md) izler.
 
-Altı saatte bir korumalı Vercel kontrolü ve altı saatte bir GitHub yedek kontrolü yapılandırılır. Bunlar kesintisiz erişim veya hiç duraklamama garantisi değildir; GitHub hata bildirimleri hesap ayarlarına bağlıdır.
+Altı saatte bir korumalı Vercel kontrolü ve altı saatte bir GitHub yedek kontrolü yapılandırılmıştır. Güncel doğrulama kaydı [WORK_STATUS.md](WORK_STATUS.md) içindedir. Bunlar kesintisiz erişim veya hiç duraklamama garantisi değildir; GitHub hata bildirimleri hesap ayarlarına bağlıdır.
 
-Orijinaller ve türevleri dosya kotasını birlikte kullanır. Güncel kullanım sağlayıcı panelinden izlenir. Yayın geçmişi bağımsız yedek değildir; veritabanı ve özel fotoğraf depoları ayrıca yedeklenir.
+Orijinaller ve türevleri dosya kotasını birlikte kullanır. Güncel kullanım sağlayıcı panelinden izlenir. Yayın geçmişi bağımsız yedek değildir; veritabanı ve özel fotoğraf depoları ayrıca yedeklenmelidir.

@@ -2,6 +2,8 @@
 
 14 Ekim 2026 tarihinde resmi belgeler doğrulanarak hazırlandı. Bu kontrol yalnız düşük aktivite nedeniyle duraklama riskini azaltmaya ve bağlantı arızasını fark etmeye yardımcı olur; Free plan için kesintisiz erişim veya duraklamama garantisi vermez.
 
+Vercel ve GitHub üzerindeki altı saatlik kontroller yapılandırılmıştır. 15 Ekim 2026 saat 19:57 Türkiye saatinde oluşturulan [GitHub çalışmasında](https://github.com/blaixs-max/gerzoglu-insaat/actions/runs/38773307564) veritabanı işi ve gerçek katalog okuma adımı başarılıdır. Güncel durum ve doğrulama kayıtları [WORK_STATUS.md](WORK_STATUS.md) içindedir; aşağıdaki kurulum ve yeniden doğrulama adımları işletim rehberi olarak korunur.
+
 ## Doğrulanan sınırlar
 
 Supabase, Free projeleri son yedi gündeki düşük kullanıcı veritabanı aktivitesi nedeniyle duraklatabilir. Resmi belgeye göre her gün birkaç gerçek veritabanı isteği genellikle yeterlidir; kesin bir sorgu sayısı taahhüt edilmez. Önbellekten dönen site sayfası veritabanına gitmeyebilir. Bu nedenle kontrol doğrudan yayımlanmış proje tablosunu okur. İçeride çalışan `pg_cron` yerine dışarıdan GitHub Actions kullanılır; veritabanının içindeki işin duraklamış veritabanını uyandırabileceği varsayılmaz. [Supabase Project Pausing](https://supabase.com/docs/guides/platform/free-project-pausing).

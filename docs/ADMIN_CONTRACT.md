@@ -27,7 +27,7 @@ An admin project is `{ id, slug, version, publicationState, draft, published, ha
 
 ## Admin HTTP API
 
-`GET /api/admin/config` returns `{configured,url,publishableKey,localPreview}`.
+`GET /api/admin/config` returns `{configured,url,publishableKey,localPreview,recoveryAvailable}`. `recoveryAvailable` is true only when `CMS_RECOVERY_ENABLED=1`; it controls the password-recovery UI and does not itself prove SMTP delivery. Current deployment and known email limitations are recorded in [WORK_STATUS.md](WORK_STATUS.md).
 Supabase browser auth uses an installed, bundled `/assets/vendor/supabase.mjs`; no public signup. API calls send `Authorization: Bearer <access_token>`.
 
 - `GET /api/admin/session` → `{user:{id,email},isAdmin:true}`.
@@ -39,7 +39,7 @@ Supabase browser auth uses an installed, bundled `/assets/vendor/supabase.mjs`; 
 - `DELETE /api/admin/projects/:id` body `{expectedVersion,confirmationName}` → `{deleted:true,id}`. Only an archived project may be deleted, with an exact trimmed name confirmation and current version; authorization, archive state, name and version are also enforced in the database. Project, revision, audit and media rows are removed transactionally. Its address remains reserved in `cms_project_addresses`; it cannot be assigned to another project. Private Storage source files are not purged by this operation, and shared imported assets are untouched. Removed media IDs return404 on new requests; already cached immutable derivatives may persist.
 - `POST /api/admin/projects/:id/publish`, `/archive`, `/restore`, `/discard` body `{expectedVersion}` → `{project}`.
 - `POST /api/admin/projects/:id/restore-revision` body `{revisionId,expectedVersion}` restores a prior revision into draft → `{project}`; explicit publish follows.
-- `POST /api/admin/projects/order` body `{ids:[uuid...]}` → `{projects}`. Apply ordering transactionally.
+- `POST /api/admin/projects/order` body `{ids:[uuid...],expectedVersions:{"<uuid>":version,...}}` → `{projects}`. The UI sends the versions it has read, so stale ordering requests are rejected. `expectedVersions` is optional in the HTTP endpoint: when omitted, the server reads current versions before calling the database. The database always receives a version map and applies ordering transactionally.
 - `POST /api/admin/media/sign` body `{projectId,fileName,type,size}` → `{mediaId,bucket,path,token,signedUrl}`. Upload with browser SDK `storage.from(bucket).uploadToSignedUrl(path,token,file)`.
 - `POST /api/admin/media/:id/finalize` → `{media:Image}`. Validate/decode original and create private responsive derivatives before ready. Public media is accessible only after a successful publication.
 
@@ -52,7 +52,9 @@ Server functions produce full HTML for homepage, project listing and details, pr
 Importer: `scripts/import-projects.cjs` exports importSite(root) → `{projects:[Document],templates:{[sourcePath]:html}}`. CLI writes `data/projects.json` and generated `data/site-templates.json`.
 Renderer: `lib/cms-render.cjs` exports `renderPage(pathname, documents, options={})` → `{status,contentType,body}` or null for unrelated routes. Its templates are loaded from `data/site-templates.json`. It handles `/`, `/index.html`, `/projeler.html`, `/proje/<slug>.html`, `/sitemap.xml`, `/llms.txt`, and shared header counts on other HTML pages. Optional admin preview has `options.previewDocument` and noindex.
 
-## Ownership
+## Initial implementation ownership (historical)
+
+The following assignments describe the original implementation work, not active agent assignments. Current maintenance and release instructions are in [AGENTS.md](../AGENTS.md) and [WORK_STATUS.md](WORK_STATUS.md).
 
 UI agent: `admin.html`, `assets/admin/admin.css`, `assets/admin/admin.js` only.
 Import/render agent: `scripts/import-projects.cjs`, `lib/cms-render.cjs`, importer/render tests, generated data only.
