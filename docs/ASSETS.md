@@ -26,6 +26,15 @@ Ana sayfa, proje listesi ve detay sayfalarındaki `src`, `srcset`, ön yükleme 
 
 `npm run build` yalnız mevcut dosyaları `dist/` içine kopyalar; responsive görselleri yeniden üretmez. Yeni görsel için gereken boyutlar önceden oluşturulmalı ve kaynakla birlikte izlenmelidir. Geçici üretim araçları veya orijinal fotoğrafların kullanıcının Downloads klasöründe bulunduğu varsayımı, kalıcı yayın bağımlılığı yapılmamalıdır.
 
+## Yönetim Kurulu Başkanı portresi ve mesajı
+
+15 Ekim 2026'da kullanıcı tarafından sağlanan fotoğraf ve `YÖNETİM KURULU BAŞKANINDAN.docx` metni, `kurumsal.html#baskanin-mesaji` alanına eklendi. Bölüm Hakkımızda metninden sonra, Vizyon/Misyon bölümünden önce yer alır. Yedi paragrafın anlamı ve 2009 / 2.500 bilgileri korundu; yazım, noktalama ve küçük anlatım düzeltmeleri yapıldı. İmza **Savaş Gerz — Yönetim Kurulu Başkanı** olarak verildi. Ham Word belgesi yayımlanmadı.
+
+- Orijinal fotoğraf: `assets/kurumsal/savas-gerz-portre-20261015.png`, 896 × 1120 px; SHA-256 `f5da67fea6c9722aacd2a319a6818d5068309757e73a8d80733b35ffd493aa44`.
+- WebP türevleri: `assets/responsive/savas-gerz-portre-20261015-{360,640,896}.webp`, sırasıyla 360 × 450, 640 × 800, 896 × 1120 px.
+- Fotoğraf kırpılmadı, içerik/renk/yüz değişikliği yapılmadı, kaynak çözünürlüğünün üzerine çıkılmadı. Sharp WebP kalite 90 / effort 6; orijinal kullanıcı dosyası değiştirilmedi.
+- Bölüm görünümü `assets/css/chairman-message.css` içindedir. Masaüstünde portre ve metin yan yana; mobilde portre tam oranıyla metnin üstündedir. Görsel `loading="lazy"`, tanımlı ölçüler ve `srcset` ile yüklenir.
+
 ## Karabaş Apartmanı
 
 `proje/kartal-karabas-apartmani.html` ve `projeler.html` içinde kullanılan güncel mevcut bina çalışması:
