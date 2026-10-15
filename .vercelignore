@@ -6,4 +6,5 @@ scripts/
 .env*
 .cache/
 reports/
+output/
 docs/

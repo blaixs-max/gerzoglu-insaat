@@ -65,6 +65,8 @@ HTML şablonları değiştiğinde `node scripts/import-projects.cjs` çalıştı
 
 ## Mevcut görünüm ve içerik
 
+Kentsel Dönüşüm sayfasındaki **Maliklerin merak ettiği sorular** rehberi, başvuru formundan önce 22 açılır soru-cevap içerir. Kaynak HTML `kentsel-donusum.html`, bölüme özel görünüm `assets/css/urban-guide.css` içindedir. Mevzuat kaynakları ve içerik bakım notları [KENTSEL_DONUSUM_REHBERI.md](docs/KENTSEL_DONUSUM_REHBERI.md) dosyasındadır. Hukuki içerik güncellenirken resmî kaynaklar ve kontrol tarihi birlikte yenilenmelidir.
+
 Güncel logo, şeffaf gümüş **Logo 29**'dur. İlk oturum açılışındaki logo yavaşça büyür: yaklaşık 3 saniye görünme ve 1 saniye çıkış. Görselin çözülme süresi başlangıcı etkileyebilir; tıklama animasyonu atlar ve azaltılmış hareket tercihi açılışı devre dışı bırakır.
 
 Görseller `srcset` ve `sizes` ile sunulur. Çoğu görselde 640/1280/1920 piksel; Karabaş Apartmanı'nın düzeltilmiş mevcut bina görselinde kaynak genişliği kadar, 640/1280/1536 piksel seçenek vardır. Kaynak çözünürlüğünü aşan büyütme yapılmamalıdır. Logo, görsel seçimi, oran ve kalite kuralları [ASSETS.md](docs/ASSETS.md) dosyasındadır.
