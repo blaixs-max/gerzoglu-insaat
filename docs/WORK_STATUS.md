@@ -1,5 +1,13 @@
 # Devam kaydı — 15 Ekim 2026
 
+## Yönetim Kurulu Başkanından — güncel yayın
+
+Kullanıcının sağladığı fotoğraf ve `YÖNETİM KURULU BAŞKANINDAN.docx` içeriği **`kurumsal.html#baskanin-mesaji`** bölümüne eklendi. Hakkımızda tanıtımından sonra, Vizyon/Misyon'dan önce yer alır; Hakkımızda alanından doğrudan bağlantı bulunur. Yedi paragrafın anlamı ve sayısal bilgileri korundu, küçük yazım/noktalama düzeltmeleri yapıldı. İmza **Savaş Gerz — Yönetim Kurulu Başkanı**. Fotoğraf değiştirilmeden ve kırpılmadan 360/640/896 px WebP olarak hazırlandı; orijinal 896 × 1120 PNG de kaynakta korunur. Ham Word belgesi yayımlanmadı. Ayrıntılar `ASSETS.md` içindedir.
+
+Kod commit'i **8723a83**. **74/74 test ve build geçti**. Masaüstünde yan yana, 390 px telefonda alt alta görünüm, fotoğrafın tam oranı/yüklenmesi, yedi paragraf, imza ve yatay taşma kontrol edildi. Yalnız Kurumsal HTML şablonu değişti; cloud verisine ve proje ilk aktarım verisine yazılmadı.
+
+Canlı dağıtım **dpl_GHPG6pHrJooEAm9ZyVTNxNuk13Q8** (`gerzoglu-varyant-3-ekui35f27-blaixs-4009s-projects.vercel.app`), doğru `gerzoglu-varyant-3` projesinde production ayarlarıyla hazırlanıp doğrulandıktan sonra `gerzoglu.com` alanına promote edildi. Korumalı önizlemede mesaj HTML'si/CSS ve üç görselin dosya karmaları kaynakla aynı. Canlıda aynı kontroller geçti; önceki Hakkımızda/Vizyon/Çözüm Ortakları içeriği, 27 proje bağlantısı ve 22 soruluk kentsel dönüşüm rehberi korundu. Yanlış `noindex` yok; gerçek canlı tarayıcıda fotoğraf ve mesaj görüldü. Ekran görüntüsü `.cache/chairman-message/canli-baskan-mesaji.jpg`; doğrulama `.cache/chairman-message/live-verification.json`. GitHub main ve yerel kaynak eşitlendi; yerel önizleme kapatıldı.
+
 ## Kentsel dönüşüm malik rehberi — güncel yayın
 
 Kullanıcının Word belgesindeki 22 konu, yazım/anlatım ve maddi hukuk hataları düzeltilerek **`kentsel-donusum.html#malik-rehberi`** bölümüne eklendi. Bölüm başvuru formundan önce yer alır; üst alanda doğrudan bağlantı ve üç konu başlığı vardır. Sorular yerel `details/summary` ile açılır, JavaScript gerektirmez. Cevaplarda resmî dayanaklar ve 15 Ekim 2026 kontrol tarihi bulunur. 4 Şubat ve 22 Mayıs 2026 düzenlemeleri de kontrol edildi. Hukuki düzeltmeler ve bakım kaynakları `KENTSEL_DONUSUM_REHBERI.md` içindedir.
