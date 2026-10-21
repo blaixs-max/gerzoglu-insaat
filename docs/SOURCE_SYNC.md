@@ -1,6 +1,12 @@
 # Kaynak eşitleme kaydı
 
-## Güncel eşitleme — 15 Ekim 2026
+## Güncel eşitleme — 21 Ekim 2026
+
+21 Ekim 2026: Başkan portresi kullanıcının sağladığı yeni fotoğrafla güncellendi. Uygulama commit’i `1dc6c56`, production dağıtımı `dpl_5CDYaQsBjbXDYk9ZtYbdNGSD6U6Y` (`gerzoglu-varyant-3-kjput1027-blaixs-4009s-projects.vercel.app`), durum `READY`; `gerzoglu.com` alanına atandı. 74/74 test ve build başarılı. Canlı HTML ve üç WebP dosyasının SHA-256 değerleri kaynakla eşleşti; yeni fotoğraf tarayıcıda görüldü. Mesaj ve yerleşim korundu. Kanıt: `.cache/portrait-20261021/live-verification.json` ve `canli-portre.png`.
+
+Uygulama kaynağı GitHub `main` dalına gönderildi. Sonraki belge commit’i yayın kodunu değiştirmez.
+
+## Önceki eşitleme — 15 Ekim 2026
 
 Asıl yerel kaynak `C:\Users\Dell\Desktop\Gerz Oğlu\gerzoglu-varyant-3`, uzak depo [blaixs-max/gerzoglu-insaat](https://github.com/blaixs-max/gerzoglu-insaat), dal `main` olarak korundu. Uzak dal yeniden alındı; bu denetimin başlangıcında yerel `HEAD` ve `origin/main`, **ce2c9ddc8d10ecc1ef84854d06db146a8dc128a2** commit'inde eşitti ve çalışma ağacı temizdi.
 

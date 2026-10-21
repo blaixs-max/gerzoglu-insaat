@@ -1,6 +1,6 @@
 # Kaynak eşitleme ve yayın
 
-Güncelleme tarihi: **15 Ekim 2026**, Türkiye saati (Europe/Istanbul). Bu dosya kaynak ve yayın sürecini açıklar. Güncel durum ve tarihli yayın kanıtlarının ana kaydı [WORK_STATUS.md](WORK_STATUS.md), kaynak eşitleme kaydı [SOURCE_SYNC.md](SOURCE_SYNC.md) dosyasıdır.
+Güncelleme tarihi: **21 Ekim 2026**, Türkiye saati (Europe/Istanbul). Bu dosya kaynak ve yayın sürecini açıklar. Güncel durum ve tarihli yayın kanıtlarının ana kaydı [WORK_STATUS.md](WORK_STATUS.md), kaynak eşitleme kaydı [SOURCE_SYNC.md](SOURCE_SYNC.md) dosyasıdır.
 
 ## Doğrulanan hedef
 
@@ -12,11 +12,11 @@ Güncelleme tarihi: **15 Ekim 2026**, Türkiye saati (Europe/Istanbul). Bu dosya
 | Vercel proje adı | `gerzoglu-varyant-3` |
 | Vercel proje kimliği | `prj_TJQvQ9L6NvWFMuJA1psxeEn0W8Jj` |
 | Vercel takım kimliği | `team_CaYrjZEduUIYQniCVwvSijFp` |
-| Güncel production dağıtımı | `dpl_GHPG6pHrJooEAm9ZyVTNxNuk13Q8` |
-| Dağıtım adresi | `gerzoglu-varyant-3-ekui35f27-blaixs-4009s-projects.vercel.app` |
-| Yayımlanan uygulama commit'i | `8723a83` |
+| Güncel production dağıtımı | `dpl_5CDYaQsBjbXDYk9ZtYbdNGSD6U6Y` |
+| Dağıtım adresi | `gerzoglu-varyant-3-kjput1027-blaixs-4009s-projects.vercel.app` |
+| Yayımlanan uygulama commit'i | `1dc6c56` |
 | Dağıtım kaynağı / durumu | `cli` / `READY` |
-| Yayın tarihi | 15 Ekim 2026 |
+| Yayın tarihi | 21 Ekim 2026 |
 
 15 Ekim akşam eşitlemesinde canlı alan adının bu `READY` production dağıtımına bağlı olduğu yeniden doğrulandı. Canlı mesaj/metin ve görsel karşılaştırmaları, 27 proje bağlantısı ve 22 soruluk rehber kontrolü başarılı; **74/74 test ve build yeniden geçti**. Ayrıntılı denetim kaydı [WORK_STATUS.md](WORK_STATUS.md) içindedir.
 
