@@ -78,7 +78,7 @@ HTML şablonları değiştiğinde `node scripts/import-projects.cjs` çalıştı
 
 ## Mevcut görünüm ve içerik
 
-Kurumsal / Hakkımızda sayfasında, şirket tanıtımının ardından **Yönetim Kurulu Başkanından** bölümü bulunur (`kurumsal.html#baskanin-mesaji`). Savaş Gerz'in kullanıcı tarafından sağlanan portresi ve yedi paragraflık mesajı, mobilde alt alta ve masaüstünde yan yana sunulur. Kaynak ve görsel boyutları [ASSETS.md](docs/ASSETS.md) içindedir.
+Kurumsal / Hakkımızda sayfasında, şirket tanıtımının ardından **Yönetim Kurulu Başkanından** bölümü bulunur (`kurumsal.html#baskanin-mesaji`). Savaş Gerz'in 21 Ekim 2026'da yenilenen, kullanıcı tarafından sağlanan portresi ve yedi paragraflık mesajı, mobilde alt alta ve masaüstünde yan yana sunulur. Kaynak ve görsel boyutları [ASSETS.md](docs/ASSETS.md) içindedir.
 
 Kentsel Dönüşüm sayfasındaki **Maliklerin merak ettiği sorular** rehberi, başvuru formundan önce 22 açılır soru-cevap içerir. Kaynak HTML `kentsel-donusum.html`, bölüme özel görünüm `assets/css/urban-guide.css` içindedir. Mevzuat kaynakları ve içerik bakım notları [KENTSEL_DONUSUM_REHBERI.md](docs/KENTSEL_DONUSUM_REHBERI.md) dosyasındadır. Hukuki içerik güncellenirken resmî kaynaklar ve kontrol tarihi birlikte yenilenmelidir.
 

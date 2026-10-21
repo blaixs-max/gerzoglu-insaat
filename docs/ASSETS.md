@@ -1,6 +1,6 @@
 # Görseller, logo ve fontlar
 
-İlk kaynak kaydı 14 Ekim 2026'da hazırlandı; son içerik güncellemesi 15 Ekim 2026'da başkan portresi ve mesajı için yapıldı. Güncel yayın kaydı [WORK_STATUS.md](WORK_STATUS.md) içindedir. Bir dosyanın var olması, ilgili seçeneğin canlı sayfalarda kullanıldığı anlamına gelmez; HTML referansları esas alınır.
+İlk kaynak kaydı 14 Ekim 2026'da hazırlandı; son görsel güncellemesi 21 Ekim 2026'da başkan portresi için yapıldı. Güncel yayın kaydı [WORK_STATUS.md](WORK_STATUS.md) içindedir. Bir dosyanın var olması, ilgili seçeneğin canlı sayfalarda kullanıldığı anlamına gelmez; HTML referansları esas alınır.
 
 ## Logo ve açılış
 
@@ -27,6 +27,8 @@ Ana sayfa, proje listesi ve detay sayfalarındaki `src`, `srcset`, ön yükleme 
 `npm run build` mevcut görselleri `dist/` içine kopyalar; responsive görselleri yeniden üretmez. Yeni görsel için gereken boyutlar önceden oluşturulmalı ve kaynakla birlikte izlenmelidir. Geçici üretim araçları veya orijinal fotoğrafların kullanıcının Downloads klasöründe bulunduğu varsayımı, kalıcı yayın bağımlılığı yapılmamalıdır.
 
 ## Yönetim Kurulu Başkanı portresi ve mesajı
+
+21 Ekim 2026'da kullanıcının gönderdiği yeni fotoğraf mevcut portrenin yerine yerleştirildi. Güncel kaynak `assets/kurumsal/savas-gerz-portre-20261021.jpg` (1122 × 1402 px), SHA-256 `822659e3fff2f0f50491f7a07868c9e0934482a0a08f70a6a6c43093a4adbe1e`. WebP türevleri `assets/responsive/savas-gerz-portre-20261021-{360,640,1122}.webp`; kırpma, yüz/renk düzenlemesi veya büyütme uygulanmadı. Yeni dosya adları önceki görselin tarayıcı önbelleğinden gelmesini önler. Başkan mesajı ve bölüm yerleşimi korundu. Aşağıdaki 15 Ekim kaydı önceki portrenin tarihçesidir.
 
 15 Ekim 2026'da kullanıcı tarafından sağlanan fotoğraf ve `YÖNETİM KURULU BAŞKANINDAN.docx` metni, `kurumsal.html#baskanin-mesaji` alanına eklendi. Bölüm Hakkımızda metninden sonra, Vizyon/Misyon bölümünden önce yer alır. Yedi paragrafın anlamı ve 2009 / 2.500 bilgileri korundu; yazım, noktalama ve küçük anlatım düzeltmeleri yapıldı. İmza **Savaş Gerz — Yönetim Kurulu Başkanı** olarak verildi. Ham Word belgesi yayımlanmadı.
 
