@@ -1,6 +1,20 @@
 # Görseller, logo ve fontlar
 
-İlk kaynak kaydı 14 Ekim 2026'da hazırlandı; son görsel güncellemesi 21 Ekim 2026'da başkan portresi için yapıldı. Güncel yayın kaydı [WORK_STATUS.md](WORK_STATUS.md) içindedir. Bir dosyanın var olması, ilgili seçeneğin canlı sayfalarda kullanıldığı anlamına gelmez; HTML referansları esas alınır.
+İlk kaynak kaydı 14 Ekim 2026'da hazırlandı; son görsel güncellemesi 26 Ekim 2026'da Gerzoğlu 2 Apartmanı için yapıldı. Güncel yayın kaydı [WORK_STATUS.md](WORK_STATUS.md) içindedir. Bir dosyanın var olması, ilgili seçeneğin canlı sayfalarda kullanıldığı anlamına gelmez; CMS'nin yayımlanmış belgesi ve canlı HTML referansları esas alınır.
+
+## Gerzoğlu 2 Apartmanı — 26 Ekim 2026
+
+Kullanıcının sağladığı üç görsel, bina mimarisi ve sokak düzeni referans alınarak Imagegen ile fotogerçekçi olarak yeniden üretildi. Gündüz kapak, gündüz/yağmur/kar sırasıyla dış cephe galerisi olarak mevcut CMS kayıt/yayın akışı üzerinden yayımlandı. `Temsilî görsel` etiketi korundu.
+
+| Kaynak (1536 × 1024 PNG) | Canlı medya kimliği |
+|---|---|
+| `assets/proje/gerzoglu-2-gunduz-20261026.png` | `0073b605-5c89-4432-b65f-75ef051c0c2b` |
+| `assets/proje/gerzoglu-2-yagmur-20261026.png` | `834aed92-072b-4150-9959-873fd69045a4` |
+| `assets/proje/gerzoglu-2-kar-20261026.png` | `476a8943-de07-41d0-b379-bd0aa9e5c8aa` |
+
+Canlı sayfa `/proje/idealtepe-gerzoglu-2.html`; proje kimliği `d9433db1-c1bc-4bf9-805b-da3a81246d07`, yayımlanmış sürüm 3. CMS, her kaynak için büyütmeden 640/1280/1536 px WebP üretir; yayın adresleri `/media/<kimlik>/<genişlik>.webp` biçimindedir. Ana sayfa slaytı/kartı, proje listesi, detay kapağı ve paylaşım görseli gündüz kapağını kullanır. Diğer proje bilgileri ve üç örnek iç mekân görseli korundu. İlk aktarım verisi `data/projects.json` değiştirilmedi; CMS güncellemesi için Vercel dağıtımı yapılmadı.
+
+Özel yerel kayıtlar: `output/imagegen/gerzoglu-2-20261026/uretim-promptlari.json`; `.cache/gerz2-20261026/` içinde önce/sonra kayıtları, yayın manifesti, canlı doğrulama ve ekran görüntüleri. Bu kayıtlar Git dışında tutulur. Üç kaynak PNG Git'te saklanır.
 
 ## Logo ve açılış
 

@@ -1,6 +1,8 @@
-# Devam kaydı — 21 Ekim 2026
+# Devam kaydı — 26 Ekim 2026
 
 ## Güncel durum ve eşitleme
+
+26 Ekim 2026: Küçüktur Yolu / Gerzoğlu 2 Apartmanı'nın dış cephe görselleri kullanıcının üç referansından yeniden üretildi ve CMS üzerinden yayımlandı. Gündüz kapak, gündüz/yağmur/kar galerisi; proje `d9433db1-c1bc-4bf9-805b-da3a81246d07`, slug `idealtepe-gerzoglu-2`, yayın sürümü 3. Diğer proje alanları ve üç iç mekân görseli korundu; yalnız standart kayıt normalizasyonu mevcut örtük `legacy.placeholder=false` değerini açık hale getirdi. Ana sayfa slaytı/kartı, Projeler listesi, detay ve OG kapağı yeni gündüz görseline bağlı. Dokuz WebP varyantı HTTP 200 ve gerçek 640/1280/1536 px ölçüleriyle doğrulandı; büyütme yapılmadı. 74/74 test ve build başarılı. Kanıt `.cache/gerz2-20261026/live-verification.json` ve `canli-proje.png`. Kaynaklar ve medya kimlikleri [ASSETS.md](ASSETS.md) içindedir. Bu yalnız CMS içerik yayınıdır; uygulama dağıtımı aşağıdaki 21 Ekim sürümünde kalır.
 
 21 Ekim 2026: Başkan portresi kullanıcının sağladığı yeni fotoğrafla güncellendi. Uygulama commit’i `1dc6c56`, production dağıtımı `dpl_5CDYaQsBjbXDYk9ZtYbdNGSD6U6Y` (`gerzoglu-varyant-3-kjput1027-blaixs-4009s-projects.vercel.app`), durum `READY`; `gerzoglu.com` alanına atandı. 74/74 test ve build başarılı. Canlı HTML ve üç WebP dosyasının SHA-256 değerleri kaynakla eşleşti; yeni fotoğraf tarayıcıda görüldü. Mesaj ve yerleşim korundu. Kanıt: `.cache/portrait-20261021/live-verification.json` ve `canli-portre.png`.
 
@@ -8,7 +10,7 @@
 - **Yerel kaynak:** `C:\Users\Dell\Desktop\Gerz Oğlu\gerzoglu-varyant-3`. GitHub: [blaixs-max/gerzoglu-insaat](https://github.com/blaixs-max/gerzoglu-insaat), dal `main`. Eski kardeş klasörler kaynak olarak kullanılmaz.
 - **Canlı sürüm:** `dpl_5CDYaQsBjbXDYk9ZtYbdNGSD6U6Y`, uygulama commit'i `1dc6c56`; `gerzoglu-varyant-3-kjput1027-blaixs-4009s-projects.vercel.app`. 21 Ekim 2026, production / READY; `gerzoglu.com` alanına atandı.
 - **Son içerikler:** Hakkımızda sayfasında Savaş Gerz'in portresi ve yedi paragraflık başkan mesajı; Kentsel Dönüşüm sayfasında 22 soruluk malik rehberi yayında. Aynı salt okunur kontrolde kaynakla içerik, portre/CSS dosyaları ve mevcut 27 proje bağlantısı doğrulandı.
-- **Güncel kontrol:** 21 Ekim 2026: 74/74 test ve build geçti. Yeni portrenin üç WebP türevi canlıdan alınarak kaynak karmalarıyla karşılaştırıldı; canlı tarayıcı kontrolü başarılı. Veritabanına yazılmadı.
+- **Güncel kontrol:** 26 Ekim 2026: 74/74 test ve build geçti. Gerzoğlu 2'nin yeni kapağı ve üç görsellik galerisi canlı tarayıcıda görüldü; dokuz medya varyantı, ana sayfa/proje listesi/paylaşım kapağı doğrulandı. Yalnız hedef projenin kapak ve dış cephe galerisi CMS'de güncellendi. Başkan portresinin son kaynak/karma doğrulaması 21 Ekim kaydındadır.
 - **Yönetim:** [gerzoglu.com/admin](https://gerzoglu.com/admin) adresinde yayında. Üç adımlı düzenleyici, otomatik ve değişmez proje adresleri, tek seçimli dört durum, taslak/yayın ayrımı ve onaylı arşivden silme etkin. Ana sayfa seçimleri ve hazır örnek iç mekân kartları panelden gizlenir. Ayrıntılar [ADMIN_GUIDE.md](ADMIN_GUIDE.md).
 - **Veri:** Ayrı `gerzoglu-cms` / `ibbyoetzgeqbrxyvzidb` projesi kullanılır. Dört migration uygulanmıştır; sonuncusu arşivden silmedir. Son uygulama kaydındaki cloud sürümü `20261015072308`, yerel dosyası `20261014200125_cms_archived_project_deletion.sql`. Bu eşitleme cloud verisini yeniden aktarmadı veya değiştirmedi.
 - **Bilinen eksik:** Son gerçek SMTP doğrulaması `EAUTH` verdi. E-posta teslimatı ve parola yenileme tamamlanmış sayılmaz; doğrulanmış SMTP ve `CMS_RECOVERY_ENABLED=1` hazır olana kadar kurtarma kapalı tutulur. `GET /api/contact` yanıtındaki `available:true` yalnız yapılandırma varlığını gösterir.
